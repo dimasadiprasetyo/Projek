@@ -3,7 +3,10 @@
     Barang /
 @endsection
 @section('judul')
-    <h1 class="fas fa-bell"> DATA BARANG</h1>
+    {{-- <h1 class="fas fa-bell"> </h1> --}}
+    <h1 style="color:black">
+        <font size="5" face="Century Gothic"><i class="fa fa-shopping-bag" style='font-size:25px;'></i>&nbsp;DATA BARANG </font>
+    </h1>
 @endsection
 
 @section('content')
@@ -68,12 +71,17 @@
                     {{$barang->harga}}
                 </td>
                 <td>
-                    <a href="{{route('barang.edit',$barang->kode_barang)}}" class="btn btn-warning">Edit</a>
-                        <form id="delete{{$barang->kode_barang}}" action="{{route('barang.destroy',$barang->kode_barang)}}" class="d-inline delete" method="POST">
+                    {{-- <a class="btn btn-primary" href="#"><i class="fa fa-print fa-fw" aria-hidden="true"></i>&nbsp;Cetak</a> --}}
+                    <a class="btn btn-warning" href="{{route('barang.edit',$barang->kode_barang)}}" >
+                        <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit
+                    </a>
+
+                        <form action="{{route('barang.destroy',$barang->kode_barang)}}" class="d-inline delete" method="POST"
+                            onsubmit="return confirm('Yakin Anda Ingin menghapus Data?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger delete" id="delete" data-id="{{$barang->kode_barang}}">
-                            Hapus
+                            <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;Hapus
                         </button>
                         </form>
                 </td>

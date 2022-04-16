@@ -3,7 +3,10 @@
     Kategori /
 @endsection
 @section('judul')
-    <h1 class="fas fa-bell"> DATA AKUN <i class="fas fa-dollars"></i></h1>
+    {{-- <h1 class="fas fa-bell"> DATA AKUN <i class="fas fa-dollars"></i></h1> --}}
+    <h1 style="color:black">
+        <font size="5" face="Century Gothic"><i class="fa fa-bitcoin" style='font-size:25px;'></i>&nbsp;DATA AKUN </font>
+    </h1>
 @endsection
 
 @section('content')
@@ -50,15 +53,9 @@
                     {{$akun->jenis_akun}}
                 </td>
                 <td>
-                    <a href="{{route('akun.edit',$akun->id_akun)}}" class="btn btn-warning">Edit</a>
-                        <form action="#" class="d-inline" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            Hapus
-                        </button>
-                        </form>
-    
+                    <a href="{{route('akun.edit',$akun->id_akun)}}" class="btn btn-warning">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit
+                    </a>
                 </td>
             </tr>
                 

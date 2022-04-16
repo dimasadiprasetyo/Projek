@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\barang;
+use App\Jurnal_detail;
+use App\Jurnal_header;
 use App\Pelanggan;
 use App\Trx_detail;
 use App\Trx_header;
+use PDF;
 use Illuminate\Http\Request;
 
 class KreditController extends Controller
@@ -60,8 +63,6 @@ class KreditController extends Controller
         $id_trx = "TRX".$tgl;
         $tglInput = date('Y-m-d');
         $tambah_tanggal = mktime(0,0,0,date('m')+1,date('d'),date('Y')); // angka 2,7,1 yang dicetak tebal bisa dirubah rubah
-    //    dd($request->all());
-        // $tgl_jatuhtemp = date('Y-m-d',$tambah_tanggal);
         Trx_header::create([
             'id_trx'=> $request->id_trx,
             'kode_pelanggan'=>$request->kode_pelanggan,
@@ -74,7 +75,65 @@ class KreditController extends Controller
             'kurang_bayar'=>$request->kurang_bayar,
             'tgl_jatuhtemp'=>$request->tgl_jatuhtemp
         ]);
+        $id_jurnal = "JU".$tgl;
+
+        $jurnalHeader = Jurnal_header::create([
+            'id_jurnal' => $id_jurnal,
+            'status_posting' => '0',
+            'tanggal' => $request->tgl_trx,
+            'id_trx' => $request->id_trx,
+            'keterangan' => 'Penjualan Kredit'
+
+        ]);
+
+        $transaksiDetail = Trx_header::where("id_trx", $request->id_trx)->with('barang','Trx_detail','Pelanggan')->get();
+
+        foreach ($transaksiDetail as $transaksi) {
+            Jurnal_detail::create([
+                'id_jurnal' => $id_jurnal,
+                'id_akun' => 101,
+                'debit' => $request->total_bayar - $request->kurang_bayar,
+                'kredit' => 0
+            ]);
+
+            Jurnal_detail::create([
+                'id_jurnal' => $id_jurnal,
+                'id_akun' => 103,
+                'debit' => $request->kurang_bayar,
+                'kredit' => 0
+            ]);
+            
+            Jurnal_detail::create([
+                'id_jurnal' => $id_jurnal,
+                'id_akun' => 400,
+                'debit' => 0,
+                'kredit' => $request->total_bayar
+            ]);
         
+            
+            // dd($transaksiDetail);
+        }
+        $total = 0;
+        foreach($transaksiDetail as $trx) {
+            $uangmuka = $trx->total_bayar - $trx->kurang_bayar;
+            $total = $trx->kurang_bayar;
+        }
+        foreach($transaksiDetail as $trx1){
+            $pelanggan = $trx1->Pelanggan->nama_pelanggan;
+            $pelanggan2 = $trx1->Pelanggan->alamat;
+        }
+
+        $id_trx = $request->id_trx;
+        $kode_pelanggan = $pelanggan;
+        $alamat = $pelanggan2;
+        $tgl_jatuhtemp = $request-> tgl_jatuhtemp;
+        $tgl_trx = $request->tgl_trx;
+        $keterangan = $request->keterangan;
+        $total_bayar = $total;
+        $uangmuka = $uangmuka;
+        $jenis_trx = 'Kredit';
+        $pdf = PDF::loadView('admin.Trxkredit.nota', compact('id_trx','kode_pelanggan','alamat','tgl_jatuhtemp', 'tgl_trx', 'keterangan', 'total_bayar', 'uangmuka','jenis_trx', 'transaksiDetail'));
+        return $pdf->stream();
             return view('admin.Trxkredit.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);
     }
     public function cekkurang($id_trx){
@@ -84,9 +143,38 @@ class KreditController extends Controller
             $ttl += $trx->total_harga;
         }
         return response()->json(['total' => $ttl]);
+    
+    }
+    
+    public function cekstokkredit($kode_barang){
+        
+        $cek = barang::where('kode_barang', $kode_barang)->first();
 
+        return response()->json($cek);
+    }
+    public function stokkredit(Request $request,$kode_barang){
+        
+        $barang = barang::where(['kode_barang'=>$kode_barang])->first();
+        $barang->update([
+            'stok'=>$request->stok
+            ]);
+        return response()->json($barang);
+    }
+    public function daftartrxkredit(){
+        $Pelanggan= Pelanggan::all();
+        $daftar = Trx_header::where('jenis_transaksi','=','Kredit')->get();
+    
     }
     public function nota(){
-        return view('admin.Trxkredit.nota');
+        $pdf = PDF::loadview('admin.Trxkredit.nota');
+        return $pdf->stream();
+    }
+    public function deletedetailkredit($id_trx){
+        $detail = Trx_detail::where('id', $id_trx)->first();
+        $detail->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data transaksi berhasil dihapus'
+        ]);
     }
 }

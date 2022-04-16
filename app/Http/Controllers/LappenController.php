@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\barang;
 use App\Lappen;
+use App\Pelanggan;
 use App\Trx_detail;
+use App\Trx_header;
+use PDF;
 use Illuminate\Http\Request;
 
 class LappenController extends Controller
@@ -13,84 +17,57 @@ class LappenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // ---- Admin ------
     public function index()
     {
-           
-        return view('admin.Lappen.index');
+        return view('admin.Lappen.index');           
+    }
+    // ---- Pemilik ------
+    public function indexpemilik()
+    {
+        return view('admin.Lappen.index');           
     }
     
+    // --- Admin ----
     public function tampilindex(Request $request)
     {
         $month = $request->bulan;
 	    $year = $request->tahun;
 		
-	    $inboxs = Trx_detail::with('barang')->whereYear('created_at', '=', $year)
-                      ->whereMonth('created_at', '=', $month)->get();
+        $Pelanggan = Pelanggan::all();
+        $Barang = barang::all();
+        $Trx_detail = Trx_detail::all();
+	    $inboxs = Trx_header::whereYear('tgl_trx', '=', $year)
+                      ->whereMonth('tgl_trx', '=', $month)->with('Pelanggan','Trx_detail')->get();
         // dd($inboxs);
-        return view('admin.Lappen.tampil',compact('inboxs'));
+        return view('admin.Lappen.tampil',compact('inboxs','Pelanggan','Barang','Trx_detail'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // --- Pemilik ----
+    public function tampilindexpemilik(Request $request)
     {
-        //
+        $month = $request->bulan;
+	    $year = $request->tahun;
+		
+        $Pelanggan = Pelanggan::all();
+        $Barang = barang::all();
+        $Trx_detail = Trx_detail::all();
+	    $inboxs = Trx_header::whereYear('tgl_trx', '=', $year)
+                      ->whereMonth('tgl_trx', '=', $month)->with('Pelanggan','Trx_detail')->get();
+        // dd($inboxs);
+        return view('pemilik.Lappen.tampil',compact('inboxs','Pelanggan','Barang','Trx_detail'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function cetak(Request $request){
+    
+	    $inboxs = Trx_header::select('*')->get();
+        foreach($inboxs as $date){
+            $dt = date('M Y',strtotime($date->tgl_trx));
+        }
+        $pdf = PDF::loadview('admin.Lappen.cetak', compact('inboxs','dt'));
+        return $pdf->stream();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Lappen  $lappen
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Lappen $lappen)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Lappen  $lappen
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Lappen $lappen)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lappen  $lappen
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Lappen $lappen)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Lappen  $lappen
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Lappen $lappen)
     {
         //

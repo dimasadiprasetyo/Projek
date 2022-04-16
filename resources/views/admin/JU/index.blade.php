@@ -5,7 +5,7 @@
 @section('judul')
 <div class="card-header">
     <h1 style="color: #F08080;">
-        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN PENJUALAN</font>
+        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN JURNAL UMUM</font>
     </h1>
 </div>
     {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}
@@ -55,8 +55,10 @@
                     <div class="my-4"></div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success">Lihat</button>
-                            <button type="reset" class="btn btn-warning">Reset</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class='fas fa-search' style='font-size:13px'></i> 
+                                <span style="font-size: 13px"> Lihat</span>
+                            </button>
                         </div>
                     </div>
                 </form>

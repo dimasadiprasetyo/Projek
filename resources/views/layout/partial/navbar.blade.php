@@ -1,5 +1,5 @@
 <div class="main-wrapper">
-  <div class="navbar-bg" style="background: #1500ff!important;"></div>
+  <div class="navbar-bg" style="background: #1929ff!important;"></div>
   <nav class="navbar navbar-expand-lg main-navbar">
     <form class="form-inline mr-auto">
       <ul class="navbar-nav mr-3">

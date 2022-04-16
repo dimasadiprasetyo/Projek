@@ -3,27 +3,34 @@
     Tambah Barang /
 @endsection
 @section('judul')
-   <h4>FORM BARANG</h4>
+<h1 style="color:black">
+  <font size="5" face="Century Gothic"><i class="fa fa-shopping-bag" style='font-size:25px;'></i>&nbsp;FORM BARANG </font>
+</h1>
 @endsection
 @section('content')
 <div class="card card-primary">
     <form action="{{route('barang.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('POST')
-      <div class="card-body">
+        <div class="card-body" style="background-color: #5c9aff">
         <h5>TAMBAH DATA</h5>
         <br>
         <br>
         <div class="form-group row col-6">
-          <label for="kode_barang">Kode Kayu</label>
-          <input type="text" class="form-control" id="kode_barang" name="kode_barang" placeholder="example : BrgKG01">
+          <label for="kode_barang" style="font-size: 15px">Kode Kayu</label>
+          <input type="text" class="form-control {{ $errors->has('kode_barang') ? ' is-invalid' : '' }}" id="kode_barang" name="kode_barang" placeholder="example : BrgKG01">
+          @if($errors->has('kode_barang'))
+                <span class="invalid-feedback">{{ $errors->first('kode_barang') }}</span>
+          @endif
         </div>
         <div class="form-group row col-6">
-            <label for="jenis_barang">Jenis Kayu</label>
-            <input type="text" class="form-control" id="jenis_barang" name="jenis_barang" placeholder="example : Kayu Glugu">
+            <label for="jenis_barang" style="font-size: 15px">Jenis Kayu</label>
+            <input type="text" class="form-control {{ $errors->has('jenis_barang') ? ' is-invalid' : '' }}" id="jenis_barang" name="jenis_barang" placeholder="example : Kayu Glugu">
+            @if($errors->has('jenis_barang'))
+                <span class="invalid-feedback">{{ $errors->first('jenis_barang') }}</span>
+            @endif
           </div>
           <div class="form-group row col-6">
-            <label for="exampleFormControlSelect1">Asal Kayu</label>
+            <label for="exampleFormControlSelect1" style="font-size: 15px">Asal Kayu</label>
             <select class="form-control" name="asal_barang" id="asal_barang">
               <option >Pilih Jenis Kayu</option>
               <option value="Lokal">Lokal</option>
@@ -31,22 +38,31 @@
             </select>
           </div>
           <div class="form-group row col-6">
-            <label for="ukuran_barang">Ukuran Meter</label>
-            <input type="text" class="form-control" id="ukuran_barang" name="ukuran_barang" placeholder="example : 12m">
+            <label for="ukuran_barang" style="font-size: 15px">Ukuran Meter</label>
+            <input type="text" class="form-control {{ $errors->has('ukuran_barang') ? ' is-invalid' : '' }}" id="ukuran_barang" name="ukuran_barang" placeholder="example : 12m">
+            @if($errors->has('ukuran_barang'))
+                <span class="invalid-feedback">{{ $errors->first('ukuran_barang') }}</span>
+            @endif
           </div>
           <div class="form-group row col-6">
-            <label for="stok">Stok</label>
-            <input type="text" class="form-control" id="stok" name="stok" placeholder="example : 1">
+            <label for="stok" style="font-size: 15px">Stok</label>
+            <input type="text" class="form-control {{ $errors->has('stok') ? ' is-invalid' : '' }}" id="stok" name="stok" placeholder="example : 1">
+            @if($errors->has('stok'))
+                <span class="invalid-feedback">{{ $errors->first('stok') }}</span>
+            @endif
           </div>
           <div class="form-group row col-6">
-            <label for="harga">Harga</label>
-            <input type="text" class="form-control" id="harga" name="harga" placeholder="example :12000">
+            <label for="harga" style="font-size: 15px">Harga</label>
+            <input type="text" class="form-control {{ $errors->has('harga') ? ' is-invalid' : '' }}" id="harga" name="harga" placeholder="example :12000">
+            @if($errors->has('harga'))
+              <span class="invalid-feedback">{{ $errors->first('harga') }}</span>
+            @endif
           </div>
-		</div>
-      <div class="card-footer">
-        <button type="submit" onclick="withToastSuccess()" class="btn btn-primary " id="simpan" >Simpan</button>
-        <a href="{{route('barang.index')}}" class="btn btn-danger">Kembali</a>
-      </div>
+          <div class="card-footer">
+            <button type="submit" onclick="withToastSuccess()" class="btn btn-success " id="simpan" ><i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan</button>
+            <a href="{{route('barang.index')}}" class="btn btn-danger">Kembali</a>
+          </div>
+		{{-- </div> --}}
     </form>
   </div>
 @endsection

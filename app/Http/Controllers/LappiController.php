@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Angsuran;
 use App\Lappi;
 use App\Trx_header;
+use PDF;
 use Illuminate\Http\Request;
 
 class LappiController extends Controller
@@ -27,8 +28,8 @@ class LappiController extends Controller
 	    $year = $request->tahun;
         $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')
         ->with('Pelanggan','Trx_detail','barang')
-        ->whereYear('created_at', '=', $year)
-        ->whereMonth('created_at', '=', $month)->get();
+        ->whereYear('tgl_trx', '=', $year)
+        ->whereMonth('tgl_trx', '=', $month)->get();
         $totalPiutang = 0;
         foreach($Trxheader as $trx) {
             $totalPiutang = $totalPiutang + $trx->kurang_bayar;
@@ -92,6 +93,18 @@ class LappiController extends Controller
         //
     }
 
+    public function cetak(){
+        $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')->select('*')->get();
+        $totalPiutang = 0;
+        foreach($Trxheader as $trx) {
+            $totalPiutang = $totalPiutang + $trx->kurang_bayar;
+        }
+        foreach($Trxheader as $date){
+            $dt = date('M Y',strtotime($date->tgl_trx));
+        }
+        $pdf = PDF::loadview('admin.Lappi.cetak', compact('Trxheader', 'totalPiutang', 'dt'));
+        return $pdf->stream();
+    }
     /**
      * Remove the specified resource from storage.
      *

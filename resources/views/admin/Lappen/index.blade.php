@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-body">
             <div class="container">
-                <form action="{{route('lappentampil.index')}}" method="post">
+                <form action="{{route('lappentampil.index')}}" method="get">
                     @csrf
                     <div class="row">
                         <div class="col-6">
@@ -55,8 +55,9 @@
                     <div class="my-4"></div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success">Lihat</button>
-                            <button type="reset" class="btn btn-warning">Reset</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class='fas fa-search' style='font-size:13px'></i> <span style="font-size: 13px"> Lihat</span> 
+                            </button>
                         </div>
                     </div>
                 </form>

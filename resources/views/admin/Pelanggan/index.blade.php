@@ -3,7 +3,11 @@
     Kategori /
 @endsection
 @section('judul')
-    <h1 class="fas fa-bell"> DATA PELANGGAN</h1>
+    {{-- <h1 class="fas fa-bell"> DATA PELANGGAN</h1> --}}
+    <h1 style="color:black">
+        <font size="5" face="Century Gothic"><i class="fa fa-user" style='font-size:25px;'></i>&nbsp;DATA PELANGGAN </font>
+    </h1>
+    
 @endsection
 
 @section('content')
@@ -57,11 +61,13 @@
                     {{$pelanggan->telepon}}
                 </td>
                 <td>
-                    <a href="{{route('pelanggan.edit', $pelanggan->kode_pelanggan)}}" class="btn btn-warning">Edit</a>
-                        <form action="{{route('pelanggan.destroy',$pelanggan->kode_pelanggan)}}" class="d-inline" method="POST">
+                    <a href="{{route('pelanggan.edit', $pelanggan->kode_pelanggan)}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit</a>
+                        <form action="{{route('pelanggan.destroy',$pelanggan->kode_pelanggan)}}" class="d-inline delete" method="POST"
+                            onsubmit="return confirm('Yakin hapus Data?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;
                             Hapus
                         </button>
                         </form>

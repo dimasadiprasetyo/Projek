@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 style="font-size: 15px">Pemasukan Hari Ini</h4>
+                        <h4 style="font-size: 15px">Pemasukan Bulan Ini</h4>
                       </div>
                       <div class="card-body">Rp.<a href="#"></a>
                       </div>
@@ -55,9 +55,9 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 style="font-size: 15px">Pemasukan Hari Ini</h4>
+                        <h4 style="font-size: 15px">Piutang</h4>
                       </div>
-                      <div class="card-body">Rp.<a href="#"></a>
+                      <div class="card-body">Rp. {{$totalPiutang}}<a href="#"></a>
                       </div>
                       
                 </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h4 style="font-size: 15px">Pemasukan Hari Ini</h4>
+                        <h4 style="font-size: 15px">User</h4>
                       </div>
                       <div class="card-body">Rp.<a href="#"></a>
                       </div>

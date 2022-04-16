@@ -3,7 +3,9 @@
     Edit Barang /
 @endsection
 @section('judul')
-   <h4>FORM BARANG</h4>
+<h1 style="color:black">
+  <font size="5" face="Century Gothic"><i class="fa fa-shopping-bag" style='font-size:25px;'></i>&nbsp;EDIT BARANG </font>
+</h1>
 @endsection
 @section('content')
 <div class="card card-primary">
@@ -12,20 +14,17 @@
     <form action="{{route('barang.update',$barang->kode_barang)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-      <div class="card-body">
-        <h5>TAMBAH DATA</h5>
-        <br>
-        <br>
+      <div class="card-body" style="background-color: #5c9aff">
         <div class="form-group row col-6">
-          <label for="kode_barang">Kode Kayu</label>
+          <label for="kode_barang" style="font-size: 15px">Kode Kayu</label>
           <input type="text" class="form-control" value="{{$barang->kode_barang}}" id="kode_barang" name="kode_barang" placeholder="example : BrgKG01">
         </div>
         <div class="form-group row col-6">
-            <label for="jenis_barang">Jenis Kayu</label>
+            <label for="jenis_barang" style="font-size: 15px">Jenis Kayu</label>
             <input type="text" class="form-control" value="{{$barang->jenis_barang}}" id="jenis_barang" name="jenis_barang" placeholder="example : Kayu Glugu">
           </div>
           <div class="form-group row col-6">
-            <label for="exampleFormControlSelect1">Asal Kayu</label>
+            <label for="exampleFormControlSelect1" style="font-size: 15px">Asal Kayu</label>
             <select class="form-control" name="asal_barang" id="asal_barang">
               <option >Pilih Jenis Kayu</option>
               <option value="Lokal"{{$barang->asal_barang == "Lokal" ? 'selected' : '' }}>Lokal</option>
@@ -33,26 +32,27 @@
             </select>
         </div>
           <div class="form-group row col-6">
-            <label for="ukuran_barang">Ukuran Meter</label>
+            <label for="ukuran_barang" style="font-size: 15px">Ukuran Meter</label>
             <input type="text" class="form-control" value="{{$barang->ukuran_barang}}" id="ukuran_barang" name="ukuran_barang" placeholder="example : 12m">
           </div>
           <div class="form-group row col-6">
-            <label for="stok">Stok</label>
+            <label for="stok" style="font-size: 15px">Stok</label>
             <input type="text" class="form-control" value="{{$barang->stok}}" id="stok" name="stok" placeholder="example : 1">
           </div>
           <div class="form-group row col-6">
-            <label for="harga">Harga</label>
+            <label for="harga" style="font-size: 15px">Harga</label>
             <input type="text" class="form-control" value="{{$barang->harga}}" id="harga" name="harga" placeholder="example :12000">
           </div>
     
       
 				</table>
+        <div class="card-footer">
+          <button type="submit" onclick="withToastSuccess()" class="btn btn-success " ><i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan</button>
+          {{-- <button type="submit" class="btn btn-primary" onclick="withToastSuccess()" >Simpan</button> --}}
+          <a href="{{route('barang.index')}}" class="btn btn-danger">Kembali</a>
+        </div>
 			
 		</div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-primary" onclick="withToastSuccess()">Simpan</button>
-        <a href="{{route('barang.index')}}" class="btn btn-danger">Kembali</a>
-      </div>
     </form>
   </div>
 @endsection

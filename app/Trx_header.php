@@ -15,7 +15,9 @@ class Trx_header extends Model
         return  $this->belongsTo('App\barang','barang_id','id_trx');
     }
     public function Pelanggan(){
-        return  $this->belongsTo('App\Pelanggan','kode_pelanggan','kode_pelanggan');
+        return  $this->belongsTo('App\Pelanggan','kode_pelanggan','kode_pelanggan')->withDefault([
+            'kode_pelanggan'=>'nama_pelanggan',
+        ]);;
     }
     
     public function Trx_detail(){
@@ -23,6 +25,9 @@ class Trx_header extends Model
     }
     public function Angsuran(){
         return  $this->hasMany('App\Angsuran','kode_angsuran','id_trx');
+    }
+    public function jurnal_header(){
+        return  $this->hasMany('App\Jurnal_header','id_trx','id_trx');
     }
    
 }

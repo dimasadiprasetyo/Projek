@@ -21,4 +21,7 @@ class barang extends Model
     public function angsuran(){
         return  $this->hasMany('App\Angsuran','kode_barang','kode_angsuran');
     }
+    public function lappen(){
+        return  $this->hasMany('App\Lappen');
+    }
 }

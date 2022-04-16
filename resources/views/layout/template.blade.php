@@ -16,10 +16,20 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  @include('sweetalert::alert')
+  <style>
+    body {
+  font-family: "Nunito",'Arial Narrow Bold' ;
+  font-size: 16px;
+  color: black;
+  
+  }
+  </style>
+    @include('sweetalert::alert')
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -37,11 +47,9 @@
           <div class="section-header">
             {{-- <h1 class="fas fa-bell">SELAMAT DATANG DI SISTEM PENJUALAN LANCAR JAYA</h1> --}}
           <h1><strong>@yield('judul')</strong></h1>
-          <div class="section-header-breadcrumb">
-          <div class="breadcrumb-item active"><a href="#">Dasboard</a></div>
-          <div class="breadcrumb-item active"><a href="#">Boostrap Component</a></div>
-          <div class="breadcrumb-item active"><a href="#">Form</a></div>
-
+          <div class="section-header-breadcrumb" style="font-size: 20px">
+            <div class="breadcrumb-item active"><a href="#" style="font-size: 16px">Dasboard</a></div>
+            <div class="breadcrumb-item active"><a href="#" style="font-size: 16px">Barang</a></div>
           </div>
         </div>
 

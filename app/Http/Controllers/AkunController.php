@@ -38,6 +38,16 @@ class AkunController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $request->validate([
+            'id_akun'=> 'required|min:3|max:6',
+            'nama_akun'=>'required',
+        ],
+        [
+                'id_akun.required'=>'Lengkapi Data!',
+                'id_akun.min'=>'Masukkan Minim 3 Karakter',
+                'id_akun.max'=>'Masukkan Maks 6 Karakter',
+                'nama_akun.required'=>'Lengkapi Data!',
+        ]);
         Akun::create([
             'id_akun'=>$request->id_akun,
             'nama_akun'=>$request->nama_akun,

@@ -23,6 +23,7 @@ class CreateTrxDetailsTable extends Migration
             $table->timestamps();
 
             $table->foreign('barang_id')->references('kode_barang')->on('barangs');
+            // $table->foreign('id_trx')->references('id_trx')->on('trx_headers');
         });
     }
 

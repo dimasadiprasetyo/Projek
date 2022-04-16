@@ -15,14 +15,14 @@ class CreateJurnalDetailTable extends Migration
     {
         Schema::create('jurnal_detail', function (Blueprint $table) {
             
-            $table->bigInteger('id_jurnal_detail')->primary();
+            $table->id('id_jurnal_detail');
             $table->string('id_jurnal');
             $table->string('id_akun');
             $table->bigInteger('debit');
             $table->bigInteger('kredit');
 
-            $table->foreign('id_akun')->references('id_akun')->on('akuns');
-            $table->foreign('id_jurnal')->references('id_jurnal')->on('jurnal_header');
+            // $table->foreign('id_akun')->references('id_akun')->on('akuns');
+            // $table->foreign('id_jurnal')->references('id_jurnal')->on('jurnal_header')->onDelete('cascades');
             $table->timestamps();
         });
     }

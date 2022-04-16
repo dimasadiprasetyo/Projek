@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Akun;
 use App\Buku_besar;
+use App\Jurnal_detail;
+use App\Jurnal_header;
 use Illuminate\Http\Request;
 
 class BukuBesarController extends Controller
@@ -17,9 +20,16 @@ class BukuBesarController extends Controller
         return view('admin.BB.index');
     }
 
-    public function tampilindex()
+    public function tampilindex(Request $request)
     {
-        return view('admin.BB.tampil');
+        
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
+        $akuns = Akun::all();
+
+        return view('admin.BB.tampil',compact('akuns','Jurnalheader'));
     }
 
     /**
@@ -77,6 +87,10 @@ class BukuBesarController extends Controller
         //
     }
 
+    public function cetak(){
+        $pdf = PDF::loadview('admin.BB.cetak');
+        return $pdf->stream();
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -17,4 +17,7 @@ class Pelanggan extends Model
     public function Angsuran(){
         return  $this->hasMany('App\Angsuran');
     }
+    public function Lappen(){
+        return  $this->hasMany('App\Lappen');
+    }
 }

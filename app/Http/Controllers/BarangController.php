@@ -39,6 +39,22 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $request->validate([
+            'kode_barang'=> 'required|min:7|max:10',
+            'jenis_barang'=>'required',
+            'ukuran_barang'=>'required',
+            'stok'=>'required',
+            'harga'=>'required',
+        ],
+        [
+                'kode_barang.required'=>'Lengkapi Data!',
+                'kode_barang.min'=>'Masukkan Minim 7 Karakter',
+                'kode_barang.max'=>'Masukkan Maks 10 Karakter',
+                'jenis_barang.required'=>'Lengkapi Data!',
+                'ukuran_barang.required'=>'Lengkapi Data!',
+                'stok.required'=>'Lengkapi Data!',
+                'harga.required'=>'Lengkapi Data!',
+        ]);
         barang::create([
             'kode_barang'=>$request->kode_barang,
             'jenis_barang'=>$request->jenis_barang,

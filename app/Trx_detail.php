@@ -18,10 +18,13 @@ class Trx_detail extends Model
         return  $this->belongsTo('App\Pelanggan','kode_pelanggan','kode_pelanggan');
     }
     public function Trx_header(){
-        return  $this->hasMany('App\Trx_header','id_trx','id_trx');
+        return  $this->hasMany('App\Trx_header','id','id_trx');
     }
     public function Angsuran(){
         return  $this->hasMany('App\Angsuran','kode_angsuran','id_trx');
+    }
+    public function Lappenn(){
+        return  $this->hasMany('App\Lappen');
     }
     
 }

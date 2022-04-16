@@ -21,6 +21,8 @@ class CreateAngsuransTable extends Migration
             $table->bigInteger('jml_bayar');
             $table->bigInteger('kurang_bayar');
             $table->timestamps();
+            
+            // $table->foreign('id_trx')->references('id_trx')->on('trx_headers');
 
         });
     }

@@ -16,9 +16,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                <!--  <i class="fas fa-balance-scale"></i><h3 class="card-title">Neraca</h3> -->
-            </div>
             <div class="card-body">
                 <div class="row">
                     &nbsp;&nbsp;&nbsp;&nbsp;<button onclick="cetak()" class="btn btn-primary waves-effect"> <i class="fas fa-plus-circle"></i> <span>Cetak</span> </button>
@@ -34,9 +31,9 @@
 
                         </tr>
                         <tr>
-                            <th colspan="4" class="text-center">Periode tgl></th>
+                            <th colspan="4" class="text-center">Periode {{$dt}}</th>
                         </tr>
-                        <tr>
+                        <tr style="text-align: center">
                             <th>Kode Akun</th>
                             <th>Nama Akun</th>
                             <th>Debet</th>
@@ -44,16 +41,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
-                               
-                               
-                            </tr>
-                        
-                        <tr>
-                            <td colspan="2" style="background: grey"><b>Jumlah</b></td>
-                        
-                        </tr>
+                        @php 
+                        $totalDebet = 0;
+                        $totalKredit = 0;
+                        @endphp
+                        @foreach ($akuns as $akun)
+                            @if($akun->saldo_akhir > 0)
+                                @php
+                                    $d = 0;
+                                    $k = 0;   
+                                @endphp
+                                @foreach ($Jurnalheader as $header)
+                                    @foreach ($header->jurnal_detail as $detail)
+                                        @php
+                                            $d += $detail->debit;
+                                            $k += $detail->kredit;
+                                        @endphp
+                                    @endforeach
+                                @endforeach
+                                @php
+                                $totalDebet += $d;
+                                $totalKredit += $k;
+                                @endphp
+                                
+                                <tr style="text-align: center">
+                                    <td>{{$akun->id_akun}}</td>
+                                    <td>{{$akun->nama_akun}}</td>
+                                    <td>{{$akun->jenis_akun == 'Debet' ? $totalDebet : 0}}</td>
+                                    <td>{{$akun->jenis_akun == 'Kredit' ? $totalKredit : 0}}</td>
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
+                    <tr style="text-align: center">
+                                <td colspan="2" style="background: grey"><b>Jumlah</b></td>
+                                <td><b>{{$totalDebet}}</b></td>
+                                <td><b>{{$totalKredit}}</b></td>
+                                
+                    </tr>
                 </table>
 
             </div>

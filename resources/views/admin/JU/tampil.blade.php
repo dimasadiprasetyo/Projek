@@ -12,8 +12,9 @@
 @endsection
 @section('content')
 <div class="card-body">
-
-
+    <a href="#" class="btn btn-dark mr-2">
+        <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
+      </a>
     <div class="table-responsive">
         <table class="table table-bordered table-md" id="tabele">
             <!--Judul Tabel -->
@@ -21,7 +22,7 @@
                 <tr>
                     <th>No</th>
                     <th>Id Transaksi</th>
-                    <th>tanggal Penjualan</th>
+                    <th>Tanggal Penjualan</th>
                     <th>Pembayaran</th>
                     <th>STATUS POSTING</th>
                 </tr>
@@ -33,25 +34,25 @@
                         {{$loop->iteration}}
                     </td>
                     <td>
-                        {{$penjualan->id_trx}}
+                        {{$penjualan->trx_header->id_trx}}
                     </td>
                     <td>
-                        {{date('d-m-Y',strtotime($penjualan->tgl_trx))}}
+                        {{date('l, d F Y',strtotime($penjualan->trx_header->tgl_trx))}}
                     </td>
                     <td>
-                        {{$penjualan->total_bayar}}
+                        {{$penjualan->trx_header->total_bayar}}
                     </td>
-                    {{-- <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                            <form action="#" class="d-inline" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                                Hapus
-                            </button>
-                            </form>
+                    <td>
+                        <a href="{{route('posting.index', $penjualan->id_jurnal)}}" class="btn btn-warning">Posting</a>
+                        {{-- <form action="{{route('posting.index',$penjualan->id_trx)}}" class="d-inline delete" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-warning posting" id="posting" data-id="{{$penjualan->id_trx}}">
+                            <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Posting
+                        </button>
+                        </form> --}}
         
-                    </td> --}}
+                    </td>
                 </tr>
                     
                 @endforeach

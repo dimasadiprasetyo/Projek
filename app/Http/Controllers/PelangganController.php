@@ -39,6 +39,20 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $request->validate([
+            'kode_pelanggan'=> 'required|min:6|max:8',
+            'nama_pelanggan'=>'required',
+            'alamat'=>'required',
+            'telepon'=>'required',
+        ],
+        [
+                'kode_pelanggan.required'=>'Lengkapi Data!',
+                'kode_pelanggan.min'=>'Masukkan Minim 6 Karakter',
+                'kode_pelanggan.max'=>'Masukkan Maks 8 Karakter',
+                'nama_pelanggan.required'=>'Lengkapi Data!',
+                'alamat.required'=>'Lengkapi Data!',
+                'telepon.required'=>'Lengkapi Data!',
+        ]);
         Pelanggan::create([
             'kode_pelanggan'=>$request->kode_pelanggan,
             'nama_pelanggan'=>$request->nama_pelanggan,
