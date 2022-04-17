@@ -11,6 +11,11 @@
     {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}
 @endsection
 @section('content')
+<a href="{{route('cetakbb.index')}}" class="btn btn-dark mr-2" >
+    <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
+  </a>
+  {{-- <br> --}}
+  {{-- <br> --}}
 @foreach($akuns as $akun)
 <div style="margin-top: 50px;">
     <div class="card">
@@ -58,32 +63,4 @@
     </div>
 </div>
 @endforeach
-
-        {{-- <div class="table-responsive">
-            <table class="table table-bordered table-md" >
-                <!--Judul Tabel -->
-                @foreach ($Jurnalheader as $jurnal)
-                <tr>
-                    <td>{{$jurnal->tanggal}}</td>
-                    <td>{{$jurnal->keterangan}}</td>
-                    <td>{{$jurnal->id_jurnal}}</td>
-                    <td style="color: green">#</td>
-                    <td style="color: red">#</td>
-                    @if ($total < 0)
-                        <td style="color: red">{{$total}}</td>
-                    @else
-                        <td style="color: green">{{$total}}</td>     
-                    @endif
-                    
-                </tr>
-                @endforeach    
-      
-
-</table> --}}
-
-{{-- </div> --}}
-{{-- <a href="" target="_blank" class="btn btn-primary waves-effect"> <i class="fas fa-plus-circle"></i> <span>Cetak</span> </a>
-</div>
-</div>
-</div> --}}
 @endsection

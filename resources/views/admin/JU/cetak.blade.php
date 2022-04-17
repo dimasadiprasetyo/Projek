@@ -57,7 +57,7 @@ table.border tbody th, table.border tbody td {
     </div>
     <br>
 <div id="printable">
-    <table class="table table-bordered" >
+    <table class="table table-bordered " border="3" >
     <thead>
         <tr>
             <th>Tanggal</th>
@@ -68,19 +68,36 @@ table.border tbody th, table.border tbody td {
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td rowspan="2">15 Januari 2013</td>
-            <td>Kas</td>
-            <td>A</td>
-            <td>Rp. 1.000.000</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Kredit</td>
-            <td>B</td>
-            <td></td>
-            <td>Rp. 1.000.000</td>
-        </tr>
+        @foreach ($akuns as $akun)
+            @foreach ($Jurnalheader as $header)
+                @foreach ($header->jurnal_detail as $detail)
+                    @php
+                        $jurnal = $detail->id_jurnal;
+                    @endphp
+                @endforeach
+                    {{-- @if($detail->id_akun == $akun->id_akun) --}}
+                <tr>
+                    <td rowspan="3" style="text-align: center valign">{{$header->tanggal}}</td>
+                    <td>{{$akun->nama_akun}}</td>
+                    <td>-</td>
+                    <td>{{$detail->debit}}</td>
+                    <td>{{$detail->kredit}}</td>
+                </tr>
+                <tr>
+                    <td>{{$akun->nama_akun}}</td>
+                    <td>-</td>
+                    <td>{{$detail->debit}}</td>
+                    <td>{{$detail->kredit}}</td>
+                </tr>
+                <tr>
+                    <td >A</td>
+                    <td>-</td>
+                    <td>C</td>
+                    <td>D</td>
+                </tr>
+                    {{-- @endif --}}
+            @endforeach
+        @endforeach
     </tbody>
     </table>
 </div>

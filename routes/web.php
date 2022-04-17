@@ -69,7 +69,7 @@ Route::get('cetaklappi','LappiController@cetak')->name('cetaklappi.index');
 Route::get('jurnalumum','JUController@index')->name('jurnalumum.index');
 Route::post('tampil','JUController@tampil')->name('tampil.index');
 Route::get('posting/{id_jurnal}','JUController@posting')->name('posting.index');
-Route::get('cetakJU','JUController@cetak')->name('cetakJU.index');
+Route::post('cetakJU','JUController@cetak')->name('cetakJU.index');
 
 // Buku Besar
 Route::get('bukubesar','BukubesarController@index')->name('bukubesar.index');
@@ -79,6 +79,7 @@ Route::get('cetakbb','BukubesarController@cetak')->name('cetakbb.index');
 // Neraca
 Route::get('neraca','NeracaController@index')->name('neraca.index');
 Route::post('neracatampil','NeracaController@tampil')->name('neracatampil.index');
+Route::get('cetak','NeracaController@cetak')->name('cetakneraca.index');
 
 
 // --PEMILIK--

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Akun;
 use App\Jurnal_header;
 use App\Neraca;
+use PDF;
 use Illuminate\Http\Request;
 
 class NeracaController extends Controller
@@ -38,21 +39,18 @@ class NeracaController extends Controller
             $dt = date('M Y',strtotime($date->tanggal));
         }
         $akuns = Akun::all();
-
-        // foreach($akuns as $akun) {
-
-        //     foreach($Jurnalheader as $header) {
-        //         foreach($header->jurnal_detail as $detail) {
-
-        //         }
-        //     }
-        // }
-
-        // dd($Jurnalheader);
-        // return view('admin.BB.tampil',compact('akuns','Jurnalheader'));
         return view('admin.Neraca.index',compact('akuns','Jurnalheader','dt'));
     }
 
+    public function cetak(){
+        $Jurnalheader = Jurnal_header::select('*')->get();
+        foreach($Jurnalheader as $date){
+            $dt = date('M Y',strtotime($date->tanggal));
+        }
+        $akuns = Akun::all();
+        $pdf = PDF::loadview('admin.Neraca.cetak', compact('Jurnalheader','akuns','dt'));
+        return $pdf->stream();
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -49,73 +49,61 @@ table.border tbody th, table.border tbody td {
 </head>
 <body>
     
-    <div style="text-align: left">
+    <div style="text-align: center">
         <div style="font-size: 20px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
-        <div style="font-size: 12px"> Jl. Mayjend Sutoyo, Denasri Kulon -Batang</div>
-        <div style="font-size: 12px"> Telepon : 0815427890,0989318636</div>
+        <div style="font-size: 17px"> BUKU BESAR</div>
+        <div style="font-size: 17px"> Per </div>
     </div>
     <br>
-    <div id="printable">
-        <hr style="border: 0.5px solid black; margin: 10px 5px 10px 5px;">
-<h3 align="center">Nota Penjualan</h3>
-<hr style="border: 0.2px solid rgb(206, 52, 52); margin: 10px 5px 10px 5px;">
+<div id="printable">
+    @foreach($akuns as $akun)
 <div style="margin-top: 50px;">
     <div class="card">
         <div class="card-body">
-           
-              <div class="row mt-4">
+            <div class="row mt-6">
+                <div class="col-8">
+                    <span class="text-left">Nama Akun : {{$akun->nama_akun}} </span>
+                </div>
                 <div class="col-6">
-                    <span class="text-left">Nama Akun : </span>
-               </div>
-               <div class="col-6">
-                <span class="text-right">No Akun : </span>
+                    <span class="text-right">No Akun : {{$akun->id_akun}} </span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                            <th>Reff</th>
+                            <th>Debit</th>
+                            <th>Kredit</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $total = 0; @endphp
+                        @foreach($Jurnalheader as $header)
+                            @foreach($header->jurnal_detail as $detail)
+                                @if($detail->id_akun == $akun->id_akun) 
+                                    <tr>
+                                        <td>{{$header->tanggal}}</td>
+                                        <td>{{$header->keterangan}}</td>
+                                        <td>{{$detail->id_jurnal}}</td>
+                                        <td>{{$detail->debit}}</td>
+                                        <td>{{$detail->kredit}}</td>
+                                        <td>{{$total +=($detail->debit - $detail->kredit)}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-md" >
-                <!--Judul Tabel -->
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Keterangan</th>
-                    <th>Reff</th>
-                    <th>Debit</th>
-                    <th>Kredit</th>
-                    <th>Saldo</th>
-                </tr>
-
-                
-                    <tr>
-                      <td>
-                <!-- tanggal -->
-                    </td>
-                    <td>
-                        <!-- keterangan -->
-                    </td>
-                    <td>
-                        <!-- id_jurnal -->
-                    </td>
-                    <td style="color: green">
-                        <!-- debit -->
-                    </td>
-                    <td style="color: red">
-                        <!-- kredit -->
-                    </td>
-                    
-                    <td style="color: red">
-                    <!-- total -->
-                  </td>
-              
-                 <td style="color: green">
-                  <!-- total -->
-              </td>
-
-      </tr>
-      
-
-</table>
-
+    </div>
 </div>
+@endforeach
 </div>
 
 </body>

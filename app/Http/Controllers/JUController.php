@@ -111,8 +111,13 @@ class JUController extends Controller
         //
     }
 
-    public function cetak(){
-        $pdf = PDF::loadview('admin.JU.cetak');
+    public function cetak(Request $request){
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
+        $akuns = Akun::all();
+        $pdf = PDF::loadview('admin.JU.cetak', compact('akuns','Jurnalheader'));
         return $pdf->stream();
     }
     /**

@@ -6,6 +6,7 @@ use App\Akun;
 use App\Buku_besar;
 use App\Jurnal_detail;
 use App\Jurnal_header;
+use PDF;
 use Illuminate\Http\Request;
 
 class BukuBesarController extends Controller
@@ -88,7 +89,9 @@ class BukuBesarController extends Controller
     }
 
     public function cetak(){
-        $pdf = PDF::loadview('admin.BB.cetak');
+        $Jurnalheader = Jurnal_header::select('*')->get();
+        $akuns = Akun::all();
+        $pdf = PDF::loadview('admin.BB.cetak', compact('Jurnalheader','akuns'));
         return $pdf->stream();
     }
     /**

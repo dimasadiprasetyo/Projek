@@ -17,9 +17,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<button onclick="cetak()" class="btn btn-primary waves-effect"> <i class="fas fa-plus-circle"></i> <span>Cetak</span> </button>
-                </div>
+                <a href="{{route('cetakneraca.index')}}" class="btn btn-dark mr-2" >
+                    <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
+                  </a>
+                <br>
                 <br>
                 <table id="neraca" class="" style=" width: 100%;height: 50%;color: black" border="1">
                     <thead>
@@ -85,9 +86,4 @@
         </div>
     </div>
 </div>
-{{-- <script type="text/javascript">
-    function cetak() {
-     
-    }
-</script> --}}
 @endsection
