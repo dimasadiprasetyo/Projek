@@ -56,78 +56,21 @@ class JUController extends Controller
         }
         redirect(route('tampil.index'));
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\JU  $jU
-     * @return \Illuminate\Http\Response
-     */
-    public function show(JU $jU)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\JU  $jU
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(JU $jU)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\JU  $jU
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, JU $jU)
-    {
-        //
-    }
 
     public function cetak(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
-        $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
-        $akuns = Akun::all();
-        $pdf = PDF::loadview('admin.JU.cetak', compact('akuns','Jurnalheader'));
+        // $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        // ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
+        // $jurnalDetail = Jurnal_detail::with('Jurnal_header')->whereMonth('jurnal_header.tanggal', $month)->whereYear('jurnal_header.tanggal', $year)->get();
+        // dd($Jurnalheader);
+        // $akuns = Akun::all();
+        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)->get();
+        $Jurnaldetail = Jurnal_detail::with('Akun')->get();
+        // dd($Jurnalheader);
+        $pdf = PDF::loadview('admin.JU.cetak', compact('Jurnaldetail','Jurnalheader'));
         return $pdf->stream();
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\JU  $jU
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(JU $jU)
-    {
-        //
-    }
+
+    
 }

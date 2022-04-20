@@ -20,24 +20,24 @@
                 <label for="id_trx" style="color: black; font-size: 15px">Id Transaksi</label>
                 <input type="text" readonly class="form-control" value="{{$id_trx}}" id="id_trx" name="id_trx" >
             </div>
-              <div class="row">
-             <div class="form-group col-md-6">
-               <label for="tgl_trx" style="color: black; font-size: 15px">Tanggal Transaksi</label>
-               <input type="date"  class="form-control" id="tgl_trx" name="tgl_trx" placeholder="example : PLG001" value="{{$tglInput}}">
-             </div>
-             <div class="form-group col-md-6">
-               <label style="color: black; font-size: 15px">Jenis Kayu</label>
-               <select name="kode_barang" id="kode_barang" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                <option disabled selected>-- Pilih Jenis --</option>
-                @foreach ($barangs as $barang)
-                  <option value="{{$barang->kode_barang}}">{{$barang->jenis_barang}}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="qty" style="color: black; font-size: 15px">Jumlah</label>
-                <input type="number" class="form-control" id="qty" name="qty" placeholder="example : PLG001">
-            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="tgl_trx" style="color: black; font-size: 15px">Tanggal Transaksi</label>
+                <input type="date"  class="form-control" id="tgl_trx" name="tgl_trx" placeholder="example : PLG001" value="{{$tglInput}}">
+              </div>
+              <div class="form-group col-md-6">
+                <label style="color: black; font-size: 15px">Jenis Kayu</label>
+                <select name="kode_barang" id="kode_barang" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                  <option disabled selected>-- Pilih Jenis --</option>
+                    @foreach ($barangs as $barang)
+                      <option value="{{$barang->kode_barang}}">{{$barang->jenis_barang}}</option>
+                    @endforeach
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                  <label for="qty" style="color: black; font-size: 15px">Jumlah</label>
+                  <input type="number" class="form-control" id="qty" name="qty" placeholder="example : PLG001">
+              </div>
               <div class="form-group col-md-6 scroll">
                 <label for="keterangan" style="color: black; font-size: 15px">Keterangan</label>
                 <textarea class="form-control" aria-label="With textarea" name="keterangan" id="keterangan"></textarea>
@@ -45,59 +45,62 @@
             </div> 
             <button type="button" name="add" id="add" class="btn btn-md mb-3" style="background: green; color: white;" >
               <i class="fa fa-shopping-cart" style="font-size:14px" aria-hidden="true"></i><span style="font-size: 14px"> Keranjang</span> 
-              
             </button>
             <br>
             <br>
-            <h5 style="text-align: center">  INPUT BAYAR</h5>
+            <h5 style="text-align: center">  KALKULATOR BAYAR</h5>
             <div class="row">
               <div class="form-group col-md-6 scroll">
-              <label for="bayar" style="color: black; font-size: 15px">Bayar</label>
-              <textarea class="form-control"  id="bayar" placeholder="example : Rp. 10000"></textarea>
-            </div>
-            <div class="form-group col-md-6 scroll">
-              <label for="kembali" style="color: black; font-size: 15px">Kembali</label>
-              <input type="text" readonly class="form-control" id="kembali"  placeholder="readonly">
+                <label for="bayar" style="color: black; font-size: 15px">Bayar</label>
+                <textarea class="form-control"  id="bayar" placeholder="example : Rp. 10000"></textarea>
+              </div>
+              <div class="form-group col-md-6 scroll">
+                <label for="kembali" style="color: black; font-size: 15px">Kembali</label>
+                <input type="text" readonly class="form-control" id="kembali"  placeholder="readonly">
               </div>
             </div>
 
-
-
-                      <div class="card-body" >
-                        <table class="table table-border" border="2" id="data">
-                            <thead class="thead-dark">
-                                <tr style="background-color: black">
-                                    <th style="color: white; font-size: 14px">No </th>
-                                    <th style="color: white" style="font-size: 14px">Jenis Kayu</th>
-                                    <th style="color: white" style="font-size: 14px">Harga Kayu</th>
-                                    <th style="color: white" style="font-size: 14px">Jumlah</th>
-                                    <th style="color: white" style="font-size: 14px">Disc</th>
-                                    <th style="color: white" style="font-size: 14px">Sub total</th>
-                                    <th style="color: white" style="font-size: 14px">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            
-                            </tbody>
-                            <tfoot>
-                              {{-- <tr><td>kugg</td></tr> --}}
-                            </tfoot>
-                        </table>
+                <div class="card-body" >
+                  <div class="card rounded shadow border-0">
+                    <div class="table-responsive">
+                      <table class="table" border="1" id="data">
+                        <thead style="background-color: black; color: white">
+                          <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                            <th style="color: white; font-size: 14px">No </th>
+                            <th style="color: white" style="font-size: 14px">Jenis Kayu</th>
+                            <th style="color: white" style="font-size: 14px">Harga Kayu</th>
+                            <th style="color: white" style="font-size: 14px">Jumlah</th>
+                            <th style="color: white" style="font-size: 14px">Disc</th>
+                            <th style="color: white" style="font-size: 14px">Sub total</th>
+                            <th style="color: white" style="font-size: 14px">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {{--Tbody AJAX  --}}
+                        </tbody>
+                        <tfoot>
+                            {{-- <tr><td>kugg</td></tr> --}}
+                        </tfoot>
+                      </table>
                     </div>
-                    </div>
+                  </div>
+                </div>
+              
       <!-- /.card-body -->
 
       <div class="card-footer d-flex justify-content-end">
         <button onclick="withToastSuccess()" type="submit" class="btn btn-success mr-2">
           <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan
         </button>
-        {{-- <a href="{{route('daftartrx.index')}}" class="btn btn-danger">
-          <i class="fas fa-folder" style="font-size:17px"></i> Daftar Transaksi
+        {{-- <a href="{{route('notatunai.index')}}" class="btn btn-dark mr-2" >
+          <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
         </a> --}}
       </div>
     </form>
-  </div>
+
+</div>
 @endsection
+
 @push('Akhir')
 
   <script type="text/javascript">

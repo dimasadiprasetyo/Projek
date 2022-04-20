@@ -5,7 +5,7 @@
 @section('judul')
 <div class="card-header">
     <h1 style="color: #F08080;">
-        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN PENJUALAN</font>
+        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN PIUTANG</font>
     </h1>
 </div>
     {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}

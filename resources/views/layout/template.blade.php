@@ -9,6 +9,7 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/jquery.dataTables.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- CSS Libraries -->
@@ -18,6 +19,11 @@
   <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 </head>
 
 <body>
@@ -28,34 +34,39 @@
   color: black;
   
   }
+  .table-striped{
+      thead,tr,th{
+        background-color: #4CAF50;
+        color: white;
+    }
+  }
   </style>
     @include('sweetalert::alert')
   <div id="app">
     <div class="main-wrapper">
-      <div class="navbar-bg"></div>
-   {{-- navbar --}}
-   @include('layout.partial.navbar')
+      <div class="navbar-bg">
+      </div>
+        {{-- navbar --}}
+        @include('layout.partial.navbar')
 
-      {{-- sidebar --}}
-@include('layout.partial.sidebar')
+        {{-- sidebar --}}
+        @include('layout.partial.sidebar')
 
-      <!-- Main Content -->
+        <!-- Main Content -->
       
 
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            {{-- <h1 class="fas fa-bell">SELAMAT DATANG DI SISTEM PENJUALAN LANCAR JAYA</h1> --}}
-          <h1><strong>@yield('judul')</strong></h1>
-          <div class="section-header-breadcrumb" style="font-size: 20px">
-            <div class="breadcrumb-item active"><a href="#" style="font-size: 16px">Dasboard</a></div>
-            <div class="breadcrumb-item active"><a href="#" style="font-size: 16px">Barang</a></div>
+              <h1><strong>@yield('judul')</strong></h1>
+              <h1><strong>@yield('nama')</strong></h1>
+            {{-- <div class="section-header-breadcrumb" style="font-size: 20px">
+              <div class="breadcrumb-item active"><a href="#" style="font-size: 16px">Dasboard1</a></div>
+              <div class="breadcrumb-item active"><a href="#" style="font-size: 16px">Barang</a></div>
+            </div> --}}
           </div>
-        </div>
 
 
-          {{-- <div class="section-body">
-          </div> --}}
           @yield('content')
         </section>
       </div>
@@ -78,10 +89,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{asset('assets/js/stisla.js')}}"></script>
   
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="plugins/chart.js/Chart.min.js"></script>
+  <!-- AdminLTE App -->
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <!-- JS Libraies -->
   
   @stack('Akhir')
   <!-- Template JS File -->
+  
   <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('assets/js/scripts.js')}}"></script>
   <script src="{{asset('assets/js/custom.js')}}"></script>

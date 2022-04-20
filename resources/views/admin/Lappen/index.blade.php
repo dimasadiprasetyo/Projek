@@ -13,7 +13,7 @@
 @section('content')
 <div style="margin-top: 50px;">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="background-color: black">
             <div class="container">
                 <form action="{{route('lappentampil.index')}}" method="get">
                     @csrf

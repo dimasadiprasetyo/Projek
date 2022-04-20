@@ -31,9 +31,6 @@ class TunaiController extends Controller
 
     public function detailStore(Request $request) {
         $kodebarang=$request->kode_barang;
-        // $data = $request->all();
-        // $stok= barang::findOrFail($kodebarang);
-        // $stok['stok'] = $stok['stok'] - $data['qty'];
         $barang = barang::where('kode_barang',$kodebarang)->first();
         
         $dis= 0;
@@ -111,7 +108,6 @@ class TunaiController extends Controller
                 'debit' => 0,
                 'kredit' => $request->total_bayar
             ]);    
-            // dd($transaksiDetail);
         }
         $total = 0;
         foreach($transaksiDetail as $trx) {
@@ -124,7 +120,7 @@ class TunaiController extends Controller
         
         $total_bayar = $totalPiutang;
         $jenis_trx = 'Tunai';
-        $pdf = PDF::loadView('admin.Trxtunai.nota', compact('id_trx', 'tgl_trx', 'keterangan', 'total_bayar', 'jenis_trx', 'transaksiDetail'));
+        $pdf = PDF::loadView('admin.Trxtunai.nota', compact('id_trx', 'tgl_trx', 'keterangan', 'total_bayar','totalPiutang', 'jenis_trx', 'transaksiDetail'));
         return $pdf->stream();
 
         return view('admin.Trxtunai.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);
@@ -161,7 +157,10 @@ class TunaiController extends Controller
         
         return view('admin.Trxtunai.daftartunai',compact('daftar'));
     }
-    public function nota($id_trx){
+    public function nota(){
+        // $pdf = PDF::loadView('admin.Trxtunai.nota');
+        // return $pdf->stream();
+
         return view('admin.Trxtunai.nota');
     }
 

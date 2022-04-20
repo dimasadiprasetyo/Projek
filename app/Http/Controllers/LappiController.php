@@ -10,18 +10,18 @@ use Illuminate\Http\Request;
 
 class LappiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // index
+    // Admin
     public function index()
     {
         return view('admin.Lappi.index');
     }
+    // Pemilik
+    public function indexpemilik()
+    {
+        return view('pemilik.Lappi.index');
+    }
     
-    // tampil
+    // tampil Admin
     public function tampilindex(Request $request)
     {   
         $month = $request->bulan;
@@ -36,61 +36,20 @@ class LappiController extends Controller
         }
         return view('admin.Lappi.tampil',compact('Trxheader', 'totalPiutang'));
     }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Lappi  $lappi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Lappi $lappi)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Lappi  $lappi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Lappi $lappi)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lappi  $lappi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Lappi $lappi)
-    {
-        //
+    // Pemilik
+    public function tampilindexpemilik(Request $request)
+    {   
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')
+        ->with('Pelanggan','Trx_detail','barang')
+        ->whereYear('tgl_trx', '=', $year)
+        ->whereMonth('tgl_trx', '=', $month)->get();
+        $totalPiutang = 0;
+        foreach($Trxheader as $trx) {
+            $totalPiutang = $totalPiutang + $trx->kurang_bayar;
+        }
+        return view('pemilik.Lappi.tampil',compact('Trxheader', 'totalPiutang'));
     }
 
     public function cetak(){
@@ -105,14 +64,5 @@ class LappiController extends Controller
         $pdf = PDF::loadview('admin.Lappi.cetak', compact('Trxheader', 'totalPiutang', 'dt'));
         return $pdf->stream();
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Lappi  $lappi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Lappi $lappi)
-    {
-        //
-    }
+    
 }

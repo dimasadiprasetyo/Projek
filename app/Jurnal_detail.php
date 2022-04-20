@@ -13,6 +13,9 @@ class Jurnal_detail extends Model
     public function Jurnal_header(){
         return  $this->belongsTo('App\Jurnal_header','id_jurnal','id_jurnal');
     }
+    public function Akun(){
+        return  $this->belongsTo('App\Akun','id_akun','id_akun');
+    }
 
 }
 

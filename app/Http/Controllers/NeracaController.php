@@ -10,27 +10,22 @@ use Illuminate\Http\Request;
 
 class NeracaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Admin
     public function index()
     {
 
         return view('admin.Neraca.awal');
     }
+    // Pemilik
+    public function indexpemilik()
+    {
 
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        return view('pemilik.Neraca.awal');
+    }
+    // Admin
     public function tampil(Request $request)
     {
-        // bener sing iki si o?
-        // iyo
+
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
@@ -40,6 +35,20 @@ class NeracaController extends Controller
         }
         $akuns = Akun::all();
         return view('admin.Neraca.index',compact('akuns','Jurnalheader','dt'));
+    }
+    // Pemilik
+    public function tampilpemilik(Request $request)
+    {
+
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
+        foreach($Jurnalheader as $date){
+            $dt = date('M Y',strtotime($date->tanggal));
+        }
+        $akuns = Akun::all();
+        return view('pemilik.Neraca.index',compact('akuns','Jurnalheader','dt'));
     }
 
     public function cetak(){

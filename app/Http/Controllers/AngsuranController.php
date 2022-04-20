@@ -38,23 +38,9 @@ class AngsuranController extends Controller
         $id_asr = "ASR-".$tgl;
         return view('admin.Angsuran.bayarindex', compact('Trxheader','tglInput','id_asr','angsuran', 'id_trx'));
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request, $id_trx)
+    
     {
         Angsuran::create([
             'kode_angsuran'=>$request->kode_angsuran,
@@ -80,39 +66,6 @@ class AngsuranController extends Controller
         return redirect(route('bayarindex.index',$id_trx))->withToastSuccess("Data Berhasil Ditambahkan");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Angsuran  $angsuran
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Angsuran $angsuran)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Angsuran  $angsuran
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Angsuran $angsuran)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Angsuran  $angsuran
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Angsuran $angsuran)
-    {
-        //
-    }
 
     public function cetak(){
         $pdf = PDF::loadview('admin.angsuran.cetak');

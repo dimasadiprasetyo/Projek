@@ -13,7 +13,7 @@
         
     <a href="{{route('cetaklappen.index')}}" class="btn btn-dark mr-2" >
         <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
-      </a>
+    </a>
       <br>
       <br>
     <div class="table-responsive">
@@ -35,34 +35,14 @@
             <tbody>
                 @foreach ($inboxs as $penjualan)
                 <tr>
-                    <td>
-                        {{$loop->iteration}}
-                    </td>
-                    <td>
-                        {{date('d-m-Y',strtotime($penjualan->tgl_trx))}}
-                    </td>
-                    <td>
-                        {{$penjualan->Pelanggan->nama_pelanggan}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->barang->jenis_barang}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->barang->ukuran_barang}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->barang->harga}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->qty}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->diskon}}
-                    </td>
-                    <td>
-                        {{$penjualan->total_bayar}}
-                    </td>
-                    
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{date('d-m-Y',strtotime($penjualan->tgl_trx))}}</td>
+                    <td>{{$penjualan->Pelanggan->nama_pelanggan}}</td>
+                    {{-- <td>{{$penjualan->trx_detail->barang_id}}</td> --}}
+                    {{-- <td>{{$penjualan->Trx_detail->barang->ukuran_barang}}</td> --}}
+                    {{-- <td>{{$penjualan->Trx_detail->barang->harga}}</td> --}}
+                    <td>{{$penjualan->Trx_detail->qty}}</td><td>{{$penjualan->Trx_detail->diskon}}</td>
+                    <td>{{$penjualan->total_bayar}}</td>
                 </tr>
                     
                 @endforeach

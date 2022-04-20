@@ -9,11 +9,10 @@
 @endsection
 @section('content')
 <div class="card card-primary">
-    <!-- /.card-header -->
-    <!-- form start -->
+
     <form action="{{route('akun.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-      <div class="card-body" style="background-color:#e0dfde">
+      <div class="card-body" style="background-color:#c9c7c5">
         <h5>TAMBAH DATA</h5>
         <br>
         <br>
@@ -30,18 +29,15 @@
             @if($errors->has('nama_akun'))
                 <span class="invalid-feedback">{{ $errors->first('nama_akun') }}</span>
             @endif
-          </div>
-          <div class="form-group row col-6">
+        </div>
+        <div class="form-group row col-6">
             <label for="jenis_akun" style="font-size: 15px" style="color: black">Jenis Akun</label>
             <select class="form-control" name="jenis_akun">
               <option>-- Pilih Jenis Akun --</option>
               <option value="Debet">DEBET</option>
               <option value="Kredit">KREDIT</option>
-      </select>
-          </div>
-    
-      
-				</table>
+            </select>
+        </div>
         <div class="card-footer">
           <button onclick="withToastSuccess()" type="submit" class="btn btn-primary">
             <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan
@@ -49,7 +45,7 @@
           <a href="{{route('akun.index')}}" class="btn btn-danger">Kembali</a>
         </div>
 			
-		</div>
-  </form>
-  </div>
+		  </div>
+    </form>
+</div>
 @endsection

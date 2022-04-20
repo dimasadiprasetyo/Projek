@@ -13,11 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout/template');
-});
-// dasboard
-Route::get('dasboard','DasboardController@dasboard')->name('dasboard.index');
+Route::get('/','DasboardController@dasboard')->name('dasboard.index');
 // ---ADMIN----
 // Pengguna User
 Route::resource('akun', 'AkunController');
@@ -33,7 +29,7 @@ Route::get('detailstok/{kode_barang}','TunaiController@cekstok')->name('detailst
 Route::put('stok/{kode_barang}','TunaiController@stok')->name('stok.index');
 Route::get('daftartrx','TunaiController@daftartrx')->name('daftartrx.index');
 Route::get('detailbayar/{id_trx}', 'TunaiController@cekkurang')->name('detailbayar.index');
-Route::get('notatunai/{id_trx}','TunaiController@nota')->name('notatunai.index');
+Route::get('notatunai','TunaiController@nota')->name('notatunai.index');
 Route::delete('deletedetail/{id_trx}','TunaiController@deletedetail')->name('deletedetail.index');
 
 // Kredit
@@ -86,3 +82,17 @@ Route::get('cetak','NeracaController@cetak')->name('cetakneraca.index');
 // Laporan Penjualan
 Route::get('lappenpemilik','LappenController@indexpemilik')->name('lappen.indexpemilik');
 Route::get('lappentampilpemilik','LappenController@tampilindexpemilik')->name('lappentampil.indexpemilik');
+
+// Laporan Piutang
+Route::get('lappipemilik','LappiController@indexpemilik')->name('lappipemilik.index');
+Route::post('lappitampilpemilik','LappiController@tampilindexpemilik')->name('lappitampilpemilik.index');
+
+// Buku Besar
+Route::get('bukubesarpemilik','BukubesarController@indexpemilik')->name('bukubesarpemilik.index');
+Route::post('bukubesartampilpemilik','BukubesarController@tampilindexpemilik')->name('bukubesartampilpemilik.index');
+
+// Neraca
+Route::get('neracapemilik','NeracaController@indexpemilik')->name('neracapemilik.index');
+Route::post('neracatampilpemilik','NeracaController@tampilpemilik')->name('neracatampilpemilik.index');
+Route::get('cetak','NeracaController@cetak')->name('cetakneraca.index');
+

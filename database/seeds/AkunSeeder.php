@@ -12,7 +12,7 @@ class AkunSeeder extends Seeder
      */
     public function run()
     {
-        Akun::insert([
+        Akun::create([
             [
             'id_akun'=>101,
             'nama_akun'=>'kas',

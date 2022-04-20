@@ -1,13 +1,11 @@
 @extends('layout.template')
 @section('title')
-    Kategori /
+    Pelanggan /
 @endsection
 @section('judul')
-    {{-- <h1 class="fas fa-bell"> DATA PELANGGAN</h1> --}}
     <h1 style="color:black">
         <font size="5" face="Century Gothic"><i class="fa fa-user" style='font-size:25px;'></i>&nbsp;DATA PELANGGAN </font>
     </h1>
-    
 @endsection
 
 @section('content')
@@ -17,68 +15,47 @@
             <a href="{{route('pelanggan.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Data</a>
         </div>
     </div>
-{{-- <div class="card-body"> --}}
-    <div class="table-responsive">
-    <table class="table table-border" class="table table-striped" id="tabel">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    No
-                </th>
-                <th>
-                    ID Pelanggan
-                </th>
-                <th>
-                    Nama
-                </th>
-                <th>
-                    Alamat
-                </th>
-                <th>
-                    Telepon
-                </th>
-                <th>
-                    action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($Pelanggans as $pelanggan)
-            <tr>
-                <td>
-                    {{$loop->iteration}}
-                </td>
-                <td>
-                    {{$pelanggan->kode_pelanggan}}
-                </td>
-                <td>
-                    {{$pelanggan->nama_pelanggan}}
-                </td>
-                <td>
-                    {{$pelanggan->alamat}}
-                </td>
-                <td>
-                    {{$pelanggan->telepon}}
-                </td>
-                <td>
-                    <a href="{{route('pelanggan.edit', $pelanggan->kode_pelanggan)}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit</a>
-                        <form action="{{route('pelanggan.destroy',$pelanggan->kode_pelanggan)}}" class="d-inline delete" method="POST"
-                            onsubmit="return confirm('Yakin hapus Data?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;
-                            Hapus
-                        </button>
-                        </form>
-    
-                </td>
-            </tr>
-                
-            @endforeach
-        </tbody>
-    </table>
-</div>
+    <div class="card-body">
+        <div class="card rounded shadow border-0">
+            <div class="table-responsive">
+                <table class="table" id="tabel">
+                    <thead style="background-color: black; color: white">
+                        <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                            <th style="color: white">No</th>
+                            <th style="color: white">ID Pelanggan</th>
+                            <th style="color: white">Nama</th>
+                            <th style="color: white">Alamat</th>
+                            <th style="color: white">Telepon</th>
+                            <th style="color: white;text-align: center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 15px">
+                        @foreach ($Pelanggans as $pelanggan)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$pelanggan->kode_pelanggan}}</td>
+                            <td>{{$pelanggan->nama_pelanggan}}</td>
+                            <td>{{$pelanggan->alamat}}</td>
+                            <td>{{$pelanggan->telepon}}</td>
+                            <td style="text-align: center">
+                                <a href="{{route('pelanggan.edit', $pelanggan->kode_pelanggan)}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit</a>
+                                    <form action="{{route('pelanggan.destroy',$pelanggan->kode_pelanggan)}}" class="d-inline delete" method="POST"
+                                                 onsubmit="return confirm('Yakin hapus Data?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;
+                                            Hapus
+                                        </button>
+                                    </form>
+                            </td>
+                        </tr>   
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
 </div>
 @endsection
 @push('Awal')

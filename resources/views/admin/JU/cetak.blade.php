@@ -57,7 +57,8 @@ table.border tbody th, table.border tbody td {
     </div>
     <br>
 <div id="printable">
-    <table class="table table-bordered " border="3" >
+    <div class="container">
+    <table class="table table-bordered " border="0" >
     <thead>
         <tr>
             <th>Tanggal</th>
@@ -68,38 +69,32 @@ table.border tbody th, table.border tbody td {
         </tr>
     </thead>
     <tbody>
-        @foreach ($akuns as $akun)
-            @foreach ($Jurnalheader as $header)
-                @foreach ($header->jurnal_detail as $detail)
-                    @php
-                        $jurnal = $detail->id_jurnal;
-                    @endphp
-                @endforeach
-                    {{-- @if($detail->id_akun == $akun->id_akun) --}}
+        @foreach($Jurnalheader as $header)
+        <tr style="background:lightblue;">
+            <td >{{$header->tanggal}}</td>
+                <td><b>{{$header->keterangan}}</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+
+            @foreach ($Jurnaldetail as $detail)
+                @if ($detail->id_jurnal == $header->id_jurnal)
                 <tr>
-                    <td rowspan="3" style="text-align: center valign">{{$header->tanggal}}</td>
-                    <td>{{$akun->nama_akun}}</td>
-                    <td>-</td>
-                    <td>{{$detail->debit}}</td>
-                    <td>{{$detail->kredit}}</td>
-                </tr>
-                <tr>
-                    <td>{{$akun->nama_akun}}</td>
-                    <td>-</td>
-                    <td>{{$detail->debit}}</td>
-                    <td>{{$detail->kredit}}</td>
-                </tr>
-                <tr>
-                    <td >A</td>
-                    <td>-</td>
-                    <td>C</td>
-                    <td>D</td>
-                </tr>
-                    {{-- @endif --}}
+                    <td></td>
+                    <td>{{$detail->Akun->nama_akun}}</td>
+                    <td></td>
+                    <td>{{$detail->debit > 0 ? $detail->debit : null}}</td>
+                    <td>{{$detail->kredit > 0 ? $detail->kredit : null }}</td>
+                </tr>  
+                    
+                @endif
             @endforeach
         @endforeach
     </tbody>
     </table>
+</div>
 </div>
 
 </body>

@@ -9,31 +9,27 @@
 @endsection
 @section('content')
 <div class="card card-primary">
-    <!-- /.card-header -->
-    <!-- form start -->
+    
     <form action="{{route('pelanggan.update',$pelanggan->kode_pelanggan)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
       <div class="card-body" style="background-color: #80b0ff">
         <div class="form-group row col-6">
-          <label for="kode_pelanggan" style="font-size: 15px">ID Pelanggan</label>
-          <input type="text" readonly value="{{$pelanggan->kode_pelanggan}}" class="form-control" id="kode_pelanggan" name="kode_pelanggan" placeholder="example : PLG001">
+          <label for="kode_pelanggan" style="font-size: 15px; color: black">ID Pelanggan</label>
+          <input style="color: black" type="text" readonly value="{{$pelanggan->kode_pelanggan}}" class="form-control" id="kode_pelanggan" name="kode_pelanggan" placeholder="example : PLG001">
         </div>
         <div class="form-group row col-6">
-            <label for="nama_pelanggan"style="font-size: 15px">Nama Pelanggan</label>
-            <input type="text" value="{{$pelanggan->nama_pelanggan}}" class="form-control" id="nama_pelanggan" name="nama_pelanggan" placeholder="example : Murdiyono">
-          </div>
-          <div class="form-group row col-6">
-            <label for="alamat"style="font-size: 15px">Alamat Pelangggan</label>
-            <input type="text" value="{{$pelanggan->alamat}}" class="form-control" id="alamat" name="alamat" placeholder="example : Peturen">
-          </div>
-          <div class="form-group row col-6">
-            <label for="telepon" style="font-size: 15px">Telepon</label>
-            <input type="text" value="{{$pelanggan->telepon}}" class="form-control" id="telepon" name="telepon" placeholder="example : 089">
-          </div>
-    
-      
-				</table>
+            <label for="nama_pelanggan"style="font-size: 15px" style="color: black">Nama Pelanggan</label>
+            <input style="color: black" type="text" value="{{$pelanggan->nama_pelanggan}}" class="form-control" id="nama_pelanggan" name="nama_pelanggan" placeholder="example : Murdiyono">
+        </div>
+        <div class="form-group row col-6">
+            <label for="alamat"style="font-size: 15px" style="color: black">Alamat Pelangggan</label>
+            <input style="color: black" type="text" value="{{$pelanggan->alamat}}" class="form-control" id="alamat" name="alamat" placeholder="example : Peturen">
+        </div>
+        <div class="form-group row col-6">
+            <label for="telepon" style="font-size: 15px; color: black">Telepon</label>
+            <input style="color: black" type="text" value="{{$pelanggan->telepon}}" class="form-control" id="telepon" name="telepon" placeholder="example : 089">
+        </div>
         <div class="card-footer">
           <button onclick="withToastSuccess() type="submit" class="btn btn-primary">
             <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan
@@ -41,7 +37,7 @@
           <a href="{{route('pelanggan.index')}}" class="btn btn-danger">Kembali</a>
         </div>
 			
-		</div>
+		  </div>
     </form>
-  </div>
+</div>
 @endsection
