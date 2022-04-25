@@ -8,43 +8,35 @@
     {{-- <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" > --}}
     <title>Document</title>
     <style>
+          body {
+            padding: 5px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
         table {
-	max-width: 100%;
-	max-height: 100%;
-}
-body {
-	padding: 5px;
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-table th,
-table td {
-	padding: .625em;
-  text-align: center;
-}
-table .kop:before {
-	content: ': ';
-}
-.left {
-	text-align: left;
-}
-table #caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-table.border {
-  width: 100%;
-  border-collapse: collapse
-}
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            border-collapse: collapse;
+            position: relative;
+            width: 5px;
+            border: 1px solid #000000;
+        }
+        table, th, td{
+                /* padding: 2px 5px; */
+                text-align: left;
+        }        
+        table .tr1 th{
+                background: #111111;
+                color: #fff;
+                font-weight: normal;
 
-table.border tbody th, table.border tbody td {
-  border: thin solid #000;
-  padding: 2px
-}
-.ttd td, .ttd th {
-	padding-bottom: 4em;
-}
+            }
+        table tr:hover {
+            background-color: #8b1818;
+        }
+        table tr:nth-child(even) {
+            background-color: #d3d3d3;
+        }
     </style>
 </head>
 <body>
@@ -57,54 +49,47 @@ table.border tbody th, table.border tbody td {
     </div>
     <br>
 <div id="printable">
-    <table class="table table-bordered " >
-        <!--Judul Tabel -->
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Nama Barang</th>
-                <th>Ukuran</th>
-                <th>Harga Satuan</th>
-                <th>Terjual</th>
-                <th>Diskon</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($inboxs as $penjualan)
-            <tr>
-                <td>
-                    {{$loop->iteration}}
-                </td>
-                <td>
-                    {{date('d M Y',strtotime($penjualan->tgl_trx))}}
-                </td>
-                <td>
-                    {{$penjualan->trx_detail->barang->jenis_barang}}
-                </td>
-                <td>
-                    {{$penjualan->trx_detail->barang->ukuran_barang}}
-                </td>
-                <td>
-                    {{$penjualan->trx_detail->barang->harga}}
-                </td>
-                <td>
-                    {{$penjualan->trx_detail->qty}}
-                </td>
-                <td>
-                    {{$penjualan->trx_detail->diskon}}
-                </td>
-                <td>
-                    {{$penjualan->total_bayar}}
-                </td>
-                
-            </tr>
-                
-            @endforeach
-        </tbody>
-      
-    </table>
+    <div class="container">
+        <table class="table " border="1" >
+            <!--Judul Tabel -->
+            <thead>
+                <tr class="tr1">
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Nama Barang</th>
+                    <th>Ukuran</th>
+                    <th>Harga Satuan</th>
+                    <th>Terjual</th>
+                    <th>Diskon</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $no = 1 @endphp
+                @foreach ($Trx_header as $header)
+                @foreach ($Trx_detail as $detail)
+                        @if ($header->id_trx == $detail->id_trx)
+                            @foreach ($barang as $brg)
+                            @if ($detail->barang_id == $brg->kode_barang)
+                            <tr>
+                                <td>{{$no++}}</td>
+                                        <td>{{date('d-m-Y',strtotime($header->tgl_trx))}}</td>
+                                        <td> {{$brg->jenis_barang}}</td>
+                                        <td>{{$brg->ukuran_barang}}</td>
+                                        <td>{{$brg->harga}}</td>
+                                        <td>{{$detail->qty}}</td>
+                                        <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
+                                        <td>Rp.{{number_format($header->total_bayar,0,',','.')}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach  
+                @endforeach
+            </tbody>
+        
+        </table>
+    </div>
 </div>
 
 </body>

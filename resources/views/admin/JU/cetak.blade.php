@@ -8,43 +8,22 @@
     {{-- <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" > --}}
     <title>Document</title>
     <style>
+        body {
+            padding: 5px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
         table {
-	max-width: 100%;
-	max-height: 100%;
-}
-body {
-	padding: 5px;
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-table th,
-table td {
-	padding: .625em;
-  text-align: center;
-}
-table .kop:before {
-	content: ': ';
-}
-.left {
-	text-align: left;
-}
-table #caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-table.border {
-  width: 100%;
-  border-collapse: collapse
-}
-
-table.border tbody th, table.border tbody td {
-  border: thin solid #000;
-  padding: 2px
-}
-.ttd td, .ttd th {
-	padding-bottom: 4em;
-}
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #000000;
+        }
+        table, th, td{
+            padding: 8px 20px;
+            
+        }
     </style>
 </head>
 <body>
@@ -53,48 +32,46 @@ table.border tbody th, table.border tbody td {
         <div style="font-size: 20px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
         <div style="font-size: 17px"> JURNAL UMUM</div>
-        <div style="font-size: 17px"> Per 23 Agustus 2013</div>
+        <div style="font-size: 17px"> Per {{$dt}}</div>
     </div>
     <br>
 <div id="printable">
     <div class="container">
-    <table class="table table-bordered " border="0" >
-    <thead>
-        <tr>
-            <th>Tanggal</th>
-            <th>Keterangan</th>
-            <th>Reff</th>
-            <th>Debet</th>
-            <th>Kredit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($Jurnalheader as $header)
-        <tr style="background:lightblue;">
-            <td >{{$header->tanggal}}</td>
-                <td><b>{{$header->keterangan}}</b></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
+        <table class="table" border="" >
+            <thead>
+                <tr style="background-color: rgb(0, 0, 0); color: white">
+                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th>Reff</th>
+                    <th>Debet</th>
+                    <th>Kredit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($Jurnalheader as $header)
+                    <tr style="background:lightblue;">
+                        <td style="text-align: center">{{date('d F Y',strtotime($header->tanggal))}}</td>
+                        <td><b>{{$header->keterangan}}</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
-            @foreach ($Jurnaldetail as $detail)
-                @if ($detail->id_jurnal == $header->id_jurnal)
-                <tr>
-                    <td></td>
-                    <td>{{$detail->Akun->nama_akun}}</td>
-                    <td></td>
-                    <td>{{$detail->debit > 0 ? $detail->debit : null}}</td>
-                    <td>{{$detail->kredit > 0 ? $detail->kredit : null }}</td>
-                </tr>  
-                    
-                @endif
-            @endforeach
-        @endforeach
-    </tbody>
-    </table>
-</div>
+                    @foreach ($Jurnaldetail as $detail)
+                        @if ($detail->id_jurnal == $header->id_jurnal)
+                            <tr>
+                                <td></td>
+                                <td>{{$detail->Akun->nama_akun}}</td>
+                                <td></td>
+                                <td style="text-align: center">{{$detail->debit > 0 ? $detail->debit : null}}</td>
+                                <td style="text-align: center">{{$detail->kredit > 0 ? $detail->kredit : null }}</td>
+                            </tr>  
+                        @endif
+                    @endforeach
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 </body>

@@ -27,7 +27,7 @@
             <h4 style="font-size: 18px">USERS</h4>
           </div>
           <div class="card-body" style="font-size: 18px">
-            10
+            {{$user}}
           </div>
         </div>
       </div>
@@ -94,15 +94,16 @@
 
 
 
+
 @endsection
 @push('Awal')
 @endpush
 @push('Akhir')
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{asset('assets/js/highcharts.js')}}"></script>
 <script style="text/javascript">
          var pendapatan = <?php echo json_encode($piutangdagang) ?>;
           var pend = <?php echo json_encode($pendapatan) ?>;
-          var bulan = <?= json_encode($bulanpiutang)?>;
+          
        
         
          Highcharts.chart('chartlaporan', {
@@ -110,10 +111,10 @@
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Statistik Pedapatan Penjualan'
     },
     subtitle: {
-        text: 'Source: WorldClimate.com'
+        text: 'Material Kayu Lancar Jaya'
     },
     xAxis: {
         categories: [

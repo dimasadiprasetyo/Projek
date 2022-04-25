@@ -7,11 +7,8 @@ use Illuminate\Http\Request;
 
 class AkunController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    //index
     public function index()
     {
         $Akuns = Akun::all();
@@ -19,23 +16,14 @@ class AkunController extends Controller
         return view('admin.Akun.index', compact('Akuns'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //create
     public function create()
     {
         // $akuns = Akun::select('id', 'id_akun')->get();
         return view('admin.Akun.tambah');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //store    
     public function store(Request $request)
     {
         $validation = $request->validate([
@@ -57,36 +45,17 @@ class AkunController extends Controller
         ]);
         return redirect(route('akun.index'))->withToastSuccess("Data Berhasil Ditambahkan");
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Akun  $akun
-     * @return \Illuminate\Http\Response
-     */
+    //show
     public function show(Akun $akun)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Akun  $akun
-     * @return \Illuminate\Http\Response
-     */
+    //edit
     public function edit(Akun $akun)
     {
         return view('admin.Akun.edit', compact('akun'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Akun  $akun
-     * @return \Illuminate\Http\Response
-     */
+    //update/edit
     public function update(Request $request, Akun $akun)
     {
         $akun->update([
@@ -98,13 +67,7 @@ class AkunController extends Controller
         ]);
         return redirect(route('akun.index'))->withToastSuccess("Data Berhasil Di edit");
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Akun  $akun
-     * @return \Illuminate\Http\Response
-     */
+    //destroy/hapus
     public function destroy(Akun $akun)
     {
         //

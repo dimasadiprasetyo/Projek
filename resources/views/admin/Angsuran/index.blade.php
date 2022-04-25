@@ -31,8 +31,8 @@
                         <td  style="color: black">{{$loop->iteration}}</td>
                         <td  style="color: black">{{$header->id_trx}}</td>
                         <td  style="color: black">{{$header->Pelanggan->nama_pelanggan}}</td>
-                        <td  style="color: black">{!! date('d M Y',strtotime($header->tgl_trx))!!}</td>
-                        <td  style="color: black">{!! date('d M Y',strtotime($header->tgl_jatuhtemp)) !!}</td>
+                        <td  style="color: black">{!! date('d F Y',strtotime($header->tgl_trx))!!}</td>
+                        <td  style="color: black">{!! date('d F Y',strtotime($header->tgl_jatuhtemp)) !!}</td>
                         <td  style="color: black">Rp.{{number_format($header->total_bayar, 0,',','.')}}</td>
                         <td  style="color: black">Rp.{{number_format($header->kurang_bayar, 0,',','.')}}</td>
                         <td>

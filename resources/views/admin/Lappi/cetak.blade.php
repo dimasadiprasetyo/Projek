@@ -8,43 +8,33 @@
     {{-- <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" > --}}
     <title>Document</title>
     <style>
+        body {
+            padding: 5px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
         table {
-	max-width: 100%;
-	max-height: 100%;
-}
-body {
-	padding: 5px;
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-table th,
-table td {
-	padding: .625em;
-  text-align: center;
-}
-table .kop:before {
-	content: ': ';
-}
-.left {
-	text-align: left;
-}
-table #caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-table.border {
-  width: 100%;
-  border-collapse: collapse
-}
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                border-collapse: collapse;
+                width: 20%;
+                border: 1px solid #000000;
+        }
+        table, th, td{
+            padding: 3px 6px;
+            
+        }
+        table .tr1 th{
+                background: #111111;
+                color: #fff;
+                font-weight: normal;
+        }
+        table .tr2 td{
+                background: #111111;
+                color: #fff;
+                font-weight: normal;
+        }
 
-table.border tbody th, table.border tbody td {
-  border: thin solid #000;
-  padding: 2px
-}
-.ttd td, .ttd th {
-	padding-bottom: 4em;
-}
     </style>
 </head>
 <body>
@@ -58,10 +48,10 @@ table.border tbody th, table.border tbody td {
     <br>
 <div id="printable">
     <div class="container">
-    <table class="table table-bordered " >
+    <table class="table " border="1" >
         <!--Judul Tabel -->
         <thead>
-            <tr>
+            <tr class="tr1">
                 <th>No</th>
                 <th>Tanggal</th>
                 <th>Id Transaksi</th>
@@ -76,12 +66,12 @@ table.border tbody th, table.border tbody td {
             @foreach ($Trxheader as $piutang)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{date('d-m-Y',strtotime($piutang->tgl_trx))}}</td>
+                <td>{{date('d/m/y',strtotime($piutang->tgl_trx))}}</td>
                 <td>{{$piutang->id_trx}}</td>
                 <td>{{$piutang->Pelanggan->nama_pelanggan}}</td>
                 <td>{{$piutang->jenis_transaksi}}</td>
-                <td>{{$piutang->total_bayar}}</td>
-                <td>{{$piutang->kurang_bayar}}</td>
+                <td>RP.{{number_format($piutang->total_bayar,0,',','.')}}</td>
+                <td>Rp.{{number_format($piutang->kurang_bayar,0,',','.')}}</td>
                 <td>{{$piutang->status_trx}}
                 </td> 
             </tr>
@@ -89,8 +79,9 @@ table.border tbody th, table.border tbody td {
             @endforeach
         </tbody>
         <tr>
-            <td colspan="6" class="text-center"><b>Total Piutang</b></td>
-            <td>{{$totalPiutang}}</td>
+            <td colspan="6" class="tr2" style="text-align: center; background-color: black;color: white"><b>Total Piutang</b></td>
+            <td>Rp.{{number_format($totalPiutang,0,',','.')}}</td>
+            <td style="background-color: black"></td>
         </tr>
       
     </table>

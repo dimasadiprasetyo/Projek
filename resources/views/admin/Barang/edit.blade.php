@@ -44,7 +44,7 @@
         </div>
         <div class="card-footer">
           <button type="submit" onclick="withToastSuccess()" class="btn btn-success " ><i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan</button>
-          {{-- <button type="submit" class="btn btn-primary" onclick="withToastSuccess()" >Simpan</button> --}}
+          
           <a href="{{route('barang.index')}}" class="btn btn-danger">Kembali</a>
         </div>
 			

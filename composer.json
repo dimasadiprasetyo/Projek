@@ -15,8 +15,10 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/framework": "^7.29",
+        "laravel/helpers": "^1.5",
         "laravel/tinker": "^2.5",
-        "realrashid/sweet-alert": "^5.0"
+        "realrashid/sweet-alert": "^5.0",
+        "staudenmeir/belongs-to-through": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
@@ -39,6 +41,9 @@
         "psr-4": {
             "App\\": "app/"
         },
+        "files": [
+            "app/Helpers/Terbilang.php"
+        ],
         "classmap": [
             "database/seeds",
             "database/factories"

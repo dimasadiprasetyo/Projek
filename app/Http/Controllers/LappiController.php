@@ -10,20 +10,18 @@ use Illuminate\Http\Request;
 
 class LappiController extends Controller
 {
-    // Admin
-    public function index()
-    {
+    // Index Admin
+    public function index(){
         return view('admin.Lappi.index');
     }
-    // Pemilik
-    public function indexpemilik()
-    {
+
+    // Index Pemilik
+    public function indexpemilik(){
         return view('pemilik.Lappi.index');
     }
     
     // tampil Admin
-    public function tampilindex(Request $request)
-    {   
+    public function tampilindex(Request $request){   
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')
@@ -36,9 +34,9 @@ class LappiController extends Controller
         }
         return view('admin.Lappi.tampil',compact('Trxheader', 'totalPiutang'));
     }
-    // Pemilik
-    public function tampilindexpemilik(Request $request)
-    {   
+
+    // Tampil Pemilik
+    public function tampilindexpemilik(Request $request){   
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')
@@ -52,6 +50,7 @@ class LappiController extends Controller
         return view('pemilik.Lappi.tampil',compact('Trxheader', 'totalPiutang'));
     }
 
+    //print out
     public function cetak(){
         $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')->select('*')->get();
         $totalPiutang = 0;

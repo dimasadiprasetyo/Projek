@@ -1,11 +1,11 @@
 @extends('layout.template')
 @section('title')
-    Laporan Penjualan /
+    Laporan Neraca /
 @endsection
 @section('judul')
 <div class="card-header">
     <h1 style="color: #6565c8;">
-        <font size="5" face="Century Gothic"><i class="fas fa-balance-scale" style='font-size:25px;'></i>&nbsp; KELOLA LAPORAN NERACA</font>
+        <font size="5" face="Century Gothic"><i class="fas fa-balance-scale" style='font-size:25px;'></i>&nbsp; KELOLA LAPORAN NERACA-PEMILIK</font>
     </h1>
 
 </div>
@@ -24,16 +24,15 @@
                         </tr>
                         <tr>
                             <th colspan="4" class="text-center">NERACA</th>
-
                         </tr>
                         <tr>
                             <th colspan="4" class="text-center">Periode {{$dt}}</th>
                         </tr>
-                        <tr style="text-align: center">
-                            <th>Kode Akun</th>
-                            <th>Nama Akun</th>
-                            <th>Debet</th>
-                            <th>Kredit</th>
+                        <tr style="text-align: center" >
+                            <th style="background-color: rgb(0, 0, 0); color: white">Kode Akun</th>
+                            <th style="background-color: rgb(0, 0, 0); color: white">Nama Akun</th>
+                            <th style="background-color: rgb(0, 0, 0); color: white">Debet</th>
+                            <th style="background-color: rgb(0, 0, 0); color: white">Kredit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,16 +62,16 @@
                                 <tr style="text-align: center">
                                     <td>{{$akun->id_akun}}</td>
                                     <td>{{$akun->nama_akun}}</td>
-                                    <td>{{$akun->jenis_akun == 'Debet' ? $totalDebet : 0}}</td>
-                                    <td>{{$akun->jenis_akun == 'Kredit' ? $totalKredit : 0}}</td>
+                                    <td>Rp.{{number_format($akun->jenis_akun == 'Debet' ? $totalDebet : 0,0,',','.')}}</td>
+                                    <td>Rp.{{number_format($akun->jenis_akun == 'Kredit' ? $totalKredit : 0,0,',','.')}}</td>
                                 </tr>
                             @endif
                         @endforeach
                     </tbody>
                     <tr style="text-align: center">
-                                <td colspan="2" style="background: grey"><b>Jumlah</b></td>
-                                <td><b>{{$totalDebet}}</b></td>
-                                <td><b>{{$totalKredit}}</b></td>
+                                <td colspan="2" style="background: rgb(0, 0, 0); color: white"><b>Jumlah</b></td>
+                                <td><b>Rp.{{number_format($totalDebet,0,',','.')}}</b></td>
+                                <td><b>Rp.{{number_format($totalKredit,0,',','.')}}</b></td>
                                 
                     </tr>
                 </table>

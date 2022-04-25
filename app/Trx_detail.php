@@ -8,6 +8,7 @@ class Trx_detail extends Model
 {
     protected $primaryKey = 'id_trx';
     protected $keyType = 'char';
+    protected $table = 'trx_details';
     public $incrementing = false;
     protected $fillable = ['id_trx','barang_id','qty','diskon','total_harga','created_at','updated_at'];
 

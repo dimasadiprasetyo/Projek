@@ -10,40 +10,37 @@ use Illuminate\Http\Request;
 
 class NeracaController extends Controller
 {
-    // Admin
-    public function index()
-    {
-
+    // Index Admin
+    public function index(){
         return view('admin.Neraca.awal');
     }
-    // Pemilik
-    public function indexpemilik()
-    {
 
+    // Index Pemilik
+    public function indexpemilik(){
         return view('pemilik.Neraca.awal');
     }
-    // Admin
-    public function tampil(Request $request)
-    {
+
+    // Tampil Admin
+    public function tampil(Request $request){
 
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
+        ->whereMonth('tanggal', '=', $month)->where('status_posting','=',1)->with('Jurnal_detail')->get();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));
         }
         $akuns = Akun::all();
         return view('admin.Neraca.index',compact('akuns','Jurnalheader','dt'));
     }
-    // Pemilik
-    public function tampilpemilik(Request $request)
-    {
+
+    // Tampil Pemilik
+    public function tampilpemilik(Request $request){
 
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->with('Jurnal_detail')->get();
+        ->whereMonth('tanggal', '=', $month)->where('status_posting','=',1)->with('Jurnal_detail')->get();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));
         }
@@ -51,8 +48,9 @@ class NeracaController extends Controller
         return view('pemilik.Neraca.index',compact('akuns','Jurnalheader','dt'));
     }
 
+    // print out
     public function cetak(){
-        $Jurnalheader = Jurnal_header::select('*')->get();
+        $Jurnalheader = Jurnal_header::select('*')->where('status_posting','=',1)->get();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));
         }
@@ -60,59 +58,5 @@ class NeracaController extends Controller
         $pdf = PDF::loadview('admin.Neraca.cetak', compact('Jurnalheader','akuns','dt'));
         return $pdf->stream();
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Neraca  $neraca
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Neraca $neraca)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Neraca  $neraca
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Neraca $neraca)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Neraca  $neraca
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Neraca $neraca)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Neraca  $neraca
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Neraca $neraca)
-    {
-        //
-    }
+    
 }

@@ -16,7 +16,7 @@ class barang extends Model
         return  $this->hasMany('App\Trx_header','barang_id','kode_barang');
     }
     public function trx_detail(){
-        return  $this->hasMany('App\Trx_detail','barang_id','kode_barang');
+        return  $this->hasManyThrough('App\Trx_detail','barang_id','kode_barang');
     }
     public function angsuran(){
         return  $this->hasMany('App\Angsuran','kode_barang','kode_angsuran');

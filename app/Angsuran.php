@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Angsuran extends Model
 {
+    
     protected $fillable = ['kode_angsuran','tanggal_ang','id_trx','angsuran_ke','jml_bayar','kurang_bayar','created_at','updated_at'];
 
     public function Trx_header()
@@ -14,7 +15,7 @@ class Angsuran extends Model
     }
     public function Trx_detail()
     {
-        return  $this->belongsTo('App\Trx_detail','id_trx','id_trx');
+        return  $this->belongsTo('App\Trx_detail','kode_angsuran','id_trx');
     }
     public function Pelanggan()
     {

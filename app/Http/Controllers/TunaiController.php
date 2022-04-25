@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Response;
 
 class TunaiController extends Controller
 {
-
+    //tampil
     public function create(){
         $pelanggans=Pelanggan::all();
         $barangs=barang::all();
@@ -29,6 +29,7 @@ class TunaiController extends Controller
         return view('admin.Trxtunai.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);
     }
 
+    //tambah detail
     public function detailStore(Request $request) {
         $kodebarang=$request->kode_barang;
         $barang = barang::where('kode_barang',$kodebarang)->first();
@@ -48,6 +49,7 @@ class TunaiController extends Controller
         // barang::
     }
 
+    //index detail
     public function detailIndex($id_trx){
         $trx_detail = Trx_detail::where('id_trx', $id_trx)->with('barang')->get();
         $total = 0;
@@ -61,6 +63,7 @@ class TunaiController extends Controller
         
     }
     
+    //store/tambah header
     public function headerstoretunai(Request $request, $id_trx){
         // dd($request->all());
         $pelanggans=Pelanggan::all();
@@ -110,22 +113,24 @@ class TunaiController extends Controller
             ]);    
         }
         $total = 0;
-        foreach($transaksiDetail as $trx) {
-            $totalPiutang = $total + $trx->total_harga;
+        foreach($transaksiDetail as $detail) {
+            $total += $detail->total_harga;
         }
+        $total_bayar = $total;
 
         $id_trx = $request->id_trx;
         $tgl_trx = $request->tgl_trx;
         $keterangan = $request->keterangan;
         
-        $total_bayar = $totalPiutang;
         $jenis_trx = 'Tunai';
-        $pdf = PDF::loadView('admin.Trxtunai.nota', compact('id_trx', 'tgl_trx', 'keterangan', 'total_bayar','totalPiutang', 'jenis_trx', 'transaksiDetail'));
+        $pdf = PDF::loadView('admin.Trxtunai.nota', compact('id_trx', 'tgl_trx', 'keterangan', 'total_bayar', 'jenis_trx', 'transaksiDetail'))
+        ->setpaper('A4','potrait');
         return $pdf->stream();
 
         return view('admin.Trxtunai.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);
     }
 
+    //cek stok
     public function cekstok($kode_barang){
         
         $cek = barang::where('kode_barang', $kode_barang)->first();
@@ -133,6 +138,7 @@ class TunaiController extends Controller
         return response()->json($cek);
     }
 
+    //cek kurang
     public function cekkurang($id_trx){
         $trx_detail= Trx_detail::where(['id_trx'=> $id_trx])->get();
         $ttl = 0;
@@ -142,6 +148,8 @@ class TunaiController extends Controller
         return response()->json(['total' => $ttl]);
     
     }
+
+    //stok
     public function stok(Request $request,$kode_barang){
         
         $barang = barang::where(['kode_barang'=>$kode_barang])->first();
@@ -151,19 +159,23 @@ class TunaiController extends Controller
         return response()->json($barang);
     }
 
+    //daftar trx
     public function daftartrx(){
         $Pelanggan = Pelanggan::all();
         $daftar = Trx_header::where('jenis_transaksi','=', 'Tunai')->get();
         
         return view('admin.Trxtunai.daftartunai',compact('daftar'));
     }
+
+    //tidak ada
     public function nota(){
         // $pdf = PDF::loadView('admin.Trxtunai.nota');
         // return $pdf->stream();
 
-        return view('admin.Trxtunai.nota');
+        // return view('admin.Trxtunai.nota');
     }
 
+    
     public function deletedetail($id_trx){
         $detail = Trx_detail::where('id', $id_trx)->first();
         $detail->delete();

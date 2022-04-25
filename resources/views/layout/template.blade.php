@@ -7,6 +7,7 @@
 
   @stack('Awal')
   <!-- General CSS Files -->
+  <link rel="shortcut icon" href="{{asset('assets/LJA.ico')}}">
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/jquery.dataTables.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
@@ -24,23 +25,23 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-</head>
-
-<body>
   <style>
     body {
-  font-family: "Nunito",'Arial Narrow Bold' ;
-  font-size: 16px;
-  color: black;
-  
-  }
-  .table-striped{
-      thead,tr,th{
-        background-color: #4CAF50;
-        color: white;
+      font-family: "Nunito",'Arial Narrow Bold' ;
+      font-size: 16px;
+      color: black;
+      
     }
-  }
+      .table-striped{
+          thead,tr,th{
+            background-color: #4CAF50;
+            color: white;
+        }
+      }
   </style>
+</head>
+
+<body >
     @include('sweetalert::alert')
   <div id="app">
     <div class="main-wrapper">
@@ -72,10 +73,10 @@
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2022<div class="bullet"></div> Design By <a href="https://nauval.in/">DIMAS ADI PRASETYO</a>
+          Copyright &copy; 2022<div class="bullet"></div> Design By <a href="https://nauval.in/">DIMAS ADI PRASETYO-19.120.0005</a>
         </div>
         <div class="footer-right">
-          2.3.0
+          Sispen-Lj V2.1.0
         </div>
       </footer>
     </div>

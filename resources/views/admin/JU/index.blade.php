@@ -1,21 +1,21 @@
 @extends('layout.template')
 @section('title')
-Laporan Penjualan /
+Laporan Jurnal Umum /
 @endsection
 @section('judul')
 <div class="card-header">
 <h1 style="color: #F08080;">
-    <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN JURNAL UMUM</font>
+    <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; LAPORAN JURNAL UMUM</font>
 </h1>
 </div>
 {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}
 @endsection
 @section('content')
 <div style="margin-top: 50px;">
-<div class="card">
+<div class="card" style="background-color: rgb(0, 9, 141)">
     <div class="card-body">
         <div class="container">
-            <form action="{{route('tampil.index')}}" method="post">
+            <form action="{{route('tampil.index')}}" method="get">
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -55,7 +55,7 @@ Laporan Penjualan /
                 <div class="my-4"></div>
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn" style="background-color: rgb(0, 155, 64);color: white">
                             <i class='fas fa-search' style='font-size:13px'></i> 
                             <span style="font-size: 13px"> Lihat</span>
                         </button>

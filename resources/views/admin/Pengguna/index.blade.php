@@ -1,102 +1,68 @@
-@extends('layouts.template')
+@extends('layout.template')
 @section('title')
-    Kategori /
+    User /
 @endsection
-{{-- @section('judul')
-    <u>PENJUALAN TUNAI</u>
-@endsection --}}
+@section('judul')
+    <h1 style="color:black">
+        <font size="5" face="Century Gothic"><i class="fa fa-user" style='font-size:25px;'></i>&nbsp;DATA PENGGUNA </font>
+    </h1>
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between">
-            <a href="#" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Data</a>
-    </div>
+            <a href="{{route('pengguna.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Data</a>
         </div>
-<div class="card-body">
-    <table class="table table-border" id="tabel">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    No
-                </th>
-                <th>
-                    Nama Kavling
-                </th>
-                <th>
-                    Nama Nasabah
-                </th>
-                <th>
-                    Jumlah Bayar
-                </th>
-                <th>
-                    Tanggal
-                </th>
-                <th>
-                    action
-                </th>
-            </tr>
-        </thead>
-        {{-- <tbody style="font-size: 17px">
-            @foreach ($penjualantunais as $penjualan)
-            <tr>
-            <td>
-                {{$loop->iteration}}.
-            </td>
-            <td>
-                <strong>{{$penjualan->datakavling->cluster}}{{$penjualan->datakavling->nomorkavling}}</strong>
-                <br>
-                {{$penjualan->kategori->nama}}
-                <br>    
-                {{$penjualan->subkategori->namasub}}
-                <br>
-                <strong>Rp.{{number_format($penjualan->datakavling->hargacash, 0, ',','.')}}</strong>
-                <br>
-                <a href="#" class="link-primary">Pindah Blok</a>
-            </td>
-            <td>
-                <strong>{{$penjualan->datapembeli->namapembeli}}</strong>
-                <br>
-                NIK: {{$penjualan->datapembeli->nik}}
-                <br>
-                Telp: {{$penjualan->datapembeli->telepon}}
-                <br>
-                <a href="{{route('datapembeli.edit', $penjualan->datapembeli->id)}}" class="link-primary">Perbarui Data Pembeli</a>
-            </td>
-            <td>
-                Tunai Rp.{{number_format($penjualan->bayar, 0, ',','.')}}
-                <br>
-                Promo Rp.{{number_format($penjualan->promo, 0, ',','.')}}
-                <br>
-                <a href="#" class="link-primary">Edit Penjualan</a>
-            </td>
-            <td>
-                {{\Carbon\Carbon::parse($penjualan->tertanggal)->isoFormat('D MMMM Y')}}
-            </td>
-            <td>
-                <a href="{{route('tunai.index', $penjualan->id)}}" class="btn btn-xs btn-primary"><i class="fas fa-plus-square"></i></a>
-                {{-- <a href="{{route("penjualantunai.kwitansi")}}" target="_blank"><i class="fas fa-print" style="size: 300px"></i></a> --}}
-                <form action="#" class="d-inline" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-xs btn-danger" type="submit">
-                        <i class="fas fa-trash-alt fa-1x"></i>    
-                    </button>
-                    </form>
-
-            </td>
-            </tr>    
-            @endforeach
-            
-        </tbody> --}}
-    </table>
-</div>
+    </div>
+    <div class="card-body">
+        <div class="card rounded shadow border-0">
+            <div class="table-responsive">
+                <table class="table" id="tabel">
+                    <thead style="background-color: black; color: white">
+                        <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                            <th style="color: white">No</th>
+                            <th style="color: white">Name</th>
+                            <th style="color: white">Level User</th>
+                            <th style="color: white">E-mail</th>
+                            <th style="color: white">E-mail Verified_at</th>
+                            <th style="color: white; text-align: center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 15px">
+                        @foreach ($pengguna as $user)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->level}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->email_verified_at}}</td>
+                            <td style="text-align: center">
+                                <a href="{{route('pengguna.edit',$user->id)}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit</a>
+                                    <form action="#" class="d-inline delete" method="POST"
+                                                 onsubmit="return confirm('Yakin hapus Data?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;
+                                            Hapus
+                                        </button>
+                                    </form>
+                            </td>
+                        </tr>   
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
 </div>
 @endsection
 @push('Awal')
-    <link rel="stylesheet" href="{{asset('asset/dist/css/jquery.dataTables.min.css')}}">    
+    <link rel="stylesheet" href="{{asset('assets/css/jquery.dataTables.min.css')}}">    
 @endpush
 @push('Akhir')
-    <script src="{{asset('asset/dist/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
 
     <script>
     $(document).ready( function () {

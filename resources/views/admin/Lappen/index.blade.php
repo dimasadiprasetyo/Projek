@@ -5,17 +5,17 @@
 @section('judul')
 <div class="card-header">
     <h1 style="color: #F08080;">
-        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN PENJUALAN</font>
+        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp;LAPORAN PENJUALAN</font>
     </h1>
 </div>
     {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}
 @endsection
 @section('content')
 <div style="margin-top: 50px;">
-    <div class="card">
-        <div class="card-body" style="background-color: black">
+    <div class="card" style="background-color: #040275">
+        <div class="card-body">
             <div class="container">
-                <form action="{{route('lappentampil.index')}}" method="get">
+                <form action="{{route('lappentampil.index')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-6">
@@ -55,7 +55,7 @@
                     <div class="my-4"></div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn" style="background-color: #027523; color: white">
                                 <i class='fas fa-search' style='font-size:13px'></i> <span style="font-size: 13px"> Lihat</span> 
                             </button>
                         </div>
@@ -64,4 +64,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

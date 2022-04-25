@@ -38,10 +38,10 @@
                             <td style="text-align: center">{{$loop->iteration}}</td>
                             <td>{{$barang->kode_barang}}</td>
                             <td>{{$barang->jenis_barang}}</td>
-                            <td>{{$barang->asal_barang}}</td>
-                            <td>{{$barang->ukuran_barang}}</td>
+                            <td style="text-align: center">{{$barang->asal_barang}}</td>
+                            <td style="text-align: center">{{$barang->ukuran_barang}}</td>
                             <td>{{$barang->stok}}</td>
-                            <td>{{$barang->harga}}</td>
+                            <td>Rp.{{number_format($barang->harga,0,',','.')}}</td>
                             <td>
                                 <a class="btn btn-warning" href="{{route('barang.edit',$barang->kode_barang)}}" >
                                     <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit

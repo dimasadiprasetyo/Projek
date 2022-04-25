@@ -4,7 +4,7 @@
 @endsection
 @section('judul')
     <h1 style="color: #F08080;">
-        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN PEMILIK </font>
+        <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; FORM KELOLA LAPORAN PENJUALAN-PEMILIK </font>
     </h1>
     {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}
 @endsection
@@ -27,38 +27,27 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($inboxs as $penjualan)
-                <tr>
-                    <td>
-                        {{$loop->iteration}}
-                    </td>
-                    <td>
-                        {{date('d-m-Y',strtotime($penjualan->tgl_trx))}}
-                    </td>
-                    <td>
-                        {{$penjualan->Pelanggan->nama_pelanggan}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->barang->jenis_barang}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->barang->ukuran_barang}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->barang->harga}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->qty}}
-                    </td>
-                    <td>
-                        {{$penjualan->Trx_detail->diskon}}
-                    </td>
-                    <td>
-                        {{$penjualan->total_bayar}}
-                    </td>
-                    
-                </tr>
-                    
+                @php $no = 1 @endphp
+                @foreach ($Trx_header as $header)
+                @foreach ($Trx_detail as $detail)
+                        @if ($header->id_trx == $detail->id_trx)
+                            @foreach ($barang as $brg)
+                            @if ($detail->barang_id == $brg->kode_barang)
+                            <tr>
+                                <td>{{$no++}}</td>
+                                        <td>{{date('d-m-Y',strtotime($header->tgl_trx))}}</td>
+                                        <td>{{$header->Pelanggan->nama_pelanggan}}</td>
+                                        <td> {{$brg->jenis_barang}}</td>
+                                        <td>{{$brg->ukuran_barang}}</td>
+                                        <td>{{$brg->harga}}</td>
+                                        <td>{{$detail->qty}}</td>
+                                        <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
+                                        <td>Rp.{{number_format($header->total_bayar,0,',','.')}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach  
                 @endforeach
             </tbody>
             

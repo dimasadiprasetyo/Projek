@@ -12,63 +12,50 @@ use Illuminate\Http\Request;
 
 class LappenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    // ---- Admin ------
-    public function index()
-    {
+    
+    // Index Admin 
+    public function index(){
         return view('admin.Lappen.index');           
     }
-    // ---- Pemilik ------
-    public function indexpemilik()
-    {
+
+    // Index Pemilik 
+    public function indexpemilik(){
         return view('pemilik.Lappen.index');           
     }
     
-    // --- Admin ----
-    public function tampilindex(Request $request)
-    {
+    // Tampil Admin
+    public function tampilindex(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
 		
-        $Pelanggan = Pelanggan::all();
-        $Barang = barang::all();
+        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)->whereMonth('tgl_trx', '=', $month)->with('pelanggan')->get();
+        $barang = barang::all();
         $Trx_detail = Trx_detail::all();
-	    $inboxs = Trx_header::whereYear('tgl_trx', '=', $year)
-                      ->whereMonth('tgl_trx', '=', $month)->with('Pelanggan','Trx_detail')->get();
-        // dd($inboxs);
-        return view('admin.Lappen.tampil',compact(['inboxs','Pelanggan','Barang','Trx_detail']));
+        return view('admin.Lappen.tampil',compact('barang','Trx_detail','Trx_header'));
     }
-    // --- Pemilik ----
-    // public function tampilindexpemilik(Request $request)
-    // {
-    //     $month = $request->bulan;
-	//     $year = $request->tahun;
-		
-    //     $Pelanggan = Pelanggan::all();
-    //     $Barang = barang::all();
-    //     $Trx_detail = Trx_detail::all();
-	//     $inboxs = Trx_header::whereYear('tgl_trx', '=', $year)
-    //                   ->whereMonth('tgl_trx', '=', $month)->with('Pelanggan','Trx_detail')->get();
-    //     // dd($inboxs);
-    //     return view('pemilik.Lappen.tampil',compact('inboxs','Pelanggan','Barang','Trx_detail'));
-    // }
 
+    // Tampil Pemilik
+    public function tampilindexpemilik(Request $request){
+        $month = $request->bulan;
+	    $year = $request->tahun;
+		
+        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)->whereMonth('tgl_trx', '=', $month)->with('pelanggan')->get();
+        $barang = barang::all();
+        $Trx_detail = Trx_detail::all();
+        return view('pemilik.Lappen.tampil',compact('barang','Trx_detail','Trx_header'));
+    }
+
+    //print out
     public function cetak(Request $request){
-	    $inboxs = Trx_header::select('*')->get();
-             foreach($inboxs as $date){
+        $Trx_header = Trx_header::select('*')->get();
+        $barang = barang::all();
+        $Trx_detail = Trx_detail::all();
+
+             foreach($Trx_header as $date){
                 $dt = date('M Y',strtotime($date->tgl_trx));
              }
-                $pdf = PDF::loadview('admin.Lappen.cetak', compact('inboxs','dt'));
+                $pdf = PDF::loadview('admin.Lappen.cetak', compact('barang','Trx_detail','Trx_header','dt'))->setPaper('A4','potrait');
                 return $pdf->stream();
     }
 
-    public function destroy(Lappen $lappen)
-    {
-        //
-    }
 }

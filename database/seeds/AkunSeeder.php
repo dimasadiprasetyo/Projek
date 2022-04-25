@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Akun;
-
+use App\User;
+use Illuminate\Support\Str;
 class AkunSeeder extends Seeder
 {
     /**
@@ -13,41 +14,54 @@ class AkunSeeder extends Seeder
     public function run()
     {
         Akun::create([
-            [
-            'id_akun'=>101,
-            'nama_akun'=>'kas',
+            'id_akun'=>'101',
+            'nama_akun'=>'Kas',
             'saldo_awal'=>0,
             'saldo_akhir'=>0,
             'jenis_akun'=>'Debet',
-            ],
-            [
-            'id_akun'=>102,
-            'nama_akun'=>'persediaan barang dagang',
+        ]);
+        Akun::create([
+            'id_akun'=>'102',
+            'nama_akun'=>'Persediaan Barang Dagang',
             'saldo_awal'=>0,
             'saldo_akhir'=>0,
             'jenis_akun'=>'Debet',
-            ],
-            [
-            'id_akun'=>103,
+        ]);
+        Akun::create([
+            'id_akun'=>'103',
             'nama_akun'=>'piutang usaha',
             'saldo_awal'=>0,
             'saldo_akhir'=>0,
             'jenis_akun'=>'Debet',
-            ],
-            [
-            'id_akun'=>400,
+        ]);
+        Akun::create([
+            'id_akun'=>'400',
             'nama_akun'=>'penjualan',
             'saldo_awal'=>0,
             'saldo_akhir'=>0,
             'jenis_akun'=>'Kredit',
-            ],
-            [
+        ]);
+        Akun::create([
             'id_akun'=>402,
             'nama_akun'=>'potongan penjualan',
-            'saldo_awal'=>'0',
-            'saldo_akhir'=>'0',
+            'saldo_awal'=>0,
+            'saldo_akhir'=>0,
             'jenis_akun'=>'Debet',
-            ],
         ]);
+        User::create([
+            'name'=>'Admin',
+            'level'=>'admin',
+            'email'=>'admin@gmail.com',
+            'password'=>bcrypt('12345'),
+            'remember_token'=>Str::random(60),
+        ]);
+        User::create([
+            'name'=>'Pemilik',
+            'level'=>'pemilik',
+            'email'=>'pemilik@gmail.com',
+            'password'=>bcrypt('12345'),
+            'remember_token'=>Str::random(60),
+        ]);
+        
     }
 }
