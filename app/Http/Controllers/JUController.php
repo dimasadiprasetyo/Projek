@@ -61,6 +61,7 @@ class JUController extends Controller
                     ]);
                 }
             $update = Jurnal_header::where("id_jurnal",$id_jurnal)->first();
+            dd($update);
             $update->update([
                 'status_posting'=>'1',
             ]);

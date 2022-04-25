@@ -36,12 +36,16 @@ class PenggunaController extends Controller
         return view('admin.pengguna.edit');
     }
 
-    public function update(UpdatePasswordRequest $request)
-{
+    public function update(UpdatePasswordRequest $request){
     $request->user()->update([
         'password' => Hash::make($request->get('password'))
     ]);
 
     return redirect()->route('pengguna.edit')->withToastSuccess("User Berhasil Ditambahkan");
-}
+    }
+
+    public function destroy(User $user){
+        $user->delete();
+        return redirect(route('pengguna.index'))->with('success','Hapus Sukses');
+    }
 }
