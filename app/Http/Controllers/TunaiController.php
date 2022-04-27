@@ -65,17 +65,17 @@ class TunaiController extends Controller
     
     //store/tambah header
     public function headerstoretunai(Request $request, $id_trx){
-        // dd($request->all());
+        
         $pelanggans=Pelanggan::all();
         $barangs=barang::all();
         $datas=barang::select('kode_barang');
         $tgl=date('dmYHis'); 
         $id_trx = "TRX".$tgl;
         $tglInput = date('Y-m-d');
-        // dd($request->all());
+        
         Trx_header::create([
             'id_trx'=> $request->id_trx,
-            // 'kode_pelanggan'=>'null',
+        
             'tgl_trx'=> $request->tgl_trx,
             'keterangan'=>$request->keterangan,
             'jenis_transaksi'=>'Tunai',

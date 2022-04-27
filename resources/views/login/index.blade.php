@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lancar Jaya | Log in </title>
 
+  <link rel="shortcut icon" href="{{asset('assets/LJA.ico')}}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -64,7 +65,7 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary" style="background:hsla(0, 0%, 100%, 0.767)" class="login-box">
       <div class="card-header text-center">
-        <a href="#" class="h1"><b>SISPEN LJ </b></a>
+        <a href="#" class="h1" style="color: rgb(0, 0, 231)"><b>SISPEN LJ </b></a>
       </div>
       <div class="card-body">
         <p class="login-box-msg">Sign in ke Halaman Login</p>
@@ -109,12 +110,12 @@
           </div>
           <div class="row">
             <div class="col-8">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Remember Me
+              {{-- <div class="icheck-primary">
+                <input type="checkbox" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                <label class="form-check-label" for="remember">
+                  {{ __('Remember Me') }}
                 </label>
-              </div>
+              </div> --}}
             </div>
             <!-- /.col -->
             <div class="col-4">
@@ -124,11 +125,11 @@
           </div>
         </form>
 
-        <div class="social-auth-links text-center mt-2 mb-3">
+        {{-- <div class="social-auth-links text-center mt-2 mb-3">
           <a href="#" class="btn btn-block btn-primary">
             <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
           </a>
-        </div>
+        </div> --}}
         <!-- /.social-auth-links -->
         <p class="mb-0" style="text-align: center">
           <a href="register.html" class="text-center">Sispen-Lj V2.1.0</a>

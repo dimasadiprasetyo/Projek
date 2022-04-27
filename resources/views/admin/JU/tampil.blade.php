@@ -86,10 +86,10 @@
                                     
                                     {{-- <a href="{{route('posting.index', $penjualan->id_jurnal)}}" class="btn btn-warning">
                                         <i class='fas fa-plus' style='font-size:13px'></i> Posting</a> --}}
-                                    <form action="{{route('posting.index',$penjualan->id_trx)}}" class="d-inline delete" method="POST">
+                                    <form action="{{route('posting.index',$penjualan->id_jurnal)}}" class="d-inline delete" method="POST">
                                         @method('PATCH')
                                         @csrf
-                                        <button type="submit" class="btn btn-warning posting" id="posting" data-id="{{$penjualan->id_trx}}">
+                                        <button type="submit" class="btn btn-warning posting" id="posting" data-id="{{$penjualan->id_jurnal}}">
                                             <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Posting
                                         </button>
                                     </form>

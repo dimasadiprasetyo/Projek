@@ -29,6 +29,7 @@ class JUController extends Controller
 	    $year = $request->tahun;
         $Trxheader = Jurnal_header::whereYear('tanggal', '=', $year)
         ->whereMonth('tanggal', '=', $month)->with('trx_header')->get();
+        // dd($Trxheader);
         return view('admin.JU.tampil',compact('Trxheader'));
     }
 
@@ -36,7 +37,8 @@ class JUController extends Controller
     public function tampilpemilik(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
-        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)->get();
+        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)
+                        ->where('status_posting','=',1)->get();
         $Jurnaldetail = Jurnal_detail::with('Akun')->get();
         // dd($Jurnalheader);
         return view('pemilik.JU.tampil',compact('Jurnaldetail','Jurnalheader'));
@@ -61,7 +63,7 @@ class JUController extends Controller
                     ]);
                 }
             $update = Jurnal_header::where("id_jurnal",$id_jurnal)->first();
-            dd($update);
+            // dd($update);
             $update->update([
                 'status_posting'=>'1',
             ]);
@@ -73,7 +75,8 @@ class JUController extends Controller
     public function cetak(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
-        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)->where('status_posting','=',1)->get();
+        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)
+                        ->where('status_posting','=',1)->get();
         $Jurnaldetail = Jurnal_detail::with('Akun')->get();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));

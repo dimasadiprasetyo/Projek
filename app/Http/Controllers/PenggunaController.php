@@ -37,11 +37,11 @@ class PenggunaController extends Controller
     }
 
     public function update(UpdatePasswordRequest $request){
-    $request->user()->update([
-        'password' => Hash::make($request->get('password'))
-    ]);
+        $request->user()->update([
+            'password' => Hash::make($request->get('password'))
+        ]);
 
-    return redirect()->route('pengguna.edit')->withToastSuccess("User Berhasil Ditambahkan");
+     return redirect()->route('pengguna.edit')->withToastSuccess("User Berhasil Ditambahkan");
     }
 
     public function destroy(User $user){

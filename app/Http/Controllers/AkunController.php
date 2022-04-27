@@ -43,7 +43,7 @@ class AkunController extends Controller
             'saldo_akhir'=>$request->saldo_akhir,
             'jenis_akun'=>$request->jenis_akun,
         ]);
-        return redirect(route('akun.index'))->withToastSuccess("Data Berhasil Ditambahkan");
+       
     }
     //show
     public function show(Akun $akun)

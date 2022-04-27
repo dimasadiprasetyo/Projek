@@ -46,7 +46,7 @@ class BukuBesarController extends Controller
 
     // Cetak Admin
     public function cetak(){
-        $Jurnalheader = Jurnal_header::select('*')->where('status_posting','=',1)->get();
+        $Jurnalheader = Jurnal_header::select('*')->where('status_posting','=',1)->where('status_posting','=',1)->get();
         $akuns = Akun::all();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));
