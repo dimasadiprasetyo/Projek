@@ -1,0 +1,10 @@
+1.Trx_details->triggers
+2.trigger name :delete
+  table :trx_details
+  time   :after
+   event : delete
+trigger:
+	BEGIN
+  	  Update barangs SET stok = stok  + OLD.qty
+  	  WHERE kode_barang = OLD.barang_id;
+	END

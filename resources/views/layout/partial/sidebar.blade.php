@@ -24,12 +24,6 @@
                 <i class="fas fa-home" style="color: black" ></i><span style="color: black">Dashboard</span>
               </a>
           </li>
-          {{-- Pengguna --}}
-          <li class="nav-item dropdown" >
-            <a href="{{route('pengguna.index')}}" class="#">
-              <i class="fas fa-users" style="color: black"></i><span style="color: black">Pengguna</span>
-            </a>
-          </li>
           {{-- Akun/Admin --}}
           <li class="nav-item dropdown">
             <a href="{{route('akun.index')}}" class="#">
@@ -42,7 +36,7 @@
               <i class="fas fa-desktop" style="color: black"></i> <span style="color: black">Master</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="{{route('barang.index')}}" style="color: black">Barang</a></li>
+              <li><a class="nav-link" href="{{route('barangindex.tampil')}}" style="color: black">Barang</a></li>
               <li><a class="nav-link" href="{{route('pelanggan.index')}}" style="color: black">Pelanggan</a></li>
             </ul>
           </li>
@@ -79,6 +73,22 @@
                 <i class="fas fa-home" style="color: black" ></i><span style="color: black">Dashboard</span>
               </a>
             </li>
+            {{-- Pengguna --}}
+          <li class="nav-item dropdown" >
+            <a href="{{route('pengguna.index')}}" class="#">
+              <i class="fas fa-users" style="color: black"></i><span style="color: black">Pengguna</span>
+            </a>
+          </li>
+          {{-- Master/Admin --}}
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+              <i class="fas fa-desktop" style="color: black"></i> <span style="color: black">Master</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link" href="{{route('barang.index')}}" style="color: black">Barang</a></li>
+              
+            </ul>
+          </li>
 
             {{-- Pemilik --}}
             <li class="nav-item dropdown">

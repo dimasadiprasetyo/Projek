@@ -21,6 +21,18 @@ class PenggunaController extends Controller
     }
 
     public function store(Request $request){
+        $validation = $request->validate([
+            'name'=> 'required',
+            'level'=>'required',
+            'email'=>'required',
+            'password'=>'required',
+        ],
+        [
+                'name.required'=>'Lengkapi Data!',
+                'level.required'=>'Lengkapi Data!',
+                'email.required'=>'Lengkapi Data!',
+                'password.required'=>'Lengkapi Data!',
+        ]);
         User::create([
             'name'=>$request->name,
             'level'=>$request->level,
@@ -32,19 +44,21 @@ class PenggunaController extends Controller
         return redirect(route('pengguna.index'))->withToastSuccess("User Berhasil Ditambahkan");
     }
 
-    public function edit(){
-        return view('admin.pengguna.edit');
+    public function edit(User $user){
+        return view('admin.pengguna.edit', compact('user'));
     }
 
-    public function update(UpdatePasswordRequest $request){
+    public function update(UpdatePasswordRequest $request, User $user){
         $request->user()->update([
             'password' => Hash::make($request->get('password'))
         ]);
 
+
      return redirect()->route('pengguna.edit')->withToastSuccess("User Berhasil Ditambahkan");
     }
 
-    public function destroy(User $user){
+    public function destroy($id){
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect(route('pengguna.index'))->with('success','Hapus Sukses');
     }

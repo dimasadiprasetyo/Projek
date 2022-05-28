@@ -16,7 +16,7 @@
     <div class="container">
        <div class="card rounded shadow border-0">
             <div class="table-responsive">
-                <table class="table"  >
+                <table class="table">
                     <thead style="background-color: black">
                         <tr style="font-size: 15px; font-family: Georgia, 'Times New Roman', Times, serif">
                             <th style="color: white">Tanggal</th>

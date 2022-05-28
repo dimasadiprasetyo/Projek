@@ -20,24 +20,24 @@
           <br>
           <div class="form-group row col-6">
             <label for="name" style="font-size: 15px" style="color: black">Nama</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="example : Ivanda">
+            <input type="text" class="form-control" id="name" name="name" placeholder="example : Ivanda" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
           </div>
           <div class="form-group row col-6">
               <label for="level" style="font-size: 15px" style="color: black">Level</label>
-              <select class="form-control" name="level">
-                <option>-- Pilih Jenis Level --</option>
+              <select class="form-control" id="level" name="level" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')">
+                <option value ="" disabled selected>-- Pilih Jenis Level --</option>
                 <option >admin</option>
                 <option >pemilik</option>
               </select>
           </div>
           <div class="form-group row col-6">
               <label for="email" style="font-size: 15px" style="color: black">E-Mail</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="example : Mulyadi@google.com">
+              <input type="text" class="form-control" id="email" name="email" placeholder="example : Mulyadi@google.com" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
           </div>
           <div class="form-group row col-6">
             
               <label for="password" style="font-size: 15px" style="color: black">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="example : 12345">
+              <input type="password" class="form-control" id="password" name="password" placeholder="example : 12345" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
               
           </div>
           <div class="form-group row col-6">

@@ -12,6 +12,7 @@
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            font-size: 13px;
             border: 1px solid #000000;
         }
         table, th, td{
@@ -33,16 +34,18 @@
 </head>
 <body>
     
-    <div style="text-align: center">
-        <div style="font-size: 20px"> MATERIAL KAYU LANCAR JAYA</div>
+    <img src="LJA.jpg" style="float: left; height: 70px width: 80px; margin:auto">
+    <div style="margin-left: 16px">
+        <div style="font-size: 17px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
-        <div style="font-size: 17px"> BUKU BESAR</div>
-        <div style="font-size: 17px"> Per {{$dt}}</div>
+        <div style="font-size: 14px"> LAPORAN BUKU BESAR</div>
+        <div style="font-size: 15px; text-align: left "> Periode {{$dt}}</div>
     </div>
+    <br>
     <br>
 <div id="printable">
     @foreach($akuns as $akun)
-        <div style="margin-top: 50px;">
+        <div style="margin-top: 50px; margin-bottom: -35px">
             <div class="card">
                 <div class="card-body">
                     <div class="row mt-6">
@@ -88,6 +91,19 @@
             </div>
         </div>
     @endforeach
+</div>
+<br>
+<br>
+<div style="text-align: center; width: 900px">
+    <span style="width: 20px">Batang, {{$tgl}}</span>
+    <br>
+    <span style="width: 20px">Tanda Tangan</span>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <span style="width: 27px">( Rifki Ivanda )</span>
 </div>
 
 </body>

@@ -20,26 +20,23 @@
           <br>
           <div class="form-group row col-6">
             <label for="id_akun" style="font-size: 15px" style="color: black">ID Akun</label>
-            <input type="text" class="form-control {{ $errors->has('id_akun') ? ' is-invalid' : '' }}" id="id_akun" name="id_akun" placeholder="example : P001">
-            @if($errors->has('id_akun'))
-                  <span class="invalid-feedback">{{ $errors->first('id_akun') }}</span>
-            @endif
+            <input type="text" class="form-control" id="id_akun" name="id_akun" placeholder="example : 101" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
           </div>
+
           <div class="form-group row col-6">
               <label for="nama_akun" style="font-size: 15px" style="color: black">Nama Akun</label>
-              <input type="text" class="form-control {{ $errors->has('nama_akun') ? ' is-invalid' : '' }}" id="nama_akun" name="nama_akun" placeholder="example : Mulyadi">
-              @if($errors->has('nama_akun'))
-                  <span class="invalid-feedback">{{ $errors->first('nama_akun') }}</span>
-              @endif
+              <input type="text" class="form-control"  id="nama_akun" name="nama_akun" placeholder="example : Kas" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
           </div>
+
           <div class="form-group row col-6">
               <label for="jenis_akun" style="font-size: 15px" style="color: black">Jenis Akun</label>
-              <select class="form-control" name="jenis_akun">
-                <option>-- Pilih Jenis Akun --</option>
+              <select class="form-control" name="jenis_akun" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')">
+                <option value="" selected disabled>-- Pilih Jenis Akun --</option>
                 <option value="Debet">DEBET</option>
                 <option value="Kredit">KREDIT</option>
               </select>
           </div>
+
           <div class="card-footer">
             <button onclick="withToastSuccess()" type="submit" class="btn btn-primary">
               <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan

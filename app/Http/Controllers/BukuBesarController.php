@@ -27,10 +27,13 @@ class BukuBesarController extends Controller
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->where('status_posting','=',1)->with('Jurnal_detail')->get();
-        $akuns = Akun::all();
+                        ->whereMonth('tanggal', '=', $month)
+                        ->where('status_posting','=','1')
+                        ->with('Jurnal_detail')->get();
+        // $akuns = Akun::all();
+        $akuns = Akun::whereNotIn('id_akun',[102])->get();
 
-        return view('admin.BB.tampil',compact('akuns','Jurnalheader'));
+        return view('admin.BB.tampil',compact('akuns','Jurnalheader','month','year'));
     }
     // Tampil Pemilik
     public function tampilindexpemilik(Request $request){
@@ -39,19 +42,26 @@ class BukuBesarController extends Controller
 	    $year = $request->tahun;
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
         ->whereMonth('tanggal', '=', $month)->where('status_posting','=',1)->with('Jurnal_detail')->get();
-        $akuns = Akun::all();
+        // $akuns = Akun::all();
+        $akuns = Akun::whereNotIn('id_akun',[102])->get();
 
         return view('pemilik.BB.tampil',compact('akuns','Jurnalheader'));
     }
 
     // Cetak Admin
-    public function cetak(){
-        $Jurnalheader = Jurnal_header::select('*')->where('status_posting','=',1)->where('status_posting','=',1)->get();
-        $akuns = Akun::all();
+    public function cetak(Request $request){
+        $month = $request->month;
+	    $year = $request->year;
+        $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));
         }
-        $pdf = PDF::loadview('admin.BB.cetak', compact('Jurnalheader','akuns','dt'))->setpaper('a4','potrait');
+        // $akuns = Akun::all();
+        $akuns = Akun::whereNotIn('id_akun',[102])->get();
+        $tgl = date('d-m-Y');
+
+        $pdf = PDF::loadview('admin.BB.cetak', compact('Jurnalheader','akuns','dt','tgl'))->setpaper('F4','potrait');
         return $pdf->stream();
     }
     

@@ -13,7 +13,7 @@
 @section('content')
 <div class="card-body">
     <div class="container">
-        <form action="{{route('cetakJU.index')}}" method="post">
+        <form action="{{route('cetakJU.index')}}" method="post" target="_blank">
             @csrf
             <div class="row">
                 <div class="col-6">
@@ -51,7 +51,7 @@
                 <div class="my-4"></div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-dark">
+                            <button type="submit" class="btn btn-dark" target="_blank">
                                 <i class='fas fa-print' style='font-size:13px'></i> 
                                 <span style="font-size: 13px"> Print</span>
                             </button>
@@ -84,15 +84,16 @@
                                 <td style="text-align: center">Rp.{{number_format($penjualan->trx_header->total_bayar,0,',','.')}}</td>
                                 <td style="text-align: center">
                                     
-                                    {{-- <a href="{{route('posting.index', $penjualan->id_jurnal)}}" class="btn btn-warning">
-                                        <i class='fas fa-plus' style='font-size:13px'></i> Posting</a> --}}
-                                    <form action="{{route('posting.index',$penjualan->id_jurnal)}}" class="d-inline delete" method="POST">
-                                        @method('PATCH')
+                                    <a href="{{route('posting.index',$penjualan->id_jurnal)}}" class="btn btn-warning">
+                                        <i class='fas fa-plus fa-fw'   aria-hidden="true" style='font-size:13px'></i> Posting</a>
+                                        
+                                    {{-- <form action="{{route('posting.index',$penjualan->id_jurnal)}}" class="d-inline delete" method="GET">
+                                        @method('GET')
                                         @csrf
                                         <button type="submit" class="btn btn-warning posting" id="posting" data-id="{{$penjualan->id_jurnal}}">
                                             <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Posting
                                         </button>
-                                    </form>
+                                    </form> --}}
                             </tr>  
                         @endforeach
                     </tbody>
@@ -101,5 +102,13 @@
             </div>
         </div>
 </div>
-
 @endsection
+@push('Akhir')
+    <script>//datatable
+        $(document).ready( function () {
+            $('#tabele').DataTable();
+        });
+        
+    </script>
+    
+@endpush

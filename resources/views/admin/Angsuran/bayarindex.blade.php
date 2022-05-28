@@ -14,8 +14,18 @@
       <!-- /.card-header -->
       <!-- form start -->
       <form action="{{route('bayarang.store',$id_trx)}}" method="POST"> 
-          @csrf
-          <div class="card-body" style="background-color: #349beb;">
+        @csrf
+        <div class="card-body" style="background-color: #349beb;">
+          @if (session('message'))
+            <div class="alert alert-danger alert-dismissible show fade">
+              <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                  <span>x</span>
+                </button>
+                  {{session('message')}}
+              </div>
+            </div>
+          @endif
               <div class="form-group">
                   <div id="notif"></div>
                   <label for="kode_angsuran" style="font-size: 15px; color: black">Kode Angsuran</label>
@@ -31,7 +41,7 @@
                   <div class="form-group col-md-6">
                     <div id="notif"></div>
                     <label for="ang_ke" style="font-size: 15px; color: black">Angsurang Ke-</label>
-                    <input type="number"  class="form-control"  id="ang_ke" name="ang_ke" >
+                    <input type="number"  class="form-control"  id="ang_ke" name="ang_ke" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')" >
                   </div>
                   <div class="form-group col-md-6">
                     <label for="tgl_jatuhtemp" style="font-size: 15px; color: black">Tanggal Jatuh Tempo</label>
@@ -43,7 +53,7 @@
                   </div>
                   <div class="form-group col-md-6">
                       <label for="bayar" style="font-size: 15px; color: black">Bayar</label>
-                      <input type="text" class="form-control" id="bayar" name="bayar">
+                      <input type="text" class="form-control" id="bayar" name="bayar" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
                   <div class="form-group col-md-6">
                       <label for="kurang_bayar" style="font-size: 15px; color: black">kurang Bayar</label>
@@ -80,7 +90,7 @@
                                       <td>Rp.{{number_format($Trxheader->kurang_bayar, 0, ',','.')}}</td>
                                       <td>{{$Trxheader->status_trx}}</td>
                                       <td>
-                                          <a class="btn btn-dark" href="{{route('cetakangdp.index',$Trxheader->id_trx)}}">
+                                          <a class="btn btn-dark" href="{{route('cetakangdp.index',$Trxheader->id_trx)}}" target="_blank">
                                             <i class="fa fa-print fa-fw" style="font-size: 20px" aria-hidden="true"></i>&nbsp;
                                           </a>
                                       </td>
@@ -97,7 +107,7 @@
                                           <td>Rp.{{number_format($piutang->kurang_bayar - $piutang->jml_bayar,0,',','.')}}</td>
                                           <td>{{$Trxheader->status_trx}}</td>
                                           <td>
-                                            <a class="btn btn-dark" href="{{route('cetakang.index',$piutang->kode_angsuran)}}">
+                                            <a class="btn btn-dark" href="{{route('cetakang.index',$piutang->kode_angsuran)}}" target="_blank">
                                               <i class="fa fa-print fa-fw" style="font-size: 20px" aria-hidden="true"></i>&nbsp;
                                             </a>
                                           </td>

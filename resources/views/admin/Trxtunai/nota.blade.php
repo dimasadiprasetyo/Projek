@@ -65,24 +65,27 @@
                 <td class="left kop">{{$id_trx}}</td>{{----}}
                 <td></td>
                 <td>Tanggal</td>
-                <td class="left kop">{{$tgl_trx}}</td>{{----}}
+                <td class="left kop" colspan="2">{{date('d-m-Y',strtotime($tgl_trx))}}</td>{{----}}
+                <td></td>
               </tr>
               <tr>
                 <td colspan="1" style="text-align: left">Keterangan</td>
                 <td class="left kop">{{$keterangan}}</td>{{----}}
-                <td></td>
+                <td colspan="5"></td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td colspan="3"></td>
               </tr>
           </thead>
           <tbody>
-            <tr class="tr1" style="width: 7px; text-align: center">
+            <tr class="tr1" style="width: 7px;">
               <th class="th1" style="width: 7px">No</th>
               <th>Nama Barang</th>
+              <th>Ukuran Barang</th>
               <th>Qty</th>
               <th>Harga</th>
               <th>Diskon</th>
@@ -91,50 +94,54 @@
             @foreach ($transaksiDetail as $detail)
               <tr>  
                 <td>{{$loop->iteration}}</td>
-                <td align="right">{{$detail->barang->jenis_barang}}</td>
-                <td align="right">{{$detail->qty}}</td>
+                <td>{{$detail->barang->jenis_barang}}</td>
+                <td>{{$detail->barang->ukuran_barang}}</td>
+                <td>{{$detail->qty}}</td>
                 <td>Rp.{{number_format($detail->barang->harga,0,',','.')}}</td>
                 <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
                 <td>Rp.{{number_format($detail->total_harga,0,',','.')}}</td>    
               </tr>
             @endforeach
             <tr>
-              <th colspan="5" class="tr2" style="text-align: center; background-color: #000000;color: white"> TOTAL</th>
+              <th colspan="6" class="tr2" style="text-align: center; background-color: #000000;color: white"> TOTAL</th>
               <td style="background-color: rgb(160, 10, 10);color: white">Rp.{{number_format($total_bayar,0,',','.')}}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td colspan="1"></td>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
               <td></td>
             </tr>
             <tr class="ttd">
               <th></th>
-              <th colspan="2">Customer</th>
+              <th colspan="1">Customer</th>
               <th colspan="2"></th>
               <th colspan="2">Hormat Kami</th>
+              <th></th>
             </tr>
             <tr >
               <td></td>
-              <td></td>
-              <td></td>
+              <td colspan="1"></td>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
               <td></td>
             </tr>
             <tr >
               <td></td>
-              <td></td>
-              <td></td>
+              <td colspan="1"></td>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
               <td></td>
             </tr>
             <tr>
               <td></td>
-              <td colspan="2">(...........................)</td>
+              <td style="text-align: center" >(...........................)</td>
               <td colspan="2"></td>
-              <td colspan="2">(Lancar Jaya)</td>
+              <td colspan="2" style="text-align: center">(Lancar Jaya)</td>
+              <td></td>
             </tr>
           </tfoot>
       </table>

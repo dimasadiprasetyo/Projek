@@ -31,17 +31,11 @@ Route::middleware(['auth', 'ceklevel:admin,pemilik'])->group(function () {
 Route::middleware(['auth','ceklevel:admin'])->group(function () {
     
     // ---ADMIN----
-    // Pengguna User
+    
     // Route::resource('pengguna', 'PenggunaController');
-
-    Route::get('penggunaindex', 'PenggunaController@index')->name('pengguna.index');
-    Route::get('penggunacreate', 'PenggunaController@create')->name('pengguna.create');
-    Route::post('penggunastore', 'PenggunaController@store')->name('pengguna.store');
-    Route::get('penggunaedit', 'PenggunaController@edit')->name('pengguna.edit');
-    Route::patch('password', 'PenggunaController@update')->name('pengguna.update');
-
     Route::resource('akun', 'AkunController');
-    Route::resource('barang', 'BarangController');
+    Route::get('barangindex', 'BarangController@tampil')->name('barangindex.tampil');
+    // Route::resource('barangindex', 'BarangController');
     Route::resource('pelanggan', 'PelangganController');
 
     // Tunai
@@ -78,28 +72,29 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
     // Laporan Penjualan
     Route::get('lappen','LappenController@index')->name('lappen.index');
     Route::post('lappentampil','LappenController@tampilindex')->name('lappentampil.index');
-    Route::get('cetaklappen','LappenController@cetak')->name('cetaklappen.index');
+    Route::post('cetaklappen','LappenController@cetak')->name('cetaklappen.index');
     
     // Laporan Piutang
     Route::get('lappi','LappiController@index')->name('lappi.index');
     Route::post('lappitampil','LappiController@tampilindex')->name('lappitampil.index');
-    Route::get('cetaklappi','LappiController@cetak')->name('cetaklappi.index');
+    Route::post('cetaklappi','LappiController@cetak')->name('cetaklappi.index');
 
     // Jurnal Umum
     Route::get('jurnalumum','JUController@index')->name('jurnalumum.index');
     Route::get('tampil','JUController@tampil')->name('tampil.index');
-    Route::patch('posting/{id_jurnal}','JUController@posting')->name('posting.index');
+    Route::get('posting/{id_jurnal}','JUController@posting')->name('posting.index');
+    // Route::patch('posting/{id_jurnal}','JUController@posting')->name('posting.index');
     Route::post('cetakJU','JUController@cetak')->name('cetakJU.index');
     
     // Buku Besar
     Route::get('bukubesar','BukubesarController@index')->name('bukubesar.index');
     Route::post('bukubesartampil','BukubesarController@tampilindex')->name('bukubesartampil.index');
-    Route::get('cetakbb','BukubesarController@cetak')->name('cetakbb.index');
+    Route::post('cetakbb','BukubesarController@cetak')->name('cetakbb.index');
 
     // Neraca
     Route::get('neraca','NeracaController@index')->name('neraca.index');
     Route::post('neracatampil','NeracaController@tampil')->name('neracatampil.index');
-    Route::get('cetak','NeracaController@cetak')->name('cetakneraca.index');
+    Route::post('cetak','NeracaController@cetak')->name('cetakneraca.index');
 
 });
 
@@ -108,6 +103,18 @@ Route::middleware(['auth', 'ceklevel:pemilik'])->group(function () {
     //---------------------------
     //---------------------------
     //---------------------------
+    // Pengguna User
+    Route::get('penggunaindex', 'PenggunaController@index')->name('pengguna.index');
+    Route::get('penggunacreate', 'PenggunaController@create')->name('pengguna.create');
+    Route::post('penggunastore', 'PenggunaController@store')->name('pengguna.store');
+    Route::get('penggunaedit', 'PenggunaController@edit')->name('pengguna.edit');
+    Route::patch('password', 'PenggunaController@update')->name('pengguna.update');
+    Route::delete('penggunadelete/{id}', 'PenggunaController@destroy')->name('pengguna.delete');
+
+    //Barang
+    Route::resource('barang', 'BarangController');
+    Route::delete('select-delete','BarangController@deleteCheckedStudents')->name('select.delete');
+
     // Laporan Penjualan
     Route::get('lappenpemilik','LappenController@indexpemilik')->name('lappen.indexpemilik');
     Route::get('lappentampilpemilik','LappenController@tampilindexpemilik')->name('lappentampil.indexpemilik');

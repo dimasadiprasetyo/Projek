@@ -25,7 +25,7 @@
                             <th style="color: white">Name</th>
                             <th style="color: white">Level User</th>
                             <th style="color: white">E-mail</th>
-                            <th style="color: white">E-mail Verified_at</th>
+                            <th style="color: white">E-mail Verified</th>
                             <th style="color: white; text-align: center">Action</th>
                         </tr>
                     </thead>
@@ -39,11 +39,11 @@
                             <td>{{$user->email_verified_at}}</td>
                             <td style="text-align: center">
                                 <a href="{{route('pengguna.edit',$user->id)}}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit</a>
-                                    <form action="#" class="d-inline delete" method="POST"
-                                                 onsubmit="return confirm('Yakin hapus Data?')">
+                                    <form action="{{route('pengguna.delete',$user->id)}}" class="d-inline delete" method="POST"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus user tersebut?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" class="btn btn-danger" data-id="{{$user->id}}">
                                             <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;
                                             Hapus
                                         </button>

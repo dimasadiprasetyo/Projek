@@ -28,12 +28,14 @@
 </head>
 <body>
     
-    <div style="text-align: center">
-        <div style="font-size: 20px"> MATERIAL KAYU LANCAR JAYA</div>
+    <img src="LJA.jpg" style="float: left; height: 70px width: 80px; margin:auto">
+    <div style="margin-left: 16px">
+        <div style="font-size: 17px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
-        <div style="font-size: 17px"> JURNAL UMUM</div>
-        <div style="font-size: 17px"> Per {{$dt}}</div>
+        <div style="font-size: 14px"> LAPORAN JURNAL UMUM</div>
+        <div style="font-size: 15px; text-align: left "> Periode {{$monthName}} {{$year}}</div>
     </div>
+    <br>
     <br>
 <div id="printable">
     <div class="container">
@@ -71,6 +73,19 @@
                 @endforeach
             </tbody>
         </table>
+            <br>
+            <br>
+            <div style="text-align: center; width: 900px">
+                <span style="width: 20px">Batang, {{$tgl}}</span>
+                <br>
+                <span style="width: 20px">Tanda Tangan</span>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                <span style="width: 27px">( Rifki Ivanda )</span>
+            </div>
     </div>
 </div>
 

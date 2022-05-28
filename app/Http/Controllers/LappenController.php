@@ -28,10 +28,17 @@ class LappenController extends Controller
         $month = $request->bulan;
 	    $year = $request->tahun;
 		
-        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)->whereMonth('tgl_trx', '=', $month)->with('pelanggan')->get();
+        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)
+                      ->whereMonth('tgl_trx', '=', $month)
+                      ->with('pelanggan')->get();
         $barang = barang::all();
         $Trx_detail = Trx_detail::all();
-        return view('admin.Lappen.tampil',compact('barang','Trx_detail','Trx_header'));
+
+        $penjualan = 0;
+        foreach($Trx_header as $trx){
+            $penjualan = $penjualan + $trx->total_bayar;
+        }
+        return view('admin.Lappen.tampil',compact('barang','Trx_detail','Trx_header','month','year','penjualan'));
     }
 
     // Tampil Pemilik
@@ -39,22 +46,41 @@ class LappenController extends Controller
         $month = $request->bulan;
 	    $year = $request->tahun;
 		
-        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)->whereMonth('tgl_trx', '=', $month)->with('pelanggan')->get();
+        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)
+                      ->whereMonth('tgl_trx', '=', $month)
+                      ->with('pelanggan')->get();
         $barang = barang::all();
         $Trx_detail = Trx_detail::all();
-        return view('pemilik.Lappen.tampil',compact('barang','Trx_detail','Trx_header'));
+        $penjualan = 0;
+        foreach($Trx_header as $trx){
+            $penjualan = $penjualan + $trx->total_bayar;
+        }
+        return view('pemilik.Lappen.tampil',compact('barang','Trx_detail','Trx_header','penjualan'));
     }
 
     //print out
     public function cetak(Request $request){
-        $Trx_header = Trx_header::select('*')->get();
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        $dataBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $selectedMonth = str_replace('0','',$month);
+        $monthName = $dataBulan[$selectedMonth -1];
+        
+        $Trx_header = Trx_header::whereYear('tgl_trx', '=', $year)
+                     ->whereMonth('tgl_trx', '=', $month)
+                     ->with('pelanggan')->get();
         $barang = barang::all();
+        $tgl = date('d-m-Y');
         $Trx_detail = Trx_detail::all();
-
-             foreach($Trx_header as $date){
-                $dt = date('M Y',strtotime($date->tgl_trx));
-             }
-                $pdf = PDF::loadview('admin.Lappen.cetak', compact('barang','Trx_detail','Trx_header','dt'))->setPaper('A4','potrait');
+        $penjualan = 0;
+        foreach($Trx_header as $trx){
+            $penjualan = $penjualan + $trx->total_bayar;
+        }
+            //  foreach($Trx_header as $date){
+            //     $dt = date('F Y',strtotime($date->tgl_trx));
+            //  }
+             
+                $pdf = PDF::loadview('admin.Lappen.cetak', compact('barang','Trx_detail','Trx_header','monthName','year','penjualan','month','tgl'))->setPaper('A4','potrait');
                 return $pdf->stream();
     }
 

@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     //login
     public function postlogin(Request $request){
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($request->only('username', 'password'))) {
             return redirect('/dasboard')->with('success','Selamat! Anda telah berhasil Login');
         }
             return redirect('/')->with('message','Email atau Password salah');

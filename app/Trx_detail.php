@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Trx_detail extends Model
 {
+    use SoftDeletes;
     protected $primaryKey = 'id_trx';
     protected $keyType = 'char';
     protected $table = 'trx_details';

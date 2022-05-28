@@ -60,37 +60,39 @@
     <table border="0" cellpadding="0" cellspacing="0" width="200" class="border" style="overflow-x:auto;">
         <thead>
           <tr>
-            <td  class="left">No. Transaksi</td>
+            <td colspan="1" class="left">No. Transaksi</td>
             <td class="left kop">{{$id_trx}}</td>
             <td></td>
             <td  class="left">Tanggal</td>
-            <td colspan="2" class="left kop">{{$tgl_trx}}</td>
+            <td colspan="3" class="left kop">{{date('d-m-Y',strtotime($tgl_trx))}}</td>
           </tr>
           <tr>
             <td  class="left">Nama Pelanggan</td>
             <td class="left kop">{{$kode_pelanggan}}</td>
             <td></td>
             <td  class="left">Tanggal Jatuh Tempo</td>
-            <td colspan="2" class="left kop">{{$tgl_jatuhtemp}}</td>
+            <td colspan="3" class="left kop">{{date('d-m-Y',strtotime($tgl_jatuhtemp))}}</td>
           </tr>
           <tr>
             <td  class="left">Alamat</td>
             <td  class="left kop">{{$alamat}}</td>
             <td></td>
             <td  class="left">Keterangan</td>
-            <td colspan="2" class="left kop">{{$keterangan}}</td>
+            <td colspan="3" class="left kop">{{$keterangan}}</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
+            <td colspan="3"></td>
           </tr>
         </thead>
         <tbody>
           <tr class="tr1" style="width: 7px; text-align: center">
             <th class="th1" style="width: 7px">No</th>
             <th>Nama Barang</th>
+            <th>Ukuran Barang</th>
             <th>Qty</th>
             <th>Harga</th>
             <th>Diskon</th>
@@ -99,20 +101,21 @@
           @foreach ($transaksidetail as $detail)
           <tr>  
             <td>{{$loop->iteration}}</td>
-            <td align="right">{{$detail->barang->jenis_barang}}</td>
-            <td align="right">{{$detail->qty}}</td>
+            <td>{{$detail->barang->jenis_barang}}</td>
+            <td>{{$detail->barang->ukuran_barang}}</td>
+            <td>{{$detail->qty}}</td>
             <td>Rp.{{number_format($detail->barang->harga,0,',','.')}}</td>
             <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
             <td>Rp.{{number_format($detail->total_harga,0,',','.')}}</td>    
           </tr>
           @endforeach
           <tr>
-            <th colspan="5" class="tr2" style="text-align: center; background-color: #cc0101;color: white"> UANG MUKA/DP</th>
+            <th colspan="6" class="tr2" style="text-align: center; background-color: #cc0101;color: white"> UANG MUKA/DP</th>
             <td style="color: rgb(250, 0, 0)">Rp.{{number_format($uangmuka,0,',','.')}}</td>
             
           </tr>
           <tr>
-            <th colspan="5" class="tr2" style="text-align: center; background-color: #000000;color: white"> TOTAL KURANG</th>
+            <th colspan="6" class="tr2" style="text-align: center; background-color: #000000;color: white"> TOTAL KURANG</th>
             <td style="background-color: red;color: white">Rp.{{number_format($total_bayar,0,',','.')}}</td>
             
           </tr>
@@ -120,33 +123,38 @@
         <tfoot>
           <tr>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td colspan="1"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
             <td></td>
           </tr>
           <tr class="ttd">
-            <th colspan="2">Customer</th>
+            <th></th>
+            <th colspan="1">Customer</th>
             <th colspan="2"></th>
             <th colspan="2">Hormat Kami</th>
+            <th></th>
           </tr>
           <tr >
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+              <td colspan="1"></td>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+              <td></td>
           </tr>
           <tr >
             <td></td>
-            <td></td>
-            <td></td>
+            <td colspan="1"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
             <td></td>
           </tr>
           <tr>
-            <td colspan="2">(................................)</td>
-            <td colspan="2"></td>
-            <td colspan="2">(Lancar Jaya)</td>
+            <td></td>
+              <td style="text-align: center" >(...........................)</td>
+              <td colspan="2"></td>
+              <td colspan="2" style="text-align: center">(Lancar Jaya)</td>
+              <td></td>
           </tr>
         </tfoot>
     </table>

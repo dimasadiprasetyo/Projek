@@ -30,8 +30,8 @@ class KreditController extends Controller
         $kodebarang=$request->kode_barang;
         $barang = barang::where('kode_barang',$kodebarang)->first();
         $dis= 0;
-        if($request->qty >= 10){
-            $dis=(25/100)*$barang->harga*$request->qty;
+        if($request->qty >= 30){
+            $dis=(10/100)*$barang->harga*$request->qty;
         }
         $totalHarga = $barang->harga*$request->qty-$dis;
         Trx_detail::create([
@@ -93,7 +93,10 @@ class KreditController extends Controller
         $transaksidetail = Trx_detail::where("id_trx", $request->id_trx)->with('barang')->get();
         $transaksiDetail = Trx_header::where("id_trx", $request->id_trx)->with('barang','Trx_detail','Pelanggan')->get();
 
+        $totalDiskon = 0;
         foreach ($transaksiDetail as $transaksi) {
+            $totalDiskon += $transaksi->Trx_detail->diskon;
+        }
             Jurnal_detail::create([
                 'id_jurnal' => $id_jurnal,
                 'id_akun' => 101,
@@ -114,10 +117,16 @@ class KreditController extends Controller
                 'debit' => 0,
                 'kredit' => $request->total_bayar
             ]);
-        
+            Jurnal_detail::create([
+                'id_jurnal' => $id_jurnal,
+                'id_akun' => 402,
+                'debit' => $totalDiskon,
+                'kredit' => 0
+            ]);
+            
             
             // dd($transaksiDetail);
-        }
+        
         
         $total = 0;
         foreach($transaksiDetail as $trx) {
@@ -141,7 +150,7 @@ class KreditController extends Controller
         $jenis_trx = 'Kredit';
         $pdf = PDF::loadView('admin.Trxkredit.nota', compact('id_trx','kode_pelanggan','alamat',
                             'tgl_jatuhtemp', 'tgl_trx', 'keterangan', 'total_bayar', 'uangmuka',
-                            'jenis_trx', 'transaksiDetail','transaksidetail'));
+                            'jenis_trx', 'transaksiDetail','transaksidetail'))->setPaper('F4','potrait');
         return $pdf->stream();
             return view('admin.Trxkredit.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);
     }

@@ -28,8 +28,14 @@
             </thead>
             <tbody>
                 @php $no = 1 @endphp
+                {{-- @php
+                    $a = 0;
+                @endphp --}}
                 @foreach ($Trx_header as $header)
                 @foreach ($Trx_detail as $detail)
+                {{-- @php
+                    $a += $header->total_bayar;
+                @endphp --}}
                         @if ($header->id_trx == $detail->id_trx)
                             @foreach ($barang as $brg)
                             @if ($detail->barang_id == $brg->kode_barang)
@@ -42,7 +48,7 @@
                                         <td>{{$brg->harga}}</td>
                                         <td>{{$detail->qty}}</td>
                                         <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
-                                        <td>Rp.{{number_format($header->total_bayar,0,',','.')}}</td>
+                                        <td>Rp.{{number_format($detail->total_harga,0,',','.')}}</td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -50,7 +56,11 @@
                     @endforeach  
                 @endforeach
             </tbody>
-            
+            <tr>
+                <td colspan="8" class="text-center"><b>Total Penjualan</b></td>
+                <td>Rp. {{number_format($penjualan,0,',','.')}}</td>
+                <td></td>
+            </tr>
         </table>
     </div>
 </div>

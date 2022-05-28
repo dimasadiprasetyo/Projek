@@ -23,7 +23,7 @@
             <input style="color: black" type="text" value="{{$pelanggan->nama_pelanggan}}" class="form-control" id="nama_pelanggan" name="nama_pelanggan" placeholder="example : Murdiyono">
         </div>
         <div class="form-group row col-6">
-            <label for="alamat"style="font-size: 15px" style="color: black">Alamat Pelangggan</label>
+            <label for="alamat"style="font-size: 15px" style="color: black">Alamat Pelanggan</label>
             <input style="color: black" type="text" value="{{$pelanggan->alamat}}" class="form-control" id="alamat" name="alamat" placeholder="example : Peturen">
         </div>
         <div class="form-group row col-6">

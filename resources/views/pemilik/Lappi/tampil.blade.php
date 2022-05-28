@@ -53,3 +53,12 @@
             </div>
         </div>
     @endsection
+    @push('Akhir')
+    <script>//datatable
+        $(document).ready( function () {
+            $('#tabele').DataTable();
+        });
+        
+    </script>
+    
+    @endpush

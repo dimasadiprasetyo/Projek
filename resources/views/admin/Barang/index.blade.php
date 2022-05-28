@@ -11,11 +11,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">
-        <div class="d-flex justify-content-between">
-            <a href="{{route('barang.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Data</a>
-        </div>
-    </div>
+    
     <div class="card-body">
         <div class="card rounded shadow border-0">
             <div class="table-responsive">
@@ -29,7 +25,6 @@
                             <th style="color: white">Ukuran /Meter</th>
                             <th style="color: white">Stok</th>
                             <th style="color: white">Harga</th>
-                            <th style="color: white; text-align: center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,19 +37,6 @@
                             <td style="text-align: center">{{$barang->ukuran_barang}}</td>
                             <td>{{$barang->stok}}</td>
                             <td>Rp.{{number_format($barang->harga,0,',','.')}}</td>
-                            <td>
-                                <a class="btn btn-warning" href="{{route('barang.edit',$barang->kode_barang)}}" >
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit
-                                </a>
-                                <form action="{{route('barang.destroy',$barang->kode_barang)}}" class="d-inline delete" method="POST"
-                                            onsubmit="return confirm('Yakin Anda Ingin menghapus Data?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger delete" id="delete" data-id="{{$barang->kode_barang}}">
-                                        <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;Hapus
-                                    </button>
-                                </form>
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -10,7 +10,6 @@
 		<style>
 			*{
 				box-sizing: border-box;
-				font-size: 18px;
 				font-family: Times New Roman;
 			}
 			body{
@@ -42,11 +41,13 @@
 		</style>
 	</head>
 		
-	<body style="font-size: 5px">
+	<body style="font-size: 15px">
 		<table width="300" border="0" cellpadding="2" cellspacing="0" style="border: 1px solid #000;">  
 			<tr> 
 				 
-				<td rowspan="6" width="100" style="border-right:1px solid #000;text-align: center">NOTA ANGSURAN </td>  
+				<td rowspan="6" width="100" style="border-right:1px solid #000;text-align: center">
+					<img src="LJA.jpg" alt="" width="125" style="text-align: center">
+				</td>  
 				<td width="120" valign="top" ></td>  
 				<td valign="top" colspan="2" >Tanggal : {{date('d F Y',strtotime($angsurancetak->tanggal_ang))}}</td>  
 				
@@ -63,7 +64,7 @@
 
 			<tr>  
 				<td valign="top" > Uang Sejumlah </td>  
-				<td valign="top" colspan="2" id="terbilang-output" > : <i><strong>{{terbilang($angsurancetak->jml_bayar)}}</strong></i> </td>  
+				<td valign="top" colspan="2" style="font-size: 16px" id="terbilang-output" > : <i><strong>{{terbilang($angsurancetak->jml_bayar)}}</strong></i> </td>  
 				
 			</tr>  
 			
@@ -74,7 +75,7 @@
 			</tr> 
 
 			<tr>  
-				<td valign="bottom" style="background-color: black;color: white" colspan="3"  id="terbilang-input" class="mata-uang" onkeyup="inputTerbilang();"> <h3>Rp {{number_format($angsurancetak->jml_bayar,0,',','.')}}</h3> </td>    
+				<td valign="bottom" style="background-color: black;color: white;font-size: 20px" colspan="3"  id="terbilang-input" class="mata-uang" onkeyup="inputTerbilang();"> <h3>Rp {{number_format($angsurancetak->jml_bayar,0,',','.')}}</h3> </td>    
 			</tr>  
 		</table>  
 		<style>  

@@ -65,7 +65,7 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary" style="background:hsla(0, 0%, 100%, 0.767)" class="login-box">
       <div class="card-header text-center">
-        <a href="#" class="h1" style="color: rgb(0, 0, 231)"><b>SISPEN LJ </b></a>
+        <a href="#" class="h1" style="color: rgba(116, 116, 255, 0.938)"><b>SISPEN LJ </b></a>
       </div>
       <div class="card-body">
         <p class="login-box-msg">Sign in ke Halaman Login</p>
@@ -88,7 +88,7 @@
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <input type="text" class="form-control" name="username" placeholder="Username">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-append">

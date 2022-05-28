@@ -20,32 +20,24 @@
         <br>
         <div class="form-group row col-6">
           <label for="kode_pelanggan" style="font-size: 15px;color: black">ID Pelanggan</label>
-          <input type="text" class="form-control {{ $errors->has('kode_pelanggan') ? ' is-invalid' : '' }}" id="kode_pelanggan" name="kode_pelanggan" placeholder="example : PLG001">
-          @if($errors->has('kode_pelanggan'))
-              <span class="invalid-feedback">{{ $errors->first('kode_pelanggan') }}</span>
-          @endif
+          <input type="text" class="form-control" id="kode_pelanggan" name="kode_pelanggan" placeholder="example : PLG001" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
         </div>
+
         <div class="form-group row col-6">
             <label for="nama_pelanggan" style="font-size: 15px; color: black">Nama Pelanggan</label>
-            <input type="text" class="form-control {{ $errors->has('nama_pelanggan') ? ' is-invalid' : '' }}" id="nama_pelanggan" name="nama_pelanggan" placeholder="example : Murdiyono">
-            @if($errors->has('nama_pelanggan'))
-              <span class="invalid-feedback">{{ $errors->first('nama_pelanggan') }}</span>
-            @endif
+            <input type="text" class="form-control " id="nama_pelanggan" name="nama_pelanggan" placeholder="example : Murdiyono" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
         </div>
+
         <div class="form-group row col-6">
-            <label for="alamat" style="font-size: 15px; color: black">Alamat Pelangggan</label>
-            <input type="text" class="form-control {{ $errors->has('alamat') ? ' is-invalid' : '' }}" id="alamat" name="alamat" placeholder="example : Peturen">
-            @if($errors->has('alamat'))
-              <span class="invalid-feedback">{{ $errors->first('alamat') }}</span>
-            @endif
+            <label for="alamat" style="font-size: 15px; color: black">Alamat Pelanggan</label>
+            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="example : Peturen" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
         </div>
+
         <div class="form-group row col-6">
             <label for="telepon" style="font-size: 15px; color: black">Telepon</label>
-            <input type="text" class="form-control {{ $errors->has('telepon') ? ' is-invalid' : '' }}" id="telepon" name="telepon" placeholder="example : 089">
-            @if($errors->has('telepon'))
-              <span class="invalid-feedback">{{ $errors->first('telepon') }}</span>
-            @endif
+            <input type="text" class="form-control" id="telepon" name="telepon" placeholder="example : 089" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
         </div>
+        
         <div class="card-footer">
           <button onclick="withToastSuccess() type="submit" class="btn btn-primary">
             <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan

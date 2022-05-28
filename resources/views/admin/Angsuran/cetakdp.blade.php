@@ -8,7 +8,7 @@
 
 		<title>Document</title>
 		<style>
-			*{
+			{
 				box-sizing: border-box;
 				font-size: 18px;
 				font-family: Times New Roman;
@@ -28,7 +28,6 @@
 				border-collapse: collapse;
 			}
 			table .td1{
-				background: rgba(20, 20, 20, 0.767)
 				width: 20%;
 				height: 7%;
 			}
@@ -47,11 +46,13 @@
 		</style>
 	</head>
 	
-	<body style="font-size: 5px">
+	<body style="font-size: 15px">
 		<table width="300" border="0" cellpadding="2" cellspacing="0" style="border: 1px solid #000;">  
 			<tr> 
 				 
-				<td rowspan="6" width="100" class="td1" style="border-right:1px solid #000;text-align: center;"> </td>  
+				<td rowspan="6" width="100" class="td1" style="border-right:1px"> 
+					<img src="LJA.jpg" alt="" width="125" style="text-align: center">
+				</td>  
 				<td width="120" valign="top" ></td>  
 				<td valign="top" colspan="2" >Tanggal : {{date('d F Y',strtotime($Trxcetak->tgl_trx))}} </td>  
                 
@@ -69,7 +70,7 @@
 
 			<tr>  
 				<td valign="top" > Uang Sejumlah </td>  
-				<td valign="top" colspan="2" id="terbilang-output" > : <i><strong>{{terbilang($Trxcetak->total_bayar - $Trxcetak->kurang_bayar)}}</strong></i> </td>  
+				<td valign="top" style="font-size: 16px" colspan="2" id="terbilang-output" > : <i><strong><u>{{terbilang($Trxcetak->total_bayar - $Trxcetak->kurang_bayar)}}</u></strong></i> </td>  
 			</tr>  
 			
 			<tr>  
@@ -79,7 +80,7 @@
 			</tr> 
 
 			<tr>  
-				<td valign="bottom" colspan="3"  style="background-color: rgb(54, 54, 54);color: white"  id="terbilang-input" class="mata-uang" onkeyup="inputTerbilang();"> <h3>Rp {{number_format($Trxcetak->total_bayar - $Trxcetak->kurang_bayar,0,',','.')}},-</h3> </td>  
+				<td valign="bottom" colspan="3"  style="background-color: rgb(54, 54, 54);color: white; font-size: 20px"  id="terbilang-input" class="mata-uang" onkeyup="inputTerbilang();"> <h3>Rp {{number_format($Trxcetak->total_bayar - $Trxcetak->kurang_bayar,0,',','.')}},-</h3> </td>  
 				  
 			</tr>  
 		</table>  

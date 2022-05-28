@@ -25,13 +25,13 @@ class NeracaController extends Controller
 
         $month = $request->bulan;
 	    $year = $request->tahun;
+        // dd($request->all());
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->where('status_posting','=',1)->with('Jurnal_detail')->get();
-        foreach($Jurnalheader as $date){
-            $dt = date('M Y',strtotime($date->tanggal));
-        }
-        $akuns = Akun::all();
-        return view('admin.Neraca.index',compact('akuns','Jurnalheader','dt'));
+        ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
+        // dd($Jurnalheader);
+        
+        $akuns = Akun::whereNotIn('id_akun',[402,102])->get();
+        return view('admin.Neraca.index',compact('akuns','Jurnalheader','month','year'));
     }
 
     // Tampil Pemilik
@@ -40,22 +40,24 @@ class NeracaController extends Controller
         $month = $request->bulan;
 	    $year = $request->tahun;
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->where('status_posting','=',1)->with('Jurnal_detail')->get();
-        foreach($Jurnalheader as $date){
-            $dt = date('M Y',strtotime($date->tanggal));
-        }
-        $akuns = Akun::all();
-        return view('pemilik.Neraca.index',compact('akuns','Jurnalheader','dt'));
+        ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
+        
+        $akuns = Akun::whereNotIn('id_akun',[402,102])->get();
+        return view('pemilik.Neraca.index',compact('akuns','Jurnalheader'));
     }
 
     // print out
-    public function cetak(){
-        $Jurnalheader = Jurnal_header::select('*')->where('status_posting','=',1)->get();
+    public function cetak(Request $request){
+        $month = $request->month;
+	    $year = $request->year;
+        $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
         foreach($Jurnalheader as $date){
             $dt = date('M Y',strtotime($date->tanggal));
         }
-        $akuns = Akun::all();
-        $pdf = PDF::loadview('admin.Neraca.cetak', compact('Jurnalheader','akuns','dt'));
+        $akuns = Akun::whereNotIn('id_akun',[402,102])->get();
+        $tgl = date('d-m-Y');
+        $pdf = PDF::loadview('admin.Neraca.cetak', compact('Jurnalheader','akuns','dt','tgl'));
         return $pdf->stream();
     }
     

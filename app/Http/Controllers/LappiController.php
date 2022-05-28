@@ -51,16 +51,26 @@ class LappiController extends Controller
     }
 
     //print out
-    public function cetak(){
-        $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')->select('*')->get();
+    public function cetak(Request $request){
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        $dataBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $selectedMonth = str_replace('0','',$month);
+        $monthName = $dataBulan[$selectedMonth -1];
+        
+        $Trxheader = Trx_header::where('jenis_transaksi','=', 'Kredit')
+        ->with('Pelanggan','Trx_detail','barang')
+        ->whereYear('tgl_trx', '=', $year)
+        ->whereMonth('tgl_trx', '=', $month)->get();
+        $tgl = date('d-m-Y');
         $totalPiutang = 0;
         foreach($Trxheader as $trx) {
             $totalPiutang = $totalPiutang + $trx->kurang_bayar;
         }
-        foreach($Trxheader as $date){
-            $dt = date('M Y',strtotime($date->tgl_trx));
-        }
-        $pdf = PDF::loadview('admin.Lappi.cetak', compact('Trxheader', 'totalPiutang', 'dt'));
+        // foreach($Trxheader as $date){
+        //     $dt = date('M Y',strtotime($date->tgl_trx));
+        // }
+        $pdf = PDF::loadview('admin.Lappi.cetak', compact('Trxheader', 'totalPiutang', 'monthName','year','tgl'))->setPaper('F4','potrait');
         return $pdf->stream();
     }
     

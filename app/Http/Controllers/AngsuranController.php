@@ -35,6 +35,13 @@ class AngsuranController extends Controller
     
     //store/tambah
     public function store(Request $request, $id_trx){
+        $trxHeader = Trx_header::where('id_trx', $request->id_trx)->first();
+        $updateKurangBayarHeader =  $trxHeader->kurang_bayar - $request->bayar;
+            if($updateKurangBayarHeader < 0){
+                return redirect()->route('bayarindex.index',$id_trx)
+                                ->with('message','Maaf, Bayar Angsuran melebihi Piutang!!!');
+            }
+
         Angsuran::create([
             'kode_angsuran'=>$request->kode_angsuran,
             'tanggal_ang'=>$request->tanggal_ang,
@@ -44,8 +51,8 @@ class AngsuranController extends Controller
             'kurang_bayar'=>$request->kurang_bayar,
         ]);
 
-        $trxHeader = Trx_header::where('id_trx', $request->id_trx)->first();
-        $updateKurangBayarHeader =  $trxHeader->kurang_bayar - $request->bayar;
+        //eror update
+
         if($updateKurangBayarHeader == 0){
             $updateStatusHeader = 'Lunas';
         } else {
@@ -90,7 +97,7 @@ class AngsuranController extends Controller
                 }
             }
         }
-        $pdf = PDF::loadview('admin.angsuran.cetak',compact('angsurancetak','no','yth','id'));
+        $pdf = PDF::loadview('admin.angsuran.cetak',compact('angsurancetak','no','yth','id'))->setPaper('A4','potrait');
         return $pdf->stream();
     }
 

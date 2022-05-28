@@ -11,15 +11,20 @@
 @endsection
 
 @section('content')
-    <a href="{{route('cetakbb.index')}}" class="btn btn-dark mr-2" >
-        <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
-    </a>
+    <form action="{{route('cetakbb.index')}}" method="POST" target="_blank">
+        @csrf
+        <input type="hidden" name="month" value="{{$month}}">
+        <input type="hidden" name="year" value="{{$year}}">
+            <button type="submit" class="btn btn-dark mr-2" >
+                <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
+            </button>
+    </form>
 @foreach($akuns as $akun)
-    <div style="margin-top: 50px;">
+    <div style="margin-top: 50px; margin-bottom: -10px">
         <div class="card">
             <div class="card-body">
                 <div class="row mt-4">
-                    <div class="col-6">
+                    <div class="col-6" >
                         <span class="text-left" style="font-size: 18px; font-family: Georgia, 'Times New Roman', Times, serif">Nama Akun : {{$akun->nama_akun}} </span>
                     </div>
                     <div class="col-6">

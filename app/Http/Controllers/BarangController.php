@@ -8,17 +8,24 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    //index
-    public function index(){
+    //index Admin
+    public function tampil(){
         $Barangs = Barang::all();
         // dd($Penjualankavlings);
         return view('admin.Barang.index', compact('Barangs'));
     }
 
+    //index pemilik
+    public function index(){
+        $Barangs = Barang::all();
+        // dd($Penjualankavlings);
+        return view('pemilik.Barang.index', compact('Barangs'));
+    }
+
     //create
     public function create(){
         // $barangs = barang::select('id', 'kode_barang')->get();
-        return view('admin.Barang.tambah');
+        return view('pemilik.Barang.tambah');
     }
     
     //store
@@ -58,7 +65,7 @@ class BarangController extends Controller
 
     //edit
     public function edit(barang $barang){
-        return view('admin.Barang.edit', compact('barang'));
+        return view('pemilik.Barang.edit', compact('barang'));
     }
 
     //update
@@ -80,5 +87,10 @@ class BarangController extends Controller
         $barang->delete();
         return redirect(route('barang.index'))->with('success','Hapus Sukses');
 
+    }
+    public function deleteCheckedStudents(Request $request){
+        $ids = $request->ids;
+        barang::where('kode_barang',$ids)->delete();
+        return response()->json(['success'=>"Berhasil Dihapus"]);
     }
 }

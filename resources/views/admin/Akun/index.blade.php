@@ -25,7 +25,7 @@
                         <thead style="background-color: black; color: white">
                             <tr style="color: white; font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
                                 <th style="color: white">No</th>
-                                <th style="color: white">Id Akun</th>
+                                <th style="color: white">Nomor Akun</th>
                                 <th style="color: white">Nama Akun</th>
                                 <th style="color: white">Jenis Akun</th>
                                 <th style="color: white">Action</th>
@@ -35,7 +35,7 @@
                             @foreach ($Akuns as $akun)
                                 <tr style="font-size: 15px">
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$akun->id_akun}}</td>
+                                    <td >{{$akun->id_akun}}</td>
                                     <td>{{$akun->nama_akun}}</td>
                                     <td>{{$akun->jenis_akun}}</td>
                                     <td>

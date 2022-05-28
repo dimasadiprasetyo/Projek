@@ -13,6 +13,7 @@ class CreateTrxHeadersTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('trx_headers', function (Blueprint $table) {
             
             $table->char('id_trx', 17)->primary();
@@ -25,8 +26,9 @@ class CreateTrxHeadersTable extends Migration
             $table->bigInteger('kurang_bayar')->nullable();
             $table->date('tgl_jatuhtemp')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             
-            $table->foreign('kode_pelanggan')->references('kode_pelanggan')->on('pelanggans');
+            $table->foreign('kode_pelanggan')->references('kode_pelanggan')->on('pelanggans')->OnDelete('set null')->OnUpdate('set null');
             
             
         });
@@ -39,6 +41,8 @@ class CreateTrxHeadersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('trx_headers');
+        Schema::enableForeignKeyConstraints();
     }
 }

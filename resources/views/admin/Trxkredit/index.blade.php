@@ -10,13 +10,12 @@
 @section('content')
 <div class="card" style="background-color: #aeb1b5">
     
-    <form action="{{route('detailheaderkredit.index')}}" method="POST">
+    <form action="{{route('detailheaderkredit.index')}}" method="POST" target="_blank">
         @csrf
         <input type="hidden" name="total_bayar" id="total_bayar" value="0">
         
         <div class="card-body" >
             <div class="form-group">
-              <div id="notif"></div>
                 <label for="id_trx" style="color: black; font-size: 15px">Id Transaksi</label>
                 <input type="text" readonly class="form-control" value="{{$id_trx}}" id="id_trx" name="id_trx" >
             </div>
@@ -44,17 +43,13 @@
                 <select name="kode_barang" id="kode_barang" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                   <option disabled selected>-- Pilih Jenis --</option>
                   @foreach ($barangs as $barang)
-                    <option value="{{$barang->kode_barang}}">{{$barang->jenis_barang}}</option>
+                    <option value="{{$barang->kode_barang}}">{{$barang->jenis_barang}} / {{$barang->ukuran_barang}}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group col-md-6">
                 <label for="qty" style="color: black; font-size: 15px">Jumlah</label>
-                <input type="number" class="form-control" id="qty" name="qty" placeholder="example : 1-100">
-              </div>
-              <div class="form-group col-md-6 scroll">
-                <label for="keterangan" style="color: black; font-size: 15px">Keterangan</label>
-                <textarea class="form-control" name="keterangan" id="keterangan" placeholder="example : keterangan"></textarea>
+                <input type="number" class="form-control" id="qty" name="qty" placeholder="example : 1-100" required>
               </div> 
             </div>
             <button type="button" name="add" id="add" class="btn btn-md mb-3" style="background:green; color: white;" size="3">
@@ -67,7 +62,7 @@
             <div class="row">
               <div class="form-group col-md-6 scroll">
                 <label for="bayar_uangmuka" style="color: black; font-size: 15px">Bayar Uang Muka</label>
-                <textarea class="form-control" name="bayar_uangmuka" id="bayar_uangmuka" placeholder="example : keterangan"></textarea>
+                <textarea class="form-control" name="bayar_uangmuka" id="bayar_uangmuka" placeholder="example : keterangan"  required></textarea>
               </div>
               <div class="form-group col-md-6 scroll">
 
@@ -78,6 +73,7 @@
 
 
                       <div class="card-body" >
+                        <div id="notif"></div>
                         <div class="card rounded shadow border-0">
                           <div class="table-responsive">
                             <table class="table" border="1" id="data">
@@ -85,11 +81,11 @@
                                     <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
                                         <th style="color: white; font-size: 14px">No </th>
                                         <th style="color: white; font-size: 14px">Jenis Kayu</th>
+                                        <th style="color: white; font-size: 14px">Ukuran kayu</th>
                                         <th style="color: white; font-size: 14px">Harga Kayu</th>
                                         <th style="color: white; font-size: 14px">Jumlah</th>
                                         <th style="color: white; font-size: 14px">Disc</th>
                                         <th style="color: white; font-size: 14px">Sub total</th>
-                                        <th style="color: white; font-size: 14px">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,8 +94,11 @@
                                 <tfoot>
                                   {{-- <tr><td>kugg</td></tr> --}}
                                 </tfoot>
-                                
                             </table>
+                            <div class="form-group col-md-6 scroll">
+                              <label for="keterangan" style="color: black; font-size: 15px">Keterangan</label>
+                              <textarea class="form-control" name="keterangan" id="keterangan" placeholder="example : keterangan"></textarea>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -142,43 +141,46 @@
                 if(result < 0) {
                   $('#notif').append(
                     `<div class="alert alert-danger" 
-                    <strong>Peringatan !</strong> Melebihi Stok ${response.jenis_barang} dengan sisa Stok ${Math.abs(stok)}                    </div>`
+                      <strong>Peringatan !</strong> Penjualan melebihi Stok ${response.jenis_barang} dengan sisa ${Math.abs(stok)} stok, Silahkan Hapus Data
+                      <button class="close" data-dismiss="alert">
+                          <span>x</span>
+                        </button>
+                    </div>`
                   )
-                  // $("#qty").val(null);
                 }
                 if(result>= 0){
-                // stok
-                $.ajax({
-                  url : "{{url('/stokkredit')}}/"+kode_barang,
-                  type: "PUT",
-                  data :{
-                    _token: "{{ csrf_token() }}",
-                    _method:"POST",
-                    stok : result
-                  },
-                  success:() => {
-                    console.log("update barang berhasil")
-                  }
-                });
-
+                    // stok
+                    $.ajax({
+                      url : "{{url('/stokkredit')}}/"+kode_barang,
+                      type: "PUT",
+                      data :{
+                        _token: "{{ csrf_token() }}",
+                        _method:"POST",
+                        stok : result
+                      },
+                      success:() => {
+                        console.log("update barang berhasil")
+                      }
+                    })
+                  //store         
+                  $.ajax({
+                    url : "{{route('detailkredit.store')}}",
+                    method: "POST",
+                    data : {
+                      _token: "{{ csrf_token() }}",
+                      kode_barang: kode_barang,
+                      id_trx :id_trx,
+                      qty : qty,                          
+                    
+                    },
+                    success : (result)=> {
+                      console.log("berhasil")
+                      detailIndex()
+                    }
+                  });
                 }
             }
-        });                
-        $.ajax({
-          url : "{{route('detailkredit.store')}}",
-          method: "POST",
-          data : {
-            _token: "{{ csrf_token() }}",
-            kode_barang: kode_barang,
-            id_trx :id_trx,
-            qty : qty,                          
-          
-          },
-          success : (result)=> {
-            console.log("berhasil")
-            detailIndex()
-          }
-        })
+        });       
     });
 
     // tgl
@@ -243,16 +245,11 @@
               var row = `<tr>
                          <td>${no}</td>
                          <td>${transaksi.barang.jenis_barang}</td>
+                         <td>${transaksi.barang.ukuran_barang}</td>
                          <td>${transaksi.barang.harga}</td>
                          <td>${transaksi.qty}</td>
                          <td>${transaksi.diskon}</td>
-                         <td>${transaksi.total_harga}</td>   
-                         <td>
-                          <button type="button" data-id="${transaksi.id}" class="btn btn-danger btn-sm btn-hapus">
-                            <i class="fa fa-close" style="font-size:14px"></i>
-                            Hapus
-                          </button>
-                         </td>        
+                         <td>${transaksi.total_harga}</td>           
                          </tr>`
 
               $('tbody').append(row);
@@ -260,7 +257,7 @@
             });
                           
               var totalPenjualan = `<tr>
-                                    <td colspan="5">Total Penjualan</td>
+                                    <td colspan="6">Total Penjualan</td>
                                     <td>Rp. ${transaksis.total_penjualan}</td>
 
                                     </tr>`

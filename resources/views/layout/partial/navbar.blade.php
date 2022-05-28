@@ -19,10 +19,10 @@
           <div class="d-sm-none d-lg-inline-block">Hi, {{auth()->user()->name}}</div></a>
           <div class="dropdown-menu dropdown-menu-right">
             {{-- <div class="dropdown-title">Logged in 5 min ago</div> --}}
-            <a href="{{route('pengguna.edit')}}" class="dropdown-item has-icon">
+            {{-- <a href="{{route('pengguna.edit')}}" class="dropdown-item has-icon">
               <i class="fas fa-bolt"></i>Ubah Sandi
-            </a>
-            <a href="{{route('logout')}}" class="dropdown-item has-icon text-danger">
+            </a> --}}
+            <a href="{{route('logout')}}" class="dropdown-item has-icon text-danger" >
               <i class="fas fa-sign-out-alt"></i> Logout
               <div class="dropdown-divider"></div>
             </a>

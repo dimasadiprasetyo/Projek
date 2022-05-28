@@ -13,7 +13,7 @@
 @section('content')
 
 @foreach($akuns as $akun)
-<div style="margin-top: 50px;">
+<div style="margin-top: 50px;margin-bottom: -10px">
     <div class="card">
         <div class="card-body">
             <div class="row mt-4">

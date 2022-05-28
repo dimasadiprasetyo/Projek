@@ -90,6 +90,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{asset('assets/js/stisla.js')}}"></script>
   
+  
+
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
   <script src="plugins/chart.js/Chart.min.js"></script>
@@ -105,6 +107,7 @@
   <script src="{{asset('assets/js/custom.js')}}"></script>
   <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
 
+  
   <!-- Page Specific JS File -->
 </body>
 </html>

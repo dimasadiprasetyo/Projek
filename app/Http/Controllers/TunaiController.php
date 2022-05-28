@@ -35,8 +35,8 @@ class TunaiController extends Controller
         $barang = barang::where('kode_barang',$kodebarang)->first();
         
         $dis= 0;
-        if($request->qty >= 10){
-            $dis=(25/100)*$barang->harga*$request->qty;
+        if($request->qty >= 20){
+            $dis=(10/100)*$barang->harga*$request->qty;
         }
         $totalHarga = $barang->harga*$request->qty-$dis;
         Trx_detail::create([
@@ -94,9 +94,15 @@ class TunaiController extends Controller
 
         ]);
 
-        $transaksiDetail = Trx_detail::where("id_trx", $request->id_trx)->with('barang')->get();
+        $transaksiDetail = Trx_detail::where("id_trx", $request->id_trx)->get();
+        // dd($transaksiDetail);
+        $totalDiskon = 0;
+        foreach($transaksiDetail as $trx) {
+            $totalDiskon += $trx->diskon;
+        }
+        // dd($totalDiskon);
 
-        foreach ($transaksiDetail as $transaksi) {
+        // foreach ($transaksiDetail as $transaksi) {
             
             Jurnal_detail::create([
                 'id_jurnal' => $id_jurnal,
@@ -111,7 +117,14 @@ class TunaiController extends Controller
                 'debit' => 0,
                 'kredit' => $request->total_bayar
             ]);    
-        }
+            Jurnal_detail::create([
+                'id_jurnal' => $id_jurnal,
+                'id_akun' => 402,
+                'debit' => $totalDiskon,
+                'kredit' => 0
+            ]);
+            // dd($transaksi);    
+        // }
         $total = 0;
         foreach($transaksiDetail as $detail) {
             $total += $detail->total_harga;
@@ -124,7 +137,7 @@ class TunaiController extends Controller
         
         $jenis_trx = 'Tunai';
         $pdf = PDF::loadView('admin.Trxtunai.nota', compact('id_trx', 'tgl_trx', 'keterangan', 'total_bayar', 'jenis_trx', 'transaksiDetail'))
-        ->setpaper('A4','potrait');
+        ->setpaper('F4','potrait');
         return $pdf->stream();
 
         return view('admin.Trxtunai.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);
@@ -184,5 +197,10 @@ class TunaiController extends Controller
             'message' => 'Data transaksi berhasil dihapus'
         ]);
         // return redirect(route('tunai.create'));
+    }
+
+    public function updatedetail($id_trx){
+        $detail = Trx_detail::where('id', $id_trx)->first();
+                 
     }
 }

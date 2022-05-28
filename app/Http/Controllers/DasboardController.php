@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Trx_header;
 use App\User;
+
 use Illuminate\Http\Request;
 
 class DasboardController extends Controller
@@ -13,15 +14,22 @@ class DasboardController extends Controller
         $user = User::count();
         
         // bulan
-        $total1 = 0;
+        $totaldp = 0;
+        $totalbayar = 0;
         $bulan = Trx_header::whereMonth('tgl_trx',date('m'))->with('Pelanggan','Trx_detail','barang')->get();
         foreach ($bulan as $bln) {
-            $total1 = $total1 + $bln->total_bayar;
+            $totalbayar += $bln->total_bayar;
+            $totaldp += $bln->kurang_bayar;
         }
+        // dd($totaldp);
+        $total1 = $totalbayar - $totaldp;
+        
+        
+        // date('Y-m-d');
 
         // hari ini
         $total2 = 0;
-        $bulan = Trx_header::whereDay('tgl_trx',date('d'))->with('Pelanggan','Trx_detail','barang')->get();
+        $bulan = Trx_header::where('tgl_trx',date('Y-m-d'))->with('Pelanggan','Trx_detail','barang')->get();
         foreach ($bulan as $bln) {
             $total2 = $total2 + $bln->total_bayar;
         }
@@ -33,53 +41,45 @@ class DasboardController extends Controller
             $total3= $total3 + $trx->kurang_bayar;
         }
 
-        // dd($total3);
 
-        //STATISTIK      
-        $piutangdagang=Trx_header::where('jenis_transaksi','=', 'Kredit')
-                ->select(DB::raw("CAST(SUM(kurang_bayar) as int)as kurang_bayar"))
-                ->whereYear("tgl_trx",date('Y'))
-                ->GroupBy(DB::raw("Month(tgl_trx)"))
-                ->pluck('kurang_bayar');
-        
-        // $bulanpiutang=Trx_header::select(DB::raw("MONTHNAME(tgl_trx)as bulanpiutang"))
-        //         ->GroupBy(DB::raw("MONTHNAME(tgl_trx)"))
-        //         ->pluck('bulanpiutang');
-        
-        $pendapatan=Trx_header::select(DB::raw("CAST(SUM(total_bayar) as int)as total_bayar"))
-                ->whereYear("tgl_trx",date('Y'))
-                ->GroupBy(DB::raw("Month(tgl_trx)"))
-                ->pluck('total_bayar');
-        // $piutangdagang=Trx_header::where('jenis_transaksi','=', 'Kredit')
-        //         ->select(DB::raw("CAST(SUM(kurang_bayar) as int)as kurang_bayar"))
-        //         ->GroupBy(DB::raw("Month(tgl_trx)"))
-        //         ->pluck('kurang_bayar');
-        
-        // $bulanpiutang=Trx_header::select(DB::raw("MONTHNAME(tgl_trx)as bulanpiutang"))
-        //         ->GroupBy(DB::raw("MONTHNAME(tgl_trx)"))
-        //         ->pluck('bulanpiutang');
-        
-        // $pendapatan=Trx_header::select(DB::raw("CAST(SUM(total_bayar) as int)as total_bayar"))
-        //         ->GroupBy(DB::raw("Month(tgl_trx)"))
-        //         ->pluck('total_bayar');
+        // Statistik
 
-        return view('dasboard/index',compact('user','bulan','Trxheader','total1','total2','total3','piutangdagang','pendapatan'));
         
+
+                // $piutangdagang=Trx_header::where('jenis_transaksi','=', 'Kredit')
+                //                 ->select(DB::raw("CAST(SUM(kurang_bayar) as int)as kurang_bayar"))
+                //                 ->whereYear("tgl_trx",date('Y'))
+                //                 ->GroupBy(DB::raw("Month(tgl_trx)"))
+                //                 ->pluck('kurang_bayar');
+                
+                // $pendapatan=Trx_header::select(DB::raw("CAST(SUM(total_bayar) as int)as total_bayar"))
+                //         ->whereYear("tgl_trx",date('Y'))
+                //         ->GroupBy(DB::raw("Month(tgl_trx)"))
+                //         ->pluck('total_bayar');
+                // $pendapatan=Trx_header::select(DB::raw("COUNT(total_bayar) as total_bayar"))
+                //         ->whereYear("tgl_trx",date('Y'))
+                //         ->GroupBy(DB::raw("Month(tgl_trx)"))
+                //         ->pluck('total_bayar');
+
+
+                // $labels = $pendapatan->keys();
+                // $data = $pendapatan->values();
+            //     $months = Trx_header::select(DB::raw("Month(tgl_trx) as month"))
+            //             ->whereYear("tgl_trx",date('Y'))
+            //             ->GroupBy(DB::raw("Month(tgl_trx)"))
+            //             ->pluck('month');
+            //   $datas = array(0,0,0,0,0,0,0,0,0,0,0,0);
+            //   foreach($months as $index => $month){
+            //       $datas[$month] = $pendapatan[$index];
+            //   }
+       
+        return view('dasboard/index',compact('user','bulan','Trxheader','total1','total2','total3' ));
+       
+                    
     }
 
     public function getData(){
-        
+       
 
-        //foreac($bulanpiutang as $b):
-            //$piutangdagang = Trx_header::where('MONTH(tgl)','=', $b->bulanpiutang) where kro ngecek tahunbulan trs jenis transaksi
-                // ->select(DB::raw("CAST(SUM(kurang_bayar) as int)as kurang_bayar"))
-                // ->GroupBy(DB::raw("Month(tgl_trx)"))//iki ms uwes
-                // ->pluck('kurang_bayar')
-                //endforach
-                //njpk e ojo monthname tok tpi kro month e semisal januari =01 kokuinan
-                //lanjut sesok nek rk kpn2 manej puo ak meh turu wkwk, haa mas suwun
-                // nko kabari ow nek lego insyaaAllah
-        // aku rak paham mas wkwk, jal di contohi langsung wae
-               
     }
 }

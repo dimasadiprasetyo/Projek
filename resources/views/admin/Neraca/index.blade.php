@@ -17,9 +17,17 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{route('cetakneraca.index')}}" class="btn btn-dark mr-2" >
+                    {{-- <a href="{{route('cetakneraca.index')}}" class="btn btn-dark mr-2" >
                         <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
-                    </a>
+                    </a> --}}
+                    <form action="{{route('cetakneraca.index')}}"  method="POST" target="_blank">
+                        @csrf
+                        <input type="hidden" name="month" value="{{$month}}">
+                        <input type="hidden" name="year" value="{{$year}}">
+                            <button type="submit" class="btn btn-dark mr-2" >
+                                <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
+                            </button>
+                    </form>
                     <br>
                     <br>
                     <div class="table-responsive">
@@ -31,9 +39,7 @@
                                 <tr>
                                     <th colspan="4" class="text-center">NERACA</th>
                                 </tr>
-                                <tr>
-                                    <th colspan="4" class="text-center">Periode {{$dt}}</th>
-                                </tr>
+                               
                                 <tr style="text-align: center" >
                                     <th style="background-color: rgb(0, 0, 0); color: white">Kode Akun</th>
                                     <th style="background-color: rgb(0, 0, 0); color: white">Nama Akun</th>
@@ -42,41 +48,47 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php 
-                                $totalDebet = 0;
-                                $totalKredit = 0;
-                                @endphp
+                                    @php
+                                        $totalDebit = 0;
+                                        $totalKredit = 0;
+                                    @endphp 
                                 @foreach ($akuns as $akun)
-                                    @if($akun->saldo_akhir > 0)
-                                        @php
-                                            $d = 0;
-                                            $k = 0;   
-                                        @endphp
+                                    @php
+                                        $d = 0;
+                                        $k = 0;   
+                                    @endphp
                                         @foreach ($Jurnalheader as $header)
                                             @foreach ($header->jurnal_detail as $detail)
-                                                @php
-                                                    $d += $detail->debit;
-                                                    $k += $detail->kredit;
-                                                @endphp
+                                                @if ($detail['id_akun'] == $akun['id_akun'])
+                                                    @php
+                                                        $d += $detail->debit;
+                                                        $k += $detail->kredit;
+                                                    @endphp
+                                                @endif
                                             @endforeach
                                         @endforeach
-                                        @php
-                                        $totalDebet += $d;
-                                        $totalKredit += $k;
-                                        @endphp
+                                            @php
+                                                if ($d > 0 || $k >0) {
+                                                }
+                                            @endphp
                                         
                                         <tr style="text-align: center">
                                             <td>{{$akun->id_akun}}</td>
                                             <td>{{$akun->nama_akun}}</td>
-                                            <td>Rp.{{number_format($akun->jenis_akun == 'Debet' ? $totalDebet : 0,0,',','.')}}</td>
-                                            <td>Rp.{{number_format($akun->jenis_akun == 'Kredit' ? $totalKredit : 0,0,',','.')}}</td>
+                                            {{-- <td>Rp.{{number_format($akun->jenis_akun == 'Debet' ? $akun->saldo_akhir : 0,0,',','.')}}</td>
+                                            <td>Rp.{{number_format($akun->jenis_akun == 'Kredit' ? $akun->saldo_akhir : 0,0,',','.')}}</td> --}}
+                                            <td>{{number_format($d,0,',','.')}}</td>
+                                            <td>{{number_format($k,0,',','.')}}</td>
                                         </tr>
-                                    @endif
+                                        @php
+                                            $totalDebit += $d;
+                                            $totalKredit += $k;
+                                        @endphp
                                 @endforeach
                             </tbody>
                             <tr style="text-align: center">
                                         <td colspan="2" style="background: rgb(0, 0, 0); color: white"><b>Jumlah</b></td>
-                                        <td><b>Rp.{{number_format($totalDebet,0,',','.')}}</b></td>
+                                        <td><b>Rp.{{number_format($totalDebit,0,',','.')}}</b></td>
                                         <td><b>Rp.{{number_format($totalKredit,0,',','.')}}</b></td>
                                         
                             </tr>

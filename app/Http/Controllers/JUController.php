@@ -27,7 +27,7 @@ class JUController extends Controller
     public function tampil(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
-        $Trxheader = Jurnal_header::whereYear('tanggal', '=', $year)
+        $Trxheader = Jurnal_header::where('status_posting','=','0')->whereYear('tanggal', '=', $year)
         ->whereMonth('tanggal', '=', $month)->with('trx_header')->get();
         // dd($Trxheader);
         return view('admin.JU.tampil',compact('Trxheader'));
@@ -45,7 +45,10 @@ class JUController extends Controller
     }
     
     //Posting
-    public function posting($id_jurnal){
+    public function posting(Request $request,$id_jurnal){
+        $month = $request->bulan;
+	    $year = $request->tahun;
+        
         // dd($id_jurnal);
         $cek = Jurnal_detail::where("id_jurnal", $id_jurnal)->get();
         // dd($cek);
@@ -69,20 +72,28 @@ class JUController extends Controller
             ]);
         }
         return redirect()->back();
+
+        // return redirect()->route('tampil.index',[$year,$month])->withToastSuccess("Data Berhasil Diposting");
     }
 
     //print Out
     public function cetak(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
-        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)
-                        ->where('status_posting','=',1)->get();
+        $dataBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $selectedMonth = str_replace('0','',$month);
+        $monthName = $dataBulan[$selectedMonth -1];
+
+        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)
+                        ->whereMonth('tanggal','=', $month)
+                        ->where('status_posting','=','1')->get();
+        $tgl = date('d-m-Y');
         $Jurnaldetail = Jurnal_detail::with('Akun')->get();
-        foreach($Jurnalheader as $date){
-            $dt = date('M Y',strtotime($date->tanggal));
-        }
-        // dd($Jurnalheader);
-        $pdf = PDF::loadview('admin.JU.cetak', compact('Jurnaldetail','Jurnalheader','dt'));
+        // foreach($Jurnalheader as $date){
+        //     $dt = date('M Y',strtotime($date->tanggal));
+        // }
+        // dd($dt);
+        $pdf = PDF::loadview('admin.JU.cetak', compact('Jurnaldetail','Jurnalheader','monthName','year','tgl'))->setPaper('F4','potrait');
         return $pdf->stream();
     }
 
