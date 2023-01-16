@@ -49,65 +49,72 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="qty" style="color: black; font-size: 15px">Jumlah</label>
-                <input type="number" class="form-control" id="qty" name="qty" placeholder="example : 1-100" required>
+                <input type="number" class="form-control" id="qty"  name="qty" placeholder="0" required>
               </div> 
             </div>
+
             <button type="button" name="add" id="add" class="btn btn-md mb-3" style="background:green; color: white;" size="3">
               <i class="fa fa-shopping-cart" style="font-size:14px" aria-hidden="true"></i>
               <span style="font-size: 14px"> Keranjang</span>
             </button>
             <br>
-            <br>
-            <h5 style="text-align: center"> INPUT UANG MUKA</h5>
-            <div class="row">
-              <div class="form-group col-md-6 scroll">
-                <label for="bayar_uangmuka" style="color: black; font-size: 15px">Bayar Uang Muka</label>
-                <textarea class="form-control" name="bayar_uangmuka" id="bayar_uangmuka" placeholder="example : keterangan"  required></textarea>
-              </div>
-              <div class="form-group col-md-6 scroll">
-
-                <label for="kurang_bayar" style="color: black; font-size: 15px">Kurang Bayar</label>
-                <input type="text" readonly class="form-control" id="kurang_bayar" name="kurang_bayar" placeholder="readonly">
+            
+            <div class="card-body" >
+              <div id="notif"></div>
+              <div class="card rounded shadow border-0">
+                <div class="table-responsive">
+                  <table class="table" border="1" id="data">
+                      <thead style="background-color: black; color: white">
+                          <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                              <th style="color: white; font-size: 14px">No </th>
+                              <th style="color: white; font-size: 14px">Jenis Kayu</th>
+                              <th style="color: white; font-size: 14px">Ukuran kayu</th>
+                              <th style="color: white; font-size: 14px">Harga Kayu</th>
+                              <th style="color: white; font-size: 14px">Jumlah</th>
+                              <th style="color: white; font-size: 14px">Disc</th>
+                              <th style="color: white; font-size: 14px">Sub total</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                            {{-- Tbody AJAX --}}
+                      </tbody>
+                      <tfoot>
+                          {{-- <tr><td>kugg</td></tr> --}}
+                      </tfoot>
+                  </table>
+                </div>
               </div>
             </div>
 
 
-                      <div class="card-body" >
-                        <div id="notif"></div>
-                        <div class="card rounded shadow border-0">
-                          <div class="table-responsive">
-                            <table class="table" border="1" id="data">
-                                <thead style="background-color: black; color: white">
-                                    <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
-                                        <th style="color: white; font-size: 14px">No </th>
-                                        <th style="color: white; font-size: 14px">Jenis Kayu</th>
-                                        <th style="color: white; font-size: 14px">Ukuran kayu</th>
-                                        <th style="color: white; font-size: 14px">Harga Kayu</th>
-                                        <th style="color: white; font-size: 14px">Jumlah</th>
-                                        <th style="color: white; font-size: 14px">Disc</th>
-                                        <th style="color: white; font-size: 14px">Sub total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {{-- Tbody AJAX --}}
-                                </tbody>
-                                <tfoot>
-                                  {{-- <tr><td>kugg</td></tr> --}}
-                                </tfoot>
-                            </table>
-                            <div class="form-group col-md-6 scroll">
-                              <label for="keterangan" style="color: black; font-size: 15px">Keterangan</label>
-                              <textarea class="form-control" name="keterangan" id="keterangan" placeholder="example : keterangan"></textarea>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+            <div class="row">
+              <div class="form-group col-md-6 scroll">
+                <label for="bayar_uangmuka" style="color: black; font-size: 15px">Bayar Uang Muka</label>
+                <input type="text" class="form-control" style="text-align: right" name="bayar_uangmuka" id="bayar_uangmuka" placeholder="Rp."  required>
+              </div>
+
+              <div class="form-group col-md-6 scroll">
+                <label for="kurang_bayar" style="color: black; font-size: 15px">Kurang Bayar</label>
+                <input type="text"  readonly class="form-control" id="kurang_bayar" style="text-align: right" onkeyup="rupiah(angka)" onchange="rupiah(angka)" name="kurang_bayar" placeholder="readonly">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="ongkos" style="color: black; font-size: 15px">Ongkos Kirim</label>
+                <input type="text" class="form-control" id="ongkos" style="text-align: right" name="ongkos" placeholder="Rp." required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
+              </div>
+
+              <div class="form-group col-md-6 scroll">
+                <label for="keterangan" style="color: black; font-size: 15px">Keterangan</label>
+                <textarea class="form-control" name="keterangan" id="keterangan" placeholder="example : keterangan"></textarea>
+              </div>
+            </div>
+
         </div>
       <!-- /.card-body -->
 
       <div class="card-footer d-flex justify-content-end">
         <button type="submit" class="btn btn-primary mr-2">
-          <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan
+          <i class="fa fa-floppy-o"  style="font-size:17px" id="btn-simpan" disabled aria-hidden="true"></i> Simpan
         </button>
       </div>
     </form>
@@ -119,6 +126,59 @@
   $(document).ready(()=> {
     detailIndex();
     tanggal();
+
+            var bayar = document.getElementById('bayar_uangmuka','kurang_bayar');
+            var ongkos = document.getElementById('ongkos');
+            bayar.addEventListener('keyup', function(e){
+                bayar.value = formatRupiah(this.value, 'Rp. ');
+            })
+            ongkos.addEventListener('keyup', function(e){
+                ongkos.value = formatRp(this.value, 'Rp. ');
+            })
+
+            function formatRp(angka, prefix){
+              var 	number_string = angka.replace(/[^,\d]/g, '').toString(),
+              split	= number_string.split('.'),
+              sisa 	= split[0].length % 3,
+              rupiah 	= split[0].substr(0, sisa),
+              ribuan 	= split[0].substr(sisa).match(/\d{1,3}/gi);
+              
+              if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+              }
+	
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+            function formatRupiah(angka, prefix){
+              var 	number_string = angka.replace(/[^,\d]/g, '').toString(),
+              split	= number_string.split('.'),
+              sisa 	= split[0].length % 3,
+              rupiah 	= split[0].substr(0, sisa),
+              ribuan 	= split[0].substr(sisa).match(/\d{1,3}/gi);
+              
+              if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+              }
+	
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+
+      function rupiah(angka){
+        let reverse = angka.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+        ribuan = ribuan.join('.').split('').reverse().join('');
+        return ribuan;
+      }
+
+      function reverseRupiah(angka) {
+        let deleteRp = angka.replace('Rp. ', '')
+        let result = deleteRp.replaceAll('.', '')
+        return result
+      }
 
     // keranjang
     $("#add").click(()=> {
@@ -246,10 +306,10 @@
                          <td>${no}</td>
                          <td>${transaksi.barang.jenis_barang}</td>
                          <td>${transaksi.barang.ukuran_barang}</td>
-                         <td>${transaksi.barang.harga}</td>
+                         <td>Rp.${rupiah(transaksi.barang.harga)}</td>
                          <td>${transaksi.qty}</td>
-                         <td>${transaksi.diskon}</td>
-                         <td>${transaksi.total_harga}</td>           
+                         <td>Rp.${rupiah(transaksi.diskon)}</td>
+                         <td>Rp.${rupiah(transaksi.total_harga)}</td>           
                          </tr>`
 
               $('tbody').append(row);
@@ -257,9 +317,8 @@
             });
                           
               var totalPenjualan = `<tr>
-                                    <td colspan="6">Total Penjualan</td>
-                                    <td>Rp. ${transaksis.total_penjualan}</td>
-
+                                        <td colspan="6">Total Penjualan</td>
+                                        <td>Rp. ${rupiah(transaksis.total_penjualan)}</td>
                                     </tr>`
                                                   
               $('tfoot').append(totalPenjualan);
@@ -274,22 +333,36 @@
        $('#bayar_uangmuka').keyup(()=> {
         let id_trx = $('#id_trx').val();
         let dp = $('#bayar_uangmuka').val();
+        console.log(dp)
+        
+
           $.ajax({
              url: "{{ url('/detailkurangbayar') }}/"+id_trx,
              type: "GET",
              dataType: "JSON",
               success: (data) => {
                 let total = data.total
-                let kurang = total - dp;
-                $("#kurang_bayar").val(kurang);
+                let kurang = total - (reverseRupiah(dp));
+                if (kurang > 0) {
+                    $("#kurang_bayar").val(`Rp. ${rupiah(kurang)}`);
+                    console.log(kurang)
+                    $("#kurang_bayar").removeClass('is-invalid');
+                    $("#btn-simpan").prop('disabled', false);
+                } else {
+                    $("#kurang_bayar").val(`Jumlah Uang Muka Terlalu Banyak`);
+                    $("#kurang_bayar").addClass(`is-invalid`);
+                    $("#btn-simpan").prop(`disabled`, true);
+                }
               },
 
           });
       });
+
+      
+
 
 
       //tutup Script 
   });
 </script>
 @endpush
-

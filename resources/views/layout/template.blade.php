@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link href="/css/print.css" rel="stylesheet" media="print" type="text/css">
   <style>
     body {
       font-family: "Nunito",'Arial Narrow Bold' ;
@@ -106,6 +107,26 @@
   <script src="{{asset('assets/js/scripts.js')}}"></script>
   <script src="{{asset('assets/js/custom.js')}}"></script>
   <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
+  <script>
+    document.querySelectorAll('input[type-currency="IDR"]').forEach((element) => {
+      element.addEventListener('keyup', function(e) {
+        let cursorPostion = this.selectionStart;
+          let value = parseInt(this.value.replace(/[^,\d]/g, ''));
+          let originalLenght = this.value.length;
+          if (isNaN(value)) {
+            this.value = "";
+          } else {    
+            this.value = value.toLocaleString('id-ID', {
+              currency: 'IDR',
+              style: 'currency',
+              minimumFractionDigits: 0
+            });
+            cursorPostion = this.value.length - originalLenght + cursorPostion;
+            this.setSelectionRange(cursorPostion, cursorPostion);
+          }
+      });
+    });
+  </script>
 
   
   <!-- Page Specific JS File -->

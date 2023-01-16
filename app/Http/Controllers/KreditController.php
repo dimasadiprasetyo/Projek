@@ -39,7 +39,7 @@ class KreditController extends Controller
             'barang_id'=>$request->kode_barang,
             'qty'=>$request->qty,
             'diskon'=>$dis,
-            'total_harga'=>$totalHarga,
+            'total_harga'=>reverseRupiah($totalHarga),
         ]);
     }
 
@@ -54,7 +54,7 @@ class KreditController extends Controller
         // dd($trx_detail);
             return response()->json([
                 'trx_detail' => $trx_detail,
-                'total_penjualan' => $total]);
+                'total_penjualan' => reverseRupiah($total)]);
     }
 
     // Tambah header
@@ -73,17 +73,18 @@ class KreditController extends Controller
             'tgl_trx'=> $request->tgl_trx,
             'keterangan'=>$request->keterangan,
             'jenis_transaksi'=>'Kredit',
+            'ongkos' =>reverseRupiah($request->ongkos),
             'status_trx'=>'Belum Lunas',
-            'bayar_uangmuka'=>$request->bayar_uangmuka,
-            'total_bayar'=>$request->total_bayar,
-            'kurang_bayar'=>$request->kurang_bayar,
+            'bayar_uangmuka'=>reverseRupiah($request->bayar_uangmuka),
+            'total_bayar'=>reverseRupiah($request->total_bayar),
+            'kurang_bayar'=>reverseRupiah($request->kurang_bayar),
             'tgl_jatuhtemp'=>$request->tgl_jatuhtemp
         ]);
         $id_jurnal = "JU".$tgl;
 
         $jurnalHeader = Jurnal_header::create([
             'id_jurnal' => $id_jurnal,
-            'status_posting' => '0',
+            'status_posting' => '1',
             'tanggal' => $request->tgl_trx,
             'id_trx' => $request->id_trx,
             'keterangan' => 'Penjualan Kredit'
@@ -100,14 +101,14 @@ class KreditController extends Controller
             Jurnal_detail::create([
                 'id_jurnal' => $id_jurnal,
                 'id_akun' => 101,
-                'debit' => $request->total_bayar - $request->kurang_bayar,
+                'debit' => reverseRupiah($request->total_bayar) - reverseRupiah($request->kurang_bayar),
                 'kredit' => 0
             ]);
 
             Jurnal_detail::create([
                 'id_jurnal' => $id_jurnal,
                 'id_akun' => 103,
-                'debit' => $request->kurang_bayar,
+                'debit' => reverseRupiah($request->kurang_bayar),
                 'kredit' => 0
             ]);
             
@@ -115,12 +116,12 @@ class KreditController extends Controller
                 'id_jurnal' => $id_jurnal,
                 'id_akun' => 400,
                 'debit' => 0,
-                'kredit' => $request->total_bayar
+                'kredit' => reverseRupiah($request->total_bayar)
             ]);
             Jurnal_detail::create([
                 'id_jurnal' => $id_jurnal,
                 'id_akun' => 402,
-                'debit' => $totalDiskon,
+                'debit' => reverseRupiah($totalDiskon),
                 'kredit' => 0
             ]);
             
@@ -132,6 +133,7 @@ class KreditController extends Controller
         foreach($transaksiDetail as $trx) {
             $uangmuka = $trx->total_bayar - $trx->kurang_bayar;
             $total = $trx->kurang_bayar;
+            $subTotal = $trx->kurang_bayar + $trx->ongkos;
         }
 
         foreach($transaksiDetail as $trx1){
@@ -146,10 +148,12 @@ class KreditController extends Controller
         $tgl_trx = $request->tgl_trx;
         $keterangan = $request->keterangan;
         $total_bayar = $total;
+        $subtotal = $subTotal;
+        $ongkir = $request->ongkos;
         $uangmuka = $uangmuka;
         $jenis_trx = 'Kredit';
         $pdf = PDF::loadView('admin.Trxkredit.nota', compact('id_trx','kode_pelanggan','alamat',
-                            'tgl_jatuhtemp', 'tgl_trx', 'keterangan', 'total_bayar', 'uangmuka',
+                            'tgl_jatuhtemp', 'tgl_trx', 'keterangan', 'total_bayar','ongkir', 'subtotal','uangmuka',
                             'jenis_trx', 'transaksiDetail','transaksidetail'))->setPaper('F4','potrait');
         return $pdf->stream();
             return view('admin.Trxkredit.index',compact('pelanggans','barangs', 'tglInput'),['id_trx'=>$id_trx]);

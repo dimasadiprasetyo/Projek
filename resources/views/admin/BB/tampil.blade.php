@@ -39,9 +39,9 @@
                                     <th style="color: white">Tanggal</th>
                                     <th style="color: white">Keterangan</th>
                                     <th style="color: white">Reff</th>
-                                    <th style="color: white">Debit</th>
-                                    <th style="color: white">Kredit</th>
-                                    <th style="color: white">Saldo</th>
+                                    <th style="color: white; text-align: right">Debit</th>
+                                    <th style="color: white; text-align: right">Kredit</th>
+                                    <th style="color: white; text-align: right">Saldo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,9 +53,9 @@
                                                 <td>{{date('d/m/y',strtotime($header->tanggal))}}</td>
                                                 <td>{{$header->keterangan}}</td>
                                                 <td>{{$detail->id_jurnal}}</td>
-                                                <td>Rp.{{number_format($detail->debit,0,',','.')}}</td>
-                                                <td>Rp.{{number_format($detail->kredit,0,',','.')}}</td>
-                                                <td>Rp.{{number_format($total +=($detail->debit - $detail->kredit),0,',','.')}}</td>
+                                                <td style="text-align: right">Rp.{{number_format($detail->debit,0,',','.')}}</td>
+                                                <td style="text-align: right">Rp.{{number_format($detail->kredit,0,',','.')}}</td>
+                                                <td style="text-align: right">Rp.{{number_format($total +=($detail->debit - $detail->kredit),0,',','.')}}</td>
                                             </tr>
                                         @endif
                                     @endforeach

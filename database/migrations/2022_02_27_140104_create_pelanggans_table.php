@@ -15,7 +15,7 @@ class CreatePelanggansTable extends Migration
     {
         Schema::create('pelanggans', function (Blueprint $table) {
             
-            $table->string('kode_pelanggan')->primary();
+            $table->char('kode_pelanggan',10)->primary();
             $table->string('nama_pelanggan');
             $table->string('alamat');
             $table->string('telepon');

@@ -39,7 +39,7 @@
                         <option selected disabled>--Pilih Tahun--</option>
                         <?php 
                             $year = date('Y');
-                            $min = $year - 60;
+                            $min = $year - 2;
                             $max = $year;
                                 for( $i=$max; $i>=$min; $i-- ) {
                                     echo '<option value='.$i.'>'.$i.'</option>';
@@ -64,8 +64,7 @@
    
         <div class="card rounded shadow border-0">
             <div class="table-responsive">
-                <table class="table" id="tabele">
-                    <!--Judul Tabel -->
+                {{-- <table class="table" id="tabele">
                     <thead style="background-color: black">
                         <tr style="text-align: center;color: white;font-size: 15px;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
                             <th style="font-size: 15px; color: white">No</th>
@@ -81,23 +80,50 @@
                                 <td style="text-align: center">{{$loop->iteration}}</td>
                                 <td style="text-align: center">{{$penjualan->trx_header->id_trx}}</td>
                                 <td>{{date('d F Y',strtotime($penjualan->trx_header->tgl_trx))}}</td>
-                                <td style="text-align: center">Rp.{{number_format($penjualan->trx_header->total_bayar,0,',','.')}}</td>
+                                <td style="text-align: center">Rp.{{number_format($penjualan->trx_header->total_bayar - $penjualan->trx_header->kurang_bayar,0,',','.')}}</td>
                                 <td style="text-align: center">
                                     
                                     <a href="{{route('posting.index',$penjualan->id_jurnal)}}" class="btn btn-warning">
                                         <i class='fas fa-plus fa-fw'   aria-hidden="true" style='font-size:13px'></i> Posting</a>
                                         
-                                    {{-- <form action="{{route('posting.index',$penjualan->id_jurnal)}}" class="d-inline delete" method="GET">
-                                        @method('GET')
-                                        @csrf
-                                        <button type="submit" class="btn btn-warning posting" id="posting" data-id="{{$penjualan->id_jurnal}}">
-                                            <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Posting
-                                        </button>
-                                    </form> --}}
                             </tr>  
                         @endforeach
                     </tbody>
                 
+                </table> --}}
+                <table class="table" border="" >
+                    <thead style="background-color: black">
+                        <tr style="text-align: center">
+                            <th style="color: white">Tanggal</th>
+                            <th style="color: white">Keterangan</th>
+                            <th style="color: white">Reff</th>
+                            <th style="color: white">Debet</th>
+                            <th style="color: white">Kredit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($Jurnalheader as $header)
+                            <tr style="background:lightblue;">
+                                <td style="text-align: center">{{tgl_indo($header->tanggal)}}</td>
+                                <td><b>{{$header->keterangan}}</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+        
+                            @foreach ($Jurnaldetail as $detail)
+                                @if ($detail->id_jurnal == $header->id_jurnal)
+                                    <tr>
+                                        <td></td>
+                                        <td>{{$detail->Akun->nama_akun}}</td>
+                                        <td></td>
+                                        <td style="text-align: right">Rp.{{number_format($detail->debit > 0 ? $detail->debit : null,0,',','.')}}</td>
+                                        <td style="text-align: right">Rp.{{number_format($detail->kredit > 0 ? $detail->kredit : null,0,',','.')}}</td>
+                                    </tr>  
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

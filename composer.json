@@ -42,7 +42,10 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/Terbilang.php"
+            "app/Helpers/Terbilang.php",
+            "app/Helpers/Rupiah.php",
+            "app/Helpers/rp.php",
+            "app/Helpers/Tanggal.php"
         ],
         "classmap": [
             "database/seeds",

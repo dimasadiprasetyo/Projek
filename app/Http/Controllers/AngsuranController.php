@@ -36,7 +36,7 @@ class AngsuranController extends Controller
     //store/tambah
     public function store(Request $request, $id_trx){
         $trxHeader = Trx_header::where('id_trx', $request->id_trx)->first();
-        $updateKurangBayarHeader =  $trxHeader->kurang_bayar - $request->bayar;
+        $updateKurangBayarHeader =  reverseRupiah($trxHeader->kurang_bayar) - reverseRupiah($request->bayar);
             if($updateKurangBayarHeader < 0){
                 return redirect()->route('bayarindex.index',$id_trx)
                                 ->with('message','Maaf, Bayar Angsuran melebihi Piutang!!!');
@@ -47,8 +47,8 @@ class AngsuranController extends Controller
             'tanggal_ang'=>$request->tanggal_ang,
             'id_trx'=>$request->id_trx,
             'angsuran_ke'=>$request->ang_ke,
-            'jml_bayar'=>$request->bayar,
-            'kurang_bayar'=>$request->kurang_bayar,
+            'jml_bayar'=>reverseRupiah($request->bayar),
+            'kurang_bayar'=>reverseRupiah($request->kurang_bayar),
         ]);
 
         //eror update
@@ -71,7 +71,7 @@ class AngsuranController extends Controller
         $Trxcetak = Trx_header::where("id_trx",'=',$id_trx)->with('Pelanggan')->first();
         // dd($Trxcetak);
         
-        $pdf = PDF::loadview('admin.angsuran.cetakdp', compact('Trxcetak'))->setPaper('A4', 'portrait');
+        $pdf = PDF::loadview('admin.angsuran.cetakdp', compact('Trxcetak'))->setPaper('F4', 'portrait');
         return $pdf->stream();
     }
 

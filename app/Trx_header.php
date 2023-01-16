@@ -12,8 +12,8 @@ class Trx_header extends Model
     protected $keyType = 'char';
     protected $table = 'trx_headers';
     public $incrementing = false;
-    protected $fillable = ['id_trx','kode_pelanggan','tgl_trx','keterangan','jenis_barang','jenis_transaksi','status_trx','total_bayar',
-                            'kurang_bayar','tgl_jatuhtemp'];
+    protected $fillable = ['id_trx','kode_pelanggan','pelanggan','tgl_trx','keterangan','jenis_barang','jenis_transaksi',
+                            'status_trx','total_bayar','kurang_bayar','ongkos','tgl_jatuhtemp'];
 
     public function Trx_detail(){
         return  $this->BelongsTo('App\Trx_detail','id_trx','id_trx');

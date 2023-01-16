@@ -10,19 +10,7 @@
 @endsection
 @section('content')
 <div class="card-body">
-        
-    {{-- <a href="{{route('cetaklappen.index')}}" class="btn btn-dark mr-2"
-     target="_blank">
-        <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
-    </a> --}}
-    {{-- <form action="{{route('cetaklappen.index')}}" method="POST" target="_blank">
-        @csrf
-        <input type="hidden" name="month" value="{{$month}}">
-        <input type="hidden" name="year" value="{{$year}}">
-            <button type="submit" class="btn btn-dark mr-2" >
-                <i class="fa fa-print fa-fw"  style="font-size:17px" aria-hidden="true"></i> Cetak
-            </button>
-    </form> --}}
+
     <div class="container">
         <form action="{{route('cetaklappen.index')}}" method="post" target="_blank">
             @csrf
@@ -50,7 +38,7 @@
                         <option selected disabled>--Pilih Tahun--</option>
                         <?php 
                             $year = date('Y');
-                            $min = $year - 60;
+                            $min = $year - 2;
                             $max = $year;
                                 for( $i=$max; $i>=$min; $i-- ) {
                                     echo '<option value='.$i.'>'.$i.'</option>';
@@ -84,31 +72,33 @@
                     <th>Ukuran</th>
                     <th>Harga</th>
                     <th>Terjual</th>
+                    <th>Total</th>
                     <th>Diskon</th>
                     <th>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
                 @php $no = 1 @endphp
-                {{-- @php
-                    $a = 0;
-                @endphp --}}
-                @foreach ($Trx_header as $header)
-                @foreach ($Trx_detail as $detail)
-                {{-- @php
-                    $a += $header->total_bayar;
-                @endphp --}}
+                    
+                    @foreach ($Trx_header as $header)
+                    @foreach ($Trx_detail as $detail)
+
                         @if ($header->id_trx == $detail->id_trx)
                             @foreach ($barang as $brg)
-                            @if ($detail->barang_id == $brg->kode_barang)
-                            <tr>
-                                <td>{{$no++}}</td>
+                                @if ($detail->barang_id == $brg->kode_barang)
+                                    <tr>
+                                         <td>{{$no++}}</td>
                                         <td>{{date('d-m-Y',strtotime($header->tgl_trx))}}</td>
-                                        <td>{{$header->Pelanggan->nama_pelanggan}}</td>
+                                        @if ($header->jenis_transaksi == 'Tunai')
+                                                <td>{{$header->pelanggan}}</td>
+                                            @else                                                
+                                                <td>{{$header->Pelanggan->nama_pelanggan}}</td>
+                                        @endif
                                         <td> {{$brg->jenis_barang}}</td>
                                         <td>{{$brg->ukuran_barang}}</td>
-                                        <td>{{$brg->harga}}</td>
+                                        <td>Rp.{{number_format($brg->harga,0,',','.')}}</td>
                                         <td>{{$detail->qty}}</td>
+                                        <td>Rp.{{number_format($brg->harga * $detail->qty,0,',','.')}}</td>
                                         <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
                                         <td>Rp.{{number_format($detail->total_harga - $header->kurang_bayar,0,',','.')}}</td>
                                     </tr>
@@ -119,7 +109,7 @@
                 @endforeach
             </tbody>
             <tr>
-                <td colspan="8" class="text-center"><b>Total Penjualan</b></td>
+                <td colspan="9" class="text-center" style="color: white; background-color: black"><b>Total Penjualan</b></td>
                 <td>Rp. {{number_format($penjualan,0,',','.')}}</td>
                 <td></td>
             </tr>

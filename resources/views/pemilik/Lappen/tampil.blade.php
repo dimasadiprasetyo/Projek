@@ -48,7 +48,7 @@
                                         <td>{{$brg->harga}}</td>
                                         <td>{{$detail->qty}}</td>
                                         <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
-                                        <td>Rp.{{number_format($detail->total_harga,0,',','.')}}</td>
+                                        <td>Rp.{{number_format($detail->total_harga - $header->kurang_bayar,0,',','.')}}</td>
                                     </tr>
                                 @endif
                             @endforeach

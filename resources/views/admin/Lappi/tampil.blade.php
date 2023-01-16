@@ -45,7 +45,7 @@
                                 <option selected disabled>--Pilih Tahun--</option>
                                 <?php 
                                     $year = date('Y');
-                                    $min = $year - 60;
+                                    $min = $year - 2;
                                     $max = $year;
                                         for( $i=$max; $i>=$min; $i-- ) {
                                             echo '<option value='.$i.'>'.$i.'</option>';

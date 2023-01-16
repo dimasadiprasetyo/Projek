@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
-    {{-- <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" > --}}
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" > --}}
+    <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" >
     <title>Document</title>
     <style>
         body {
@@ -32,7 +32,7 @@
     <div style="margin-left: 16px">
         <div style="font-size: 17px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
-        <div style="font-size: 14px"> LAPORAN JURNAL UMUM</div>
+        <div style="font-size: 14px"><strong> LAPORAN JURNAL UMUM </strong></div>
         <div style="font-size: 15px; text-align: left "> Periode {{$monthName}} {{$year}}</div>
     </div>
     <br>
@@ -52,7 +52,7 @@
             <tbody>
                 @foreach($Jurnalheader as $header)
                     <tr style="background:lightblue;">
-                        <td style="text-align: center">{{date('d F Y',strtotime($header->tanggal))}}</td>
+                        <td style="text-align: center">{{tgl_indo($header->tanggal)}}</td>
                         <td><b>{{$header->keterangan}}</b></td>
                         <td></td>
                         <td></td>
@@ -65,8 +65,8 @@
                                 <td></td>
                                 <td>{{$detail->Akun->nama_akun}}</td>
                                 <td></td>
-                                <td style="text-align: center">{{$detail->debit > 0 ? $detail->debit : null}}</td>
-                                <td style="text-align: center">{{$detail->kredit > 0 ? $detail->kredit : null }}</td>
+                                <td style="text-align: right">Rp.{{rupiahreplace($detail->debit > 0 ? $detail->debit : null)}}</td>
+                                <td style="text-align: right">Rp.{{rupiahreplace($detail->kredit > 0 ? $detail->kredit : null) }}</td>
                             </tr>  
                         @endif
                     @endforeach

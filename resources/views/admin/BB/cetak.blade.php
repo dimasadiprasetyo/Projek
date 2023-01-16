@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
-    {{-- <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" > --}}
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" > --}}
+    <link rel="stylesheet" href="{{asset('asset/dist/css/bootstrap.min.css')}}" >
     <title>Document</title>
     <style>
         table {
@@ -38,8 +38,8 @@
     <div style="margin-left: 16px">
         <div style="font-size: 17px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
-        <div style="font-size: 14px"> LAPORAN BUKU BESAR</div>
-        <div style="font-size: 15px; text-align: left "> Periode {{$dt}}</div>
+        <div style="font-size: 14px"><strong> LAPORAN BUKU BESAR </strong></div>
+        <div style="font-size: 15px; text-align: left "> Periode {{$monthName}} {{$year}}</div>
     </div>
     <br>
     <br>
@@ -63,9 +63,9 @@
                                     <th>Tanggal</th>
                                     <th>Keterangan</th>
                                     <th>Reff</th>
-                                    <th>Debit</th>
-                                    <th>Kredit</th>
-                                    <th>Saldo</th>
+                                    <th style="text-align: right">Debit</th>
+                                    <th style="text-align: right">Kredit</th>
+                                    <th style="text-align: right">Saldo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,9 +77,9 @@
                                                 <td>{{date('d/m/y',strtotime($header->tanggal))}}</td>
                                                 <td>{{$header->keterangan}}</td>
                                                 <td>{{$detail->id_jurnal}}</td>
-                                                <td>Rp.{{number_format($detail->debit,0,',','.')}}</td>
-                                                <td>Rp.{{number_format($detail->kredit,0,',','.')}}</td>
-                                                <td>Rp.{{number_format($total +=($detail->debit - $detail->kredit),0,',','.')}}</td>
+                                                <td style="text-align: right">Rp.{{number_format($detail->debit,0,',','.')}}</td>
+                                                <td style="text-align: right">Rp.{{number_format($detail->kredit,0,',','.')}}</td>
+                                                <td style="text-align: right">Rp.{{number_format($total +=($detail->debit - $detail->kredit),0,',','.')}}</td>
                                             </tr>
                                         @endif
                                     @endforeach

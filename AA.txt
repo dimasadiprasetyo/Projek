@@ -1,0 +1,65 @@
+// dd($id_jurnal);
+        $cek = Jurnal_detail::where("id_jurnal", $id_jurnal)->get();
+        // dd($cek);
+        foreach($cek as $c){
+            // dd($c->debit);
+            $cekakun = Akun::where('id_akun',$c->id_akun)->first();
+                if ($cekakun->jenis_akun == 'Debet') {
+                    $cekakun->update([
+                    'saldo_akhir'=> $cekakun->saldo_akhir +$c->debit
+                    ]);
+                } else {
+                    $cekakun->update([
+                        
+                        'saldo_akhir'=> $cekakun->saldo_akhir +$c->kredit
+                    ]);
+                }
+            $update = Jurnal_header::where("id_jurnal",$id_jurnal)->first();
+            // dd($update);
+            $update->update([
+                'status_posting'=>'1',
+            ]);
+        }
+        return redirect()->back();
+
+        // return redirect()->route('tampil.index',[$year,$month])->withToastSuccess("Data Berhasil Diposting");
+
+
+
+
+//tampil
+<table class="table" id="tabele">
+                    <!--Judul Tabel -->
+                    <thead style="background-color: black">
+                        <tr style="text-align: center;color: white;font-size: 15px;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                            <th style="font-size: 15px; color: white">No</th>
+                            <th style="font-size: 15px; color: white">Id Transaksi</th>
+                            <th style="font-size: 15px; color: white">Tanggal Penjualan</th>
+                            <th style="font-size: 15px; color: white">Pembayaran</th>
+                            <th style="font-size: 15px; color: white">STATUS POSTING</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($Trxheader as $penjualan)
+                            <tr  style="font-size: 15px">
+                                <td style="text-align: center">{{$loop->iteration}}</td>
+                                <td style="text-align: center">{{$penjualan->trx_header->id_trx}}</td>
+                                <td>{{date('d F Y',strtotime($penjualan->trx_header->tgl_trx))}}</td>
+                                <td style="text-align: center">Rp.{{number_format($penjualan->trx_header->total_bayar - $penjualan->trx_header->kurang_bayar,0,',','.')}}</td>
+                                <td style="text-align: center">
+                                    
+                                    <a href="{{route('posting.index',$penjualan->id_jurnal)}}" class="btn btn-warning">
+                                        <i class='fas fa-plus fa-fw'   aria-hidden="true" style='font-size:13px'></i> Posting</a>
+                                        
+                                    {{-- <form action="{{route('posting.index',$penjualan->id_jurnal)}}" class="d-inline delete" method="GET">
+                                        @method('GET')
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning posting" id="posting" data-id="{{$penjualan->id_jurnal}}">
+                                            <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Posting
+                                        </button>
+                                    </form> --}}
+                            </tr>  
+                        @endforeach
+                    </tbody>
+                
+                </table>

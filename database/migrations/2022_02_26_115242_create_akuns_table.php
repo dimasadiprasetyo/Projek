@@ -15,7 +15,7 @@ class CreateAkunsTable extends Migration
     {
         Schema::create('akuns', function (Blueprint $table) {
             
-            $table->string('id_akun')->primary();
+            $table->char('id_akun', 10)->primary();
             $table->string('nama_akun');
             $table->bigInteger('saldo_awal')->nullable();
             $table->bigInteger('saldo_akhir')->nullable();

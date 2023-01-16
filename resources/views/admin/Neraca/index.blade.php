@@ -77,8 +77,8 @@
                                             <td>{{$akun->nama_akun}}</td>
                                             {{-- <td>Rp.{{number_format($akun->jenis_akun == 'Debet' ? $akun->saldo_akhir : 0,0,',','.')}}</td>
                                             <td>Rp.{{number_format($akun->jenis_akun == 'Kredit' ? $akun->saldo_akhir : 0,0,',','.')}}</td> --}}
-                                            <td>{{number_format($d,0,',','.')}}</td>
-                                            <td>{{number_format($k,0,',','.')}}</td>
+                                            <td style="text-align: right">Rp.{{number_format($d,0,',','.')}}</td>
+                                            <td style="text-align: right">Rp.{{number_format($k,0,',','.')}}</td>
                                         </tr>
                                         @php
                                             $totalDebit += $d;
@@ -88,8 +88,8 @@
                             </tbody>
                             <tr style="text-align: center">
                                         <td colspan="2" style="background: rgb(0, 0, 0); color: white"><b>Jumlah</b></td>
-                                        <td><b>Rp.{{number_format($totalDebit,0,',','.')}}</b></td>
-                                        <td><b>Rp.{{number_format($totalKredit,0,',','.')}}</b></td>
+                                        <td style="text-align: right"><b>Rp.{{number_format($totalDebit,0,',','.')}}</b></td>
+                                        <td style="text-align: right"><b>Rp.{{number_format($totalKredit,0,',','.')}}</b></td>
                                         
                             </tr>
                         </table>

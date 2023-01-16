@@ -35,15 +35,19 @@
               <input type="text" class="form-control" id="email" name="email" placeholder="example : Mulyadi@google.com" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
           </div>
           <div class="form-group row col-6">
+            <label for="username" style="font-size: 15px" style="color: black">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="example : Mulyadi" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
+        </div>
+          <div class="form-group row col-6">
             
               <label for="password" style="font-size: 15px" style="color: black">Password</label>
               <input type="password" class="form-control" id="password" name="password" placeholder="example : 12345" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
               
           </div>
-          <div class="form-group row col-6">
+          {{-- <div class="form-group row col-6">
               <label for="email_verified_at" style="font-size: 15px" style="color: black">E-Mail Verified</label>
               <input type="text" class="form-control" id="email_verified_at" name="email_verified_at" placeholder="example : Mulyadi@google.com">
-          </div>
+          </div> --}}
           <div class="card-footer">
             <button onclick="withToastSuccess()" type="submit" class="btn btn-primary">
               <i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan

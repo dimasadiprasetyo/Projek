@@ -57,7 +57,7 @@
                   </div>
                   <div class="form-group col-md-6">
                       <label for="kurang_bayar" style="font-size: 15px; color: black">kurang Bayar</label>
-                      <input type="text" class="form-control" id="kurang_bayar" value="{{$Trxheader->kurang_bayar}}" name="kurang_bayar" readonly>
+                      <input type="text" class="form-control" id="kurang_bayar"  value="{{number_format($Trxheader->kurang_bayar,0,",",".")}}" name="kurang_bayar" readonly>
                   </div>
               </div>
               
@@ -72,8 +72,8 @@
                                       <tr style="font-size: 15px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
                                           <th style="color: white; font-size: 14px">No </th>
                                           <th style="color: white; font-size: 14px" width="100px">Angsuran Ke- </th>
-                                          <th style="color: white; font-size: 14px;" width="150px">Jatuh Tempo</th>
                                           <th style="color: white; font-size: 14px">Bayar Angsuran</th>
+                                          <th style="color: white; font-size: 14px;" width="150px">Jatuh Tempo</th>
                                           <th style="color: white; font-size: 14px">Bayar</th>
                                           <th style="color: white; font-size: 14px">Kurang</th>
                                           <th style="color: white; font-size: 14px">Status</th>
@@ -84,10 +84,10 @@
                                     <tr style="font-size: 15px">
                                       <td>1</td>
                                       <td>Angs- 1</td>
-                                      <td>{{date('d F Y',strtotime($Trxheader->tgl_jatuhtemp))}}</td>
-                                      <td>{{date('d F Y',strtotime($Trxheader->created_at))}}</td>
-                                      <td>Rp.{{number_format($Trxheader->total_bayar -  $Trxheader->kurang_bayar, 0,',','.')}}</td>
+                                      <td>{{tgl_indo($Trxheader->tgl_trx)}}</td>
+                                      <td>{{tgl_indo($Trxheader->tgl_jatuhtemp)}}</td>
                                       <td>Rp.{{number_format($Trxheader->kurang_bayar, 0, ',','.')}}</td>
+                                      <td>Rp.{{number_format($Trxheader->total_bayar -  $Trxheader->kurang_bayar, 0,',','.')}}</td>
                                       <td>{{$Trxheader->status_trx}}</td>
                                       <td>
                                           <a class="btn btn-dark" href="{{route('cetakangdp.index',$Trxheader->id_trx)}}" target="_blank">
@@ -101,10 +101,10 @@
                                       <tr>
                                           <td>{{$loop->iteration+1}}</td>
                                           <td>Angs- {{$piutang->angsuran_ke}}</td>
-                                          <td>{{date('d F Y',strtotime($Trxheader->tgl_jatuhtemp))}}</td>
-                                          <td>{{date('d F Y',strtotime($piutang->tanggal_ang))}}</td>
-                                          <td>Rp.{{number_format($piutang->jml_bayar, 0, ',','.')}}</td>
+                                          <td>{{tgl_indo($piutang->tanggal_ang)}}</td>
+                                          <td>{{tgl_indo($Trxheader->tgl_jatuhtemp)}}</td>
                                           <td>Rp.{{number_format($piutang->kurang_bayar - $piutang->jml_bayar,0,',','.')}}</td>
+                                          <td>Rp.{{number_format($piutang->jml_bayar, 0, ',','.')}}</td>
                                           <td>{{$Trxheader->status_trx}}</td>
                                           <td>
                                             <a class="btn btn-dark" href="{{route('cetakang.index',$piutang->kode_angsuran)}}" target="_blank">
@@ -125,5 +125,38 @@
       </form>
   </div>
 @endsection
+@push('Akhir')
+  <script type="text/javascript">
+    $(document).ready(()=>{
+      var bayar = document.getElementById('bayar');
+              bayar.addEventListener('keyup', function(e){
+                bayar.value = formatRupiah(this.value, 'Rp. ');
+              })
+              
+              function formatRupiah(angka, prefix){
+                var 	number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split	= number_string.split('.'),
+                sisa 	= split[0].length % 3,
+                rupiah 	= split[0].substr(0, sisa),
+                ribuan 	= split[0].substr(sisa).match(/\d{1,3}/gi);
+                
+                if (ribuan) {
+                  separator = sisa ? '.' : '';
+                  rupiah += separator + ribuan.join('.');
+                }
+    
+                  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+              }
+
+              function reverseRupiah(angka) {
+                let deleteRp = angka.replace('Rp. ', '')
+                let result = deleteRp.replaceAll('.', '')
+                return result
+              }
+    });
+  </script>
+    
+@endpush
 
 

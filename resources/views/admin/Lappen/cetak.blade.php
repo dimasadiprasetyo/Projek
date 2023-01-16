@@ -36,7 +36,7 @@
     <div style="margin-left: 16px">
         <div style="font-size: 17px"> MATERIAL KAYU LANCAR JAYA</div>
         {{-- <div style="font-size: 20px"> LANCAR JAYA</div> --}}
-        <div style="font-size: 14px"> LAPORAN PENJUALAN</div>
+        <div style="font-size: 14px"><strong> LAPORAN PENJUALAN </strong></div>
         <div style="font-size: 15px; text-align: left "> Periode {{$monthName}} {{$year}}</div>
     </div>
     <br>
@@ -53,6 +53,7 @@
                     <th>Ukuran</th>
                     <th>Harga</th>
                     <th>Terjual</th>
+                    <th>Total</th>
                     <th>Diskon</th>
                     <th>Subtotal</th>
                 </tr>
@@ -73,13 +74,19 @@
                             <tr>
                                 <td>{{$no++}}</td>
                                         <td>{{date('d-m-Y',strtotime($header->tgl_trx))}}</td>
-                                        <td>{{$header->Pelanggan->nama_pelanggan}}</td>
+                                        @if ($header->jenis_transaksi == 'Tunai')
+                                                <td>{{$header->pelanggan}}</td>
+                                            @else                                                
+                                                <td><strong>{{$header->Pelanggan->nama_pelanggan}}</strong></td>
+                                        @endif
+                                        {{-- <td>{{$header->Pelanggan->nama_pelanggan}}</td> --}}
                                         <td> {{$brg->jenis_barang}}</td>
                                         <td>{{$brg->ukuran_barang}}</td>
-                                        <td>{{$brg->harga}}</td>
+                                        <td>Rp.{{number_format($brg->harga,0,',','.')}}</td>
                                         <td>{{$detail->qty}}</td>
+                                        <td>Rp.{{number_format($brg->harga * $detail->qty,0,',','.')}}</td>
                                         <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
-                                        <td>Rp.{{number_format($detail->total_harga,0,',','.')}}</td>
+                                        <td>Rp.{{number_format($detail->total_harga - $header->kurang_bayar,0,',','.')}}</td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -88,7 +95,7 @@
                 @endforeach
             </tbody>
             <tr>
-                <td colspan="8" class="text-center"><b>Total Penjualan</b></td>
+                <td colspan="9" class="text-center"><b>Total Penjualan</b></td>
                 <td>Rp. {{number_format($penjualan,0,',','.')}}</td>
                 {{-- <td></td> --}}
             </tr>

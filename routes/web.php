@@ -81,10 +81,17 @@ Route::middleware(['auth','ceklevel:admin'])->group(function () {
 
     // Jurnal Umum
     Route::get('jurnalumum','JUController@index')->name('jurnalumum.index');
-    Route::get('tampil','JUController@tampil')->name('tampil.index');
+    Route::get('tampilJU','JUController@tampil')->name('tampilJU.index');
     Route::get('posting/{id_jurnal}','JUController@posting')->name('posting.index');
     // Route::patch('posting/{id_jurnal}','JUController@posting')->name('posting.index');
     Route::post('cetakJU','JUController@cetak')->name('cetakJU.index');
+    
+    // Jurnal Penjualan
+    Route::get('jurnalpenjualan','JPController@index')->name('jurnalpenjualan.index');
+    Route::get('tampil','JPController@tampil')->name('tampilJP.index');
+    Route::get('posting/{id_jurnal}','JUController@posting')->name('posting.index');
+    // Route::patch('posting/{id_jurnal}','JUController@posting')->name('posting.index');
+    Route::post('cetakJP','JPController@cetak')->name('cetakJP.index');
     
     // Buku Besar
     Route::get('bukubesar','BukubesarController@index')->name('bukubesar.index');
@@ -125,11 +132,14 @@ Route::middleware(['auth', 'ceklevel:pemilik'])->group(function () {
     
     //Jurnal Umum
     Route::get('jurnalumumpemilik','JUController@indexpemilik')->name('jurnalumum.indexpemilik');
-    
     Route::post('tampilpemilik','JUController@tampilpemilik')->name('tampilpemilik.index');
-    // Route::get('posting/{id_jurnal}','JUController@posting')->name('posting.index');
-    // Route::post('cetakJU','JUController@cetak')->name('cetakJU.index');
     
+    // Jurnal Penjualan
+    Route::get('jurnalpenjualanpemilik','JPController@indexpemilik')->name('jurnalpenjualan.indexpemilik');
+    Route::get('tampilpemilik','JPController@tampilpemilik')->name('tampilpemilik.index');
+    
+
+
     // Buku Besar
     Route::get('bukubesarpemilik','BukubesarController@indexpemilik')->name('bukubesarpemilik.index');
     Route::post('bukubesartampilpemilik','BukubesarController@tampilindexpemilik')->name('bukubesartampilpemilik.index');

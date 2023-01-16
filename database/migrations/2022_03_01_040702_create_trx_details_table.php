@@ -16,7 +16,7 @@ class CreateTrxDetailsTable extends Migration
         Schema::create('trx_details', function (Blueprint $table) {
             $table->id();
             $table->char('id_trx',17);
-            $table->string('barang_id')->nullable();
+            $table->char('barang_id',15)->nullable();
             $table->bigInteger('qty');
             $table->bigInteger('diskon');
             $table->bigInteger('total_harga');

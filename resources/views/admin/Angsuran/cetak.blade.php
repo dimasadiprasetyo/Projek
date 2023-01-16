@@ -49,7 +49,7 @@
 					<img src="LJA.jpg" alt="" width="125" style="text-align: center">
 				</td>  
 				<td width="120" valign="top" ></td>  
-				<td valign="top" colspan="2" >Tanggal : {{date('d F Y',strtotime($angsurancetak->tanggal_ang))}}</td>  
+				<td valign="top" colspan="2" >Tanggal : {{tgl_indo($angsurancetak->tanggal_ang)}}</td>  
 				
 			</tr>  
 			<tr>

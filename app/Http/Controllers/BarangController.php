@@ -52,7 +52,7 @@ class BarangController extends Controller
             'asal_barang'=>$request->asal_barang,
             'ukuran_barang'=>$request->ukuran_barang,
             'stok'=>$request->stok,
-            'harga'=>$request->harga
+            'harga'=>reverseRupiah($request->harga)
         ]);
         
         return redirect(route('barang.index'))->withToastSuccess("Data Berhasil Ditambahkan");
@@ -77,7 +77,7 @@ class BarangController extends Controller
             'asal_barang'=>$request->asal_barang,
             'ukuran_barang'=>$request->ukuran_barang,
             'stok'=>$request->stok,
-            'harga'=>$request->harga
+            'harga'=>reverseRupiah($request->harga)
         ]);
         return redirect(route('barang.index'))->withToastSuccess("Data Berhasil Di Edit");
     }

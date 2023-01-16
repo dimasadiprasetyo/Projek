@@ -12,7 +12,7 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('username', 'password'))) {
             return redirect('/dasboard')->with('success','Selamat! Anda telah berhasil Login');
         }
-            return redirect('/')->with('message','Email atau Password salah');
+            return redirect('/')->with('message','Username atau Password salah');
     }
     //logout
     

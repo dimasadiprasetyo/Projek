@@ -39,6 +39,7 @@ class NeracaController extends Controller
 
         $month = $request->bulan;
 	    $year = $request->tahun;
+        
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
         ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
         
@@ -50,6 +51,11 @@ class NeracaController extends Controller
     public function cetak(Request $request){
         $month = $request->month;
 	    $year = $request->year;
+
+        $dataBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $selectedMonth = str_replace('0','',$month);
+        $monthName = $dataBulan[$selectedMonth -1];
+
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
         ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
         foreach($Jurnalheader as $date){
@@ -57,7 +63,7 @@ class NeracaController extends Controller
         }
         $akuns = Akun::whereNotIn('id_akun',[402,102])->get();
         $tgl = date('d-m-Y');
-        $pdf = PDF::loadview('admin.Neraca.cetak', compact('Jurnalheader','akuns','dt','tgl'));
+        $pdf = PDF::loadview('admin.Neraca.cetak', compact('Jurnalheader','akuns','dt','tgl','monthName','year'));
         return $pdf->stream();
     }
     

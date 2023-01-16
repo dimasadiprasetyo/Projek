@@ -51,7 +51,6 @@ class AkunSeeder extends Seeder
         User::create([
             'name'=>'Admin',
             'level'=>'admin',
-            'email'=>'Admin@admin',
             'password'=>bcrypt('12345'),
             'username' => 'Admin',
             'remember_token'=>Str::random(60),
@@ -59,8 +58,7 @@ class AkunSeeder extends Seeder
         User::create([
             'name'=>'Pemilik',
             'level'=>'pemilik',
-            'email'=>'Pemilik@pemilik',
-            'password'=>bcrypt('12345'),
+            'password'=>bcrypt('123456'),
             'username' =>'Pemilik',
             'remember_token'=>Str::random(60),
         ]);

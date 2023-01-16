@@ -52,6 +52,11 @@ class BukuBesarController extends Controller
     public function cetak(Request $request){
         $month = $request->month;
 	    $year = $request->year;
+
+        $dataBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $selectedMonth = str_replace('0','',$month);
+        $monthName = $dataBulan[$selectedMonth -1];
+
         $Jurnalheader = Jurnal_header::whereYear('tanggal', '=', $year)
         ->whereMonth('tanggal', '=', $month)->where('status_posting','=','1')->with('Jurnal_detail')->get();
         foreach($Jurnalheader as $date){
@@ -61,7 +66,7 @@ class BukuBesarController extends Controller
         $akuns = Akun::whereNotIn('id_akun',[102])->get();
         $tgl = date('d-m-Y');
 
-        $pdf = PDF::loadview('admin.BB.cetak', compact('Jurnalheader','akuns','dt','tgl'))->setpaper('F4','potrait');
+        $pdf = PDF::loadview('admin.BB.cetak', compact('Jurnalheader','akuns','dt','tgl', 'monthName', 'year'))->setpaper('F4','potrait');
         return $pdf->stream();
     }
     

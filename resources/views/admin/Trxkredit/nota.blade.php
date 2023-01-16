@@ -67,7 +67,7 @@
             <td colspan="3" class="left kop">{{date('d-m-Y',strtotime($tgl_trx))}}</td>
           </tr>
           <tr>
-            <td  class="left">Nama Pelanggan</td>
+            <td  class="left">Customer</td>
             <td class="left kop">{{$kode_pelanggan}}</td>
             <td></td>
             <td  class="left">Tanggal Jatuh Tempo</td>
@@ -75,7 +75,7 @@
           </tr>
           <tr>
             <td  class="left">Alamat</td>
-            <td  class="left kop">{{$alamat}}</td>
+            <td  class="left kop">{{$alamat}} /</td>
             <td></td>
             <td  class="left">Keterangan</td>
             <td colspan="3" class="left kop">{{$keterangan}}</td>
@@ -110,16 +110,42 @@
           </tr>
           @endforeach
           <tr>
-            <th colspan="6" class="tr2" style="text-align: center; background-color: #cc0101;color: white"> UANG MUKA/DP</th>
-            <td style="color: rgb(250, 0, 0)">Rp.{{number_format($uangmuka,0,',','.')}}</td>
-            
+            <th colspan="6" class="tr2" style="text-align: right; background-color: #830000;color: white"> Uang Muka</th>
+            <td style="color: rgb(255, 255, 255); background-color: rgb(160, 10, 10)">Rp.{{number_format($uangmuka,0,',','.')}}</td>
           </tr>
+
           <tr>
-            <th colspan="6" class="tr2" style="text-align: center; background-color: #000000;color: white"> TOTAL KURANG</th>
-            <td style="background-color: red;color: white">Rp.{{number_format($total_bayar,0,',','.')}}</td>
-            
+            <th colspan="6" class="tr2" style="text-align: right; background-color: #000000;color: white"> Sisa yang harus dibayar</th>
+            <td style="color: rgb(255, 255, 255);background-color: rgb(160, 10, 10)">Rp.{{number_format($total_bayar,0,',','.')}}</td>
           </tr>
+
+          <tr>
+            <th colspan="6" class="tr2" style="text-align: right; background-color: #000000;color: white"> Ongkos Kirim</th>
+            <td style="color: rgb(255, 255, 255);background-color: rgb(160, 10, 10)">{{$ongkir}}</td>
+          </tr>
+
+          <tr>
+            <th colspan="6" class="tr2" style="text-align: right; background-color: #000000;color: white"> Subtotal</th>
+            <td style="background-color: red;color: rgb(255, 255, 255)">Rp.{{number_format($subtotal,0,',','.')}}</td>
+          </tr>
+
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="color: red"> Perhatian : Barang yang sudah dibeli tidak bisa dikembalikan & Pembelian baru harga baru</td>
+            <td colspan="1"></td>
+            <td colspan="1"></td>
+            <td colspan="2"></td>
+            <td></td>
+          </tr>
+          <tr >
+            <td></td>
+            <td colspan="1"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td></td>
+          </tr>
+        </tfoot>
         <tfoot>
           <tr>
             <td></td>
@@ -137,10 +163,10 @@
           </tr>
           <tr >
             <td></td>
-              <td colspan="1"></td>
-              <td colspan="2"></td>
-              <td colspan="2"></td>
-              <td></td>
+            <td colspan="1"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td></td>
           </tr>
           <tr >
             <td></td>
@@ -151,10 +177,10 @@
           </tr>
           <tr>
             <td></td>
-              <td style="text-align: center" >(...........................)</td>
-              <td colspan="2"></td>
-              <td colspan="2" style="text-align: center">(Lancar Jaya)</td>
-              <td></td>
+            <td style="text-align: center" >({{$kode_pelanggan}})</td>
+            <td colspan="2"></td>
+            <td colspan="2" style="text-align: center">(Lancar Jaya)</td>
+            <td></td>
           </tr>
         </tfoot>
     </table>

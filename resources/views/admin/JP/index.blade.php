@@ -1,11 +1,11 @@
 @extends('layout.template')
 @section('title')
-Laporan Jurnal Umum /
+Laporan Jurnal Penjualan /
 @endsection
 @section('judul')
 <div class="card-header">
 <h1 style="color: #F08080;">
-    <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; LAPORAN JURNAL UMUM</font>
+    <font size="5" face="Century Gothic"><i class="fas fa-file-alt" style='font-size:25px;'></i>&nbsp; LAPORAN JURNAL PENJUALAN</font>
 </h1>
 </div>
 {{-- <h1 class="fas fa-bell"> DATA LAPORAN PENJUALAN</h1> --}}
@@ -15,7 +15,7 @@ Laporan Jurnal Umum /
 <div class="card" style="background-color: rgb(0, 9, 141)">
     <div class="card-body">
         <div class="container">
-            <form action="{{route('tampilJU.index')}}" method="get">
+            <form action="{{route('tampilJP.index')}}" method="get">
                 @csrf
                 <div class="row">
                     <div class="col-6">

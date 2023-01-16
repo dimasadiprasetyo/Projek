@@ -70,7 +70,7 @@ class LappiController extends Controller
         // foreach($Trxheader as $date){
         //     $dt = date('M Y',strtotime($date->tgl_trx));
         // }
-        $pdf = PDF::loadview('admin.Lappi.cetak', compact('Trxheader', 'totalPiutang', 'monthName','year','tgl'))->setPaper('F4','potrait');
+        $pdf = PDF::loadview('admin.Lappi.cetak', compact('Trxheader', 'totalPiutang', 'monthName','year','tgl'))->setPaper('A4','potrait');
         return $pdf->stream();
     }
     

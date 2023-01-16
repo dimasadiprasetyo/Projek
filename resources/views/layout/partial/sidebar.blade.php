@@ -57,11 +57,12 @@
               <i class="fas fa-file-alt" style="color: black"></i><span style="color: black">Laporan</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="{{route('lappen.index')}}" style="color: black">Laporan Penjualan</a></li>
-              <li><a class="nav-link" href="{{route('lappi.index')}}" style="color: black">Laporan Piutang</a></li>
               <li><a class="nav-link" href="{{route('jurnalumum.index')}}" style="color: black">Jurnal Umum</a></li>
+              <li><a class="nav-link" href="{{route('jurnalpenjualan.index')}}" style="color: black">Jurnal Penjualan</a></li>
               <li><a class="nav-link" href="{{route('bukubesar.index')}}" style="color: black">Buku Besar</a></li>
               <li><a class="nav-link" href="{{route('neraca.index')}}" style="color: black">Neraca</a></li>
+              <li><a class="nav-link" href="{{route('lappen.index')}}" style="color: black">Laporan Penjualan</a></li>
+              <li><a class="nav-link" href="{{route('lappi.index')}}" style="color: black">Laporan Piutang</a></li>
             </ul>
           </li>
       @endif
@@ -97,11 +98,12 @@
               </a>
               {{-- Pemilik --}}
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{route('lappen.indexpemilik')}}" style="color: black">Laporan Penjualan</a></li>
-                <li><a class="nav-link" href="{{route('lappipemilik.index')}}" style="color: black">Laporan Piutang</a></li>
                 <li><a class="nav-link" href="{{route('jurnalumum.indexpemilik')}}" style="color: black">Jurnal Umum</a></li>
+                <li><a class="nav-link" href="{{route('jurnalpenjualan.indexpemilik')}}" style="color: black">Jurnal Penjualan</a></li>
                 <li><a class="nav-link" href="{{route('bukubesarpemilik.index')}}" style="color: black">Buku Besar</a></li>
                 <li><a class="nav-link" href="{{route('neracapemilik.index')}}" style="color: black">Neraca</a></li>
+                <li><a class="nav-link" href="{{route('lappen.indexpemilik')}}" style="color: black">Laporan Penjualan</a></li>
+                <li><a class="nav-link" href="{{route('lappipemilik.index')}}" style="color: black">Laporan Piutang</a></li>
               </ul>
             </li>
             

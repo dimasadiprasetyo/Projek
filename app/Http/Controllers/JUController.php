@@ -27,10 +27,14 @@ class JUController extends Controller
     public function tampil(Request $request){
         $month = $request->bulan;
 	    $year = $request->tahun;
-        $Trxheader = Jurnal_header::where('status_posting','=','0')->whereYear('tanggal', '=', $year)
-        ->whereMonth('tanggal', '=', $month)->with('trx_header')->get();
+        $Jurnalheader = Jurnal_header::whereYear('tanggal','=', $year)->whereMonth('tanggal','=', $month)
+                        ->where('status_posting','=',1)->get();
+        $Jurnaldetail = Jurnal_detail::with('Akun')->get();
+        // $Trxheader = Jurnal_header::where('status_posting','=','0')->whereYear('tanggal', '=', $year)
+        // ->whereMonth('tanggal', '=', $month)->with('trx_header')->get();
         // dd($Trxheader);
-        return view('admin.JU.tampil',compact('Trxheader'));
+        
+        return view('admin.JU.tampil',compact('Jurnalheader','Jurnaldetail'));
     }
 
     // Tampil Pemilik

@@ -36,7 +36,7 @@ class LappenController extends Controller
 
         $penjualan = 0;
         foreach($Trx_header as $trx){
-            $penjualan = $penjualan + $trx->total_bayar;
+            $penjualan = $penjualan + ($trx->total_bayar - $trx->kurang_bayar);
         }
         return view('admin.Lappen.tampil',compact('barang','Trx_detail','Trx_header','month','year','penjualan'));
     }
@@ -53,7 +53,7 @@ class LappenController extends Controller
         $Trx_detail = Trx_detail::all();
         $penjualan = 0;
         foreach($Trx_header as $trx){
-            $penjualan = $penjualan + $trx->total_bayar;
+            $penjualan = $penjualan + ($trx->total_bayar - $trx->kurang_bayar);
         }
         return view('pemilik.Lappen.tampil',compact('barang','Trx_detail','Trx_header','penjualan'));
     }
@@ -74,13 +74,15 @@ class LappenController extends Controller
         $Trx_detail = Trx_detail::all();
         $penjualan = 0;
         foreach($Trx_header as $trx){
-            $penjualan = $penjualan + $trx->total_bayar;
+            $penjualan = $penjualan + ($trx->total_bayar - $trx->kurang_bayar);
         }
             //  foreach($Trx_header as $date){
             //     $dt = date('F Y',strtotime($date->tgl_trx));
             //  }
              
-                $pdf = PDF::loadview('admin.Lappen.cetak', compact('barang','Trx_detail','Trx_header','monthName','year','penjualan','month','tgl'))->setPaper('A4','potrait');
+                $pdf = PDF::loadview('admin.Lappen.cetak', compact('barang','Trx_detail','Trx_header',
+                                    'monthName','year','penjualan','month','tgl'))
+                                    ->setPaper('F4','potrait');
                 return $pdf->stream();
     }
 

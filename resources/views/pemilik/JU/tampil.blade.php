@@ -18,7 +18,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead style="background-color: black">
-                        <tr style="font-size: 15px; font-family: Georgia, 'Times New Roman', Times, serif">
+                        <tr style="font-size: 15px; font-family: Georgia, 'Times New Roman', Times, serif; text-align: center">
                             <th style="color: white">Tanggal</th>
                             <th style="color: white">Keterangan</th>
                             <th style="color: white">Reff</th>
@@ -41,8 +41,8 @@
                                             <td></td>
                                             <td>{{$detail->Akun->nama_akun}}</td>
                                             <td></td>
-                                            <td>Rp.{{number_format($detail->debit > 0 ? $detail->debit : null),0,'.','.'}}</td>
-                                            <td style="color: brown">Rp.{{number_format($detail->kredit > 0 ? $detail->kredit : null),0,'.','.' }}</td>
+                                            <td>Rp.{{number_format($detail->debit > 0 ? $detail->debit : null,0,',','.')}}</td>
+                                            <td style="color: brown">Rp.{{number_format($detail->kredit > 0 ? $detail->kredit : null,0,',','.')}}</td>
                                         </tr>      
                                     @endif
                                 @endforeach

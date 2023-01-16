@@ -68,6 +68,15 @@
                 <td class="left kop" colspan="2">{{date('d-m-Y',strtotime($tgl_trx))}}</td>{{----}}
                 <td></td>
               </tr>
+              <tr >
+                <td colspan="1" class="text-left">Customer</td>
+                <td class="left kop">{{$Pelanggan}}</td>{{----}}
+                <td></td>
+                <td>Alamat</td>
+                <td class="left kop" colspan="2"></td>{{----}}
+                <td></td>
+              </tr>
+
               <tr>
                 <td colspan="1" style="text-align: left">Keterangan</td>
                 <td class="left kop">{{$keterangan}}</td>{{----}}
@@ -91,8 +100,15 @@
               <th>Diskon</th>
               <th>Total</th>
             </tr>
-            @foreach ($transaksiDetail as $detail)
+            @foreach ($transaksidetail as $detail)
               <tr>  
+                {{-- <td>{{$loop->iteration}}</td>
+                <td>{{$detail->barang->jenis_barang}}</td>
+                <td>{{$detail->barang->ukuran_barang}}</td>
+                <td>{{$detail->qty}}</td>
+                <td>Rp.{{number_format($detail->barang->harga,0,',','.')}}</td>
+                <td>Rp.{{number_format($detail->diskon,0,',','.')}}</td>
+                <td>Rp.{{number_format($detail->total_harga,0,',','.')}}</td>     --}}
                 <td>{{$loop->iteration}}</td>
                 <td>{{$detail->barang->jenis_barang}}</td>
                 <td>{{$detail->barang->ukuran_barang}}</td>
@@ -103,10 +119,34 @@
               </tr>
             @endforeach
             <tr>
-              <th colspan="6" class="tr2" style="text-align: center; background-color: #000000;color: white"> TOTAL</th>
+              <th colspan="6"  class="tr2" style="text-align: right; background-color: #000000;color: white"> Total</th>
               <td style="background-color: rgb(160, 10, 10);color: white">Rp.{{number_format($total_bayar,0,',','.')}}</td>
             </tr>
+            <tr>
+              <th colspan="6" class="tr2" style="text-align: right; background-color: #000000;color: white">Ongkir</th>
+              <td style="background-color: rgb(160, 10, 10);color: white">{{$ongkir}}</td>
+            </tr>
+            <tr>
+              <th colspan="6" class="tr2" style="text-align: right; background-color: #000000;color: white">Subtotal</th>
+              <td style="background-color: rgb(160, 10, 10);color: white">Rp.{{number_format($subtotal,0,',','.')}}</td>
+            </tr>
           </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2" style="color: red"> Perhatian : Barang yang sudah dibeli tidak bisa dikembalikan & Pembelian baru harga baru</td>
+              <td colspan="1"></td>
+              <td colspan="1"></td>
+              <td colspan="2"></td>
+              <td></td>
+            </tr>
+            <tr >
+              <td></td>
+              <td colspan="1"></td>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+              <td></td>
+            </tr>
+          </tfoot>
           <tfoot>
             <tr>
               <td></td>
@@ -138,7 +178,7 @@
             </tr>
             <tr>
               <td></td>
-              <td style="text-align: center" >(...........................)</td>
+              <td style="text-align: center" >({{$Pelanggan}})</td>
               <td colspan="2"></td>
               <td colspan="2" style="text-align: center">(Lancar Jaya)</td>
               <td></td>

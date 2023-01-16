@@ -15,7 +15,7 @@ class CreateJurnalHeaderTable extends Migration
     {
         Schema::create('jurnal_header', function (Blueprint $table) {
             
-            $table->string('id_jurnal')->primary();
+            $table->char('id_jurnal',20)->primary();
             $table->enum('status_posting',['1','0']);
             $table->date('tanggal');
             $table->char('id_trx',17);

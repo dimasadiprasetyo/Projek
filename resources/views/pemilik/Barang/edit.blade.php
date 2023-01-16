@@ -40,7 +40,7 @@
         </div>
         <div class="form-group row col-6">
             <label for="harga" style="font-size: 15px; color: black">Harga</label>
-            <input style="color: black" type="text" class="form-control" value="{{$barang->harga}}" id="harga" name="harga" placeholder="example :12000">
+            <input style="color: black" type="text" class="form-control" value="{{number_format($barang->harga,0,',','.')}}" id="harga" name="harga" placeholder="example :12000">
         </div>
         <div class="card-footer">
           <button type="submit" onclick="withToastSuccess()" class="btn btn-success " ><i class="fa fa-floppy-o"  style="font-size:17px" aria-hidden="true"></i> Simpan</button>
@@ -62,6 +62,33 @@
       $(document).on('change','.form-control',function(){
           
       });
+
+      var harga = document.getElementById('harga');
+              harga.addEventListener('keyup', function(e){
+                harga.value = formatRupiah(this.value, 'Rp. ');
+              })
+              
+              function formatRupiah(angka, prefix){
+                var 	number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split	= number_string.split('.'),
+                sisa 	= split[0].length % 3,
+                rupiah 	= split[0].substr(0, sisa),
+                ribuan 	= split[0].substr(sisa).match(/\d{1,3}/gi);
+                
+                if (ribuan) {
+                  separator = sisa ? '.' : '';
+                  rupiah += separator + ribuan.join('.');
+                }
+    
+                  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+              }
+
+              function reverseRupiah(angka) {
+                let deleteRp = angka.replace('Rp. ', '')
+                let result = deleteRp.replaceAll('.', '')
+                return result
+              }
   });
 </script>
 @endpush

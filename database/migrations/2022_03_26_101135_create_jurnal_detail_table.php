@@ -16,7 +16,7 @@ class CreateJurnalDetailTable extends Migration
         Schema::create('jurnal_detail', function (Blueprint $table) {
             
             $table->id('id_jurnal_detail');
-            $table->string('id_jurnal');
+            $table->char('id_jurnal',20);
             $table->string('id_akun');
             $table->bigInteger('debit');
             $table->bigInteger('kredit');

@@ -44,10 +44,10 @@
                     <th colspan="4" class="text-center" id="a" style="background-color: white;color: black">MATERIAL KAYU LANCAR JAYA</th>
                 </tr>
                 <tr>
-                    <th colspan="4" class="text-center" id="b" style="background-color: white;color: black">NERACA</th>
+                    <th colspan="4" class="text-center" id="b" style="background-color: white;color: black"><strong> NERACA </strong></th>
                 </tr>
                 <tr>
-                    <th colspan="4" class="text-center" id="c" style="background-color: rgb(173, 1, 1);color: rgb(255, 255, 255)">PERIODE {{$dt}}</th>
+                    <th colspan="4" class="text-center" id="c" style="background-color: rgb(173, 1, 1);color: rgb(255, 255, 255)">PERIODE {{$monthName}} {{$year}}</th>
                 </tr>
                 {{-- <tr>
                     <th colspan="4" class="text-center">Periode {{$dt}}</th>
@@ -89,8 +89,8 @@
                         <td>{{$akun->nama_akun}}</td>
                         {{-- <td>Rp.{{number_format($akun->jenis_akun == 'Debet' ? $akun->saldo_akhir : 0,0,',','.')}}</td>
                         <td>Rp.{{number_format($akun->jenis_akun == 'Kredit' ? $akun->saldo_akhir : 0,0,',','.')}}</td> --}}
-                        <td>{{number_format($d,0,',','.')}}</td>
-                        <td>{{number_format($k,0,',','.')}}</td>
+                        <td style="text-align: right">Rp.{{number_format($d,0,',','.')}}</td>
+                        <td style="text-align: right">Rp.{{number_format($k,0,',','.')}}</td>
                     </tr>
                     @php
                         $totalDebit += $d;
@@ -100,8 +100,8 @@
         </tbody>
         <tr style="text-align: center">
                     <td colspan="2" style="background: rgb(0, 0, 0); color: white"><b>Jumlah</b></td>
-                    <td><b>Rp.{{number_format($totalDebit,0,',','.')}}</b></td>
-                    <td><b>Rp.{{number_format($totalKredit,0,',','.')}}</b></td>
+                    <td style="text-align: right"><b>Rp.{{number_format($totalDebit,0,',','.')}}</b></td>
+                    <td style="text-align: right"><b>Rp.{{number_format($totalKredit,0,',','.')}}</b></td>
                     
         </tr>
         </table>

@@ -17,13 +17,15 @@ class CreateTrxHeadersTable extends Migration
         Schema::create('trx_headers', function (Blueprint $table) {
             
             $table->char('id_trx', 17)->primary();
-            $table->string('kode_pelanggan')->nullable();// pelanggan
+            $table->char('kode_pelanggan',10)->nullable();// pelanggan kredit
+            $table->string('pelanggan')->nullable();// pelanggan Tunai
             $table->date('tgl_trx');
             $table->string('keterangan')->nullable();
             $table->enum('jenis_transaksi',['Tunai','Kredit']);
             $table->enum('status_trx',['Belum Lunas','Lunas']);
             $table->bigInteger('total_bayar')->nullable();
             $table->bigInteger('kurang_bayar')->nullable();
+            $table->bigInteger('ongkos')->nullable();
             $table->date('tgl_jatuhtemp')->nullable();
             $table->timestamps();
             $table->softDeletes();

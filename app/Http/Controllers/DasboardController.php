@@ -28,11 +28,14 @@ class DasboardController extends Controller
         // date('Y-m-d');
 
         // hari ini
-        $total2 = 0;
+        $totaldp = 0;
+        $totalbayar = 0;
         $bulan = Trx_header::where('tgl_trx',date('Y-m-d'))->with('Pelanggan','Trx_detail','barang')->get();
         foreach ($bulan as $bln) {
-            $total2 = $total2 + $bln->total_bayar;
+            $totalbayar  += $bln->total_bayar;
+            $totaldp += $bln->kurang_bayar;
         }
+        $total2 = $totalbayar - $totaldp;
 
         // piutang
         $total3 = 0;
